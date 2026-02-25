@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lisensi Saya</title>
+    <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/iconly.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="mob-overlay" onclick="mobClose()"></div>
+
+    <div id="app">
+      <!-- ═══ SIDEBAR ═══ -->
+      <div id="sidebar">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="sidebar-logo">
+                <img src="assets/Foto/LOGO BARU.png" alt="Logo" />
+              </div>
+              <div class="sidebar-toggler x">
+                <a href="#" class="sidebar-hide d-xl-none d-block">
+                  <i class="bi bi-x bi-middle"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item active">
+                <a href="dashboard-operator.html" class="sidebar-link">
+                  <i class="bi bi-card-checklist"></i>
+                  <span>Lisensi Saya</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="perpanjanganLisensi-operator.html"
+                  class="sidebar-link"
+                >
+                  <i class="bi bi-file-earmark-plus"></i>
+                  <span>Perpanjangan Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="riwayatPengajuan-operator.html" class="sidebar-link">
+                  <i class="bi bi-clock-history"></i>
+                  <span>Riwayat Pengajuan</span>
+                </a>
+              </li>
+              <li class="sidebar-item mt-auto">
+                <a href="login.html" class="sidebar-link logout-link">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- ═══ MAIN ═══ -->
+      <div id="main">
+        <!-- Header -->
+        <header
+          class="main-header d-flex align-items-center justify-content-between px-4 py-3"
+        >
+          <div class="d-flex align-items-center gap-3">
+            <button
+              id="mob-ham"
+              class="d-lg-none"
+              onclick="mobToggle()"
+              aria-label="Buka Menu"
+            >
+              <i class="bi bi-list"></i>
+            </button>
+            <h4 class="mb-0 fw-bold">Lisensi Saya</h4>
+          </div>
+          <div class="d-flex align-items-center gap-4 position-relative">
+            <div class="position-relative">
+              <div id="notifToggle" style="cursor: pointer">
+                <i class="bi bi-bell fs-4"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  id="notifCount"
+                  style="font-size: 10px"
+                  >1</span
+                >
+              </div>
+              <div id="notifDropdown" class="notif-dropdown">
+                <div class="notif-header">
+                  &#128276; Notifikasi
+                  <span
+                    onclick="markAllRead()"
+                    style="
+                      float: right;
+                      font-size: 11px;
+                      font-weight: 600;
+                      color: #16a34a;
+                      cursor: pointer;
+                      font-family: inherit;
+                    "
+                    >Tandai Dibaca</span
+                  >
+                </div>
+                <div class="notif-item unread-item" onclick="readNotif(this)">
+                  <div
+                    class="notif-icon-sm"
+                    style="background: #fef3c7; color: #d97706"
+                  >
+                    &#9888;
+                  </div>
+                  <div class="notif-text-wrap">
+                    <div class="notif-item-title-sm">
+                      Lisensi BTT Segera Expired
+                    </div>
+                    <div>
+                      BTT-2022-083 expired dalam <strong>48 hari</strong>.
+                      Ajukan perpanjangan.
+                    </div>
+                    <small>2 menit lalu</small>
+                  </div>
+                  <span class="notif-dot"></span>
+                </div>
+                <div class="notif-item" onclick="readNotif(this)">
+                  <div
+                    class="notif-icon-sm"
+                    style="background: #dcfce7; color: #15803d"
+                  >
+                    &#10003;
+                  </div>
+                  <div class="notif-text-wrap">
+                    <div class="notif-item-title-sm">Permohonan Diterima</div>
+                    <div>PJN-2026-0215 sedang diverifikasi Admin.</div>
+                    <small>1 jam lalu</small>
+                  </div>
+                  <span class="notif-dot" style="opacity: 0"></span>
+                </div>
+                <div class="notif-item" onclick="readNotif(this)">
+                  <div
+                    class="notif-icon-sm"
+                    style="background: #eff6ff; color: #2563eb"
+                  >
+                    &#128196;
+                  </div>
+                  <div class="notif-text-wrap">
+                    <div class="notif-item-title-sm">Lisensi LLD Aktif</div>
+                    <div>
+                      LLD-2023-047 expired <strong>15 Jun 2026</strong> (122
+                      hari lagi).
+                    </div>
+                    <small>Kemarin, 09:00</small>
+                  </div>
+                  <span class="notif-dot" style="opacity: 0"></span>
+                </div>
+                <div class="notif-footer">Lihat Semua Notifikasi</div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="text-end me-3">
+                <h6 class="mb-0 fw-bold">Operator</h6>
+                <small class="text-muted">Siti Rahayu</small>
+              </div>
+              <div class="avatar avatar-md">
+                <img
+                  src="./assets/compiled/jpg/1.jpg"
+                  alt="Profile"
+                  onerror="
+                    this.parentElement.style.background = '#dcfce7';
+                    this.style.display = 'none';
+                  "
+                />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+          <!-- Profile Banner -->
+          <div class="profile-banner">
+            <div class="pb-left">
+              <div class="pb-avatar">
+                <img
+                  src="./assets/compiled/jpg/1.jpg"
+                  alt="Foto"
+                  onerror="
+                    this.parentElement.style.background =
+                      'rgba(255,255,255,.25)';
+                    this.style.display = 'none';
+                  "
+                />
+              </div>
+              <div>
+                <div class="pb-name">Siti Rahayu</div>
+                <div class="pb-meta">
+                  <span>NIP : 52343032</span>
+                  <span
+                    >✉️
+                    <a
+                      href="/cdn-cgi/l/email-protection"
+                      class="__cf_email__"
+                      data-cfemail="9ceff5e8f5b2eefdf4fde5e9dcfbfdece9eefdb2fff3b2f5f8"
+                      >[email&#160;protected]</a
+                    ></span
+                  >
+                  <span>📱 082345678901</span>
+                </div>
+                <div class="pb-stats">
+                  <div class="pb-stat">
+                    <div class="pb-stat-num">2</div>
+                    <div class="pb-stat-label">Lisensi Aktif</div>
+                  </div>
+                  <div class="pb-stat">
+                    <div class="pb-stat-num">1</div>
+                    <div class="pb-stat-label">Segera Expired</div>
+                  </div>
+                  <div class="pb-stat">
+                    <div class="pb-stat-num">2</div>
+                    <div class="pb-stat-label">Belum Dimiliki</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Lisensi Saya -->
+          <div class="section-head"></div>
+
+          <div class="lisensi-grid">
+            <!-- CARD 1: BTT — Segera Expired -->
+            <div class="lic-card status-segera" style="animation-delay: 0.05s">
+              <div class="lic-strip segera"></div>
+              <div class="lic-body">
+                <div class="lic-top">
+                  <div class="lic-icon">
+                    <img
+                      src="assets/Foto/btt.jpg"
+                      alt="BTT"
+                      onerror="
+                        this.parentElement.innerHTML =
+                          '<span class=\'lic-icon-placeholder\'>🚜</span>'
+                      "
+                    />
+                  </div>
+                  <span class="lic-status-badge badge-segera"
+                    >⚠ Segera Expired</span
+                  >
+                </div>
+                <div class="lic-type">Baggage Towing Tractor (BTT)</div>
+                <div class="lic-number">BTT-2022-083</div>
+                <div class="lic-dates">
+                  <div class="lic-date-item">
+                    <div class="lic-date-label">Tanggal Terbit</div>
+                    <div class="lic-date-val">02 Apr 2023</div>
+                  </div>
+                  <div class="lic-date-item">
+                    <div class="lic-date-label">Tanggal Expired</div>
+                    <div class="lic-date-val amber">02 Apr 2026</div>
+                  </div>
+                </div>
+                <div class="lic-progress-wrap">
+                  <div class="lic-progress-top">
+                    <div class="lic-remaining amber">⚠ 48 hari tersisa</div>
+                    <div class="lic-pct">84%</div>
+                  </div>
+                  <div class="lic-bar-bg">
+                    <div
+                      class="lic-bar-fill fill-amber"
+                      style="width: 0"
+                      data-w="84%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="lic-actions">
+                <button
+                  class="lic-btn btn-download"
+                  onclick="showDownloadToast('BTT')"
+                >
+                  ⬇ Download
+                </button>
+                <button
+                  class="lic-btn btn-preview"
+                  onclick="openPreview('BTT')"
+                >
+                  👁 Preview
+                </button>
+                <a
+                  href="perpanjangan-lisensi.html"
+                  class="lic-btn btn-perpanjang"
+                  >🔄 Perpanjang</a
+                >
+              </div>
+            </div>
+
+            <!-- CARD 2: LLD — Aktif -->
+            <div class="lic-card status-aktif" style="animation-delay: 0.12s">
+              <div class="lic-strip aktif"></div>
+              <div class="lic-body">
+                <div class="lic-top">
+                  <div class="lic-icon">
+                    <img
+                      src="assets/Foto/hll.jpg"
+                      alt="LLD"
+                      onerror="
+                        this.parentElement.innerHTML =
+                          '<span class=\'lic-icon-placeholder\'>🏗️</span>'
+                      "
+                    />
+                  </div>
+                  <span class="lic-status-badge badge-aktif">✓ Aktif</span>
+                </div>
+                <div class="lic-type">Lift Loader (LLD)</div>
+                <div class="lic-number">LLD-2023-047</div>
+                <div class="lic-dates">
+                  <div class="lic-date-item">
+                    <div class="lic-date-label">Tanggal Terbit</div>
+                    <div class="lic-date-val">15 Jun 2023</div>
+                  </div>
+                  <div class="lic-date-item">
+                    <div class="lic-date-label">Tanggal Expired</div>
+                    <div class="lic-date-val red">15 Jun 2026</div>
+                  </div>
+                </div>
+                <div class="lic-progress-wrap">
+                  <div class="lic-progress-top">
+                    <div class="lic-remaining green">✓ 122 hari tersisa</div>
+                    <div class="lic-pct">33%</div>
+                  </div>
+                  <div class="lic-bar-bg">
+                    <div
+                      class="lic-bar-fill fill-green"
+                      style="width: 0"
+                      data-w="33%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="lic-actions">
+                <button
+                  class="lic-btn btn-download"
+                  onclick="showDownloadToast('LLD')"
+                >
+                  ⬇ Download
+                </button>
+                <button
+                  class="lic-btn btn-preview"
+                  onclick="openPreview('LLD')"
+                >
+                  👁 Preview
+                </button>
+              </div>
+            </div>
+
+            <!-- CARD 3: CBL — Belum Punya -->
+            <div class="lic-card status-empty" style="animation-delay: 0.19s">
+              <div class="lic-strip empty-s"></div>
+              <div class="lic-empty-body">
+                <div class="lic-empty-icon">📦</div>
+                <div class="lic-empty-name">Conveyor Belt Loader (CBL)</div>
+                <div class="lic-empty-sub">Anda belum memiliki lisensi ini</div>
+              </div>
+              <div class="lic-actions" style="border-top: 1px solid #e2e8f0">
+                <button class="lic-btn btn-ajukan">
+                  + Ajukan Lisensi Baru
+                </button>
+              </div>
+            </div>
+
+            <!-- CARD 4: ATT — Belum Punya -->
+            <div class="lic-card status-empty" style="animation-delay: 0.26s">
+              <div class="lic-strip empty-s"></div>
+              <div class="lic-empty-body">
+                <div class="lic-empty-icon">✈️</div>
+                <div class="lic-empty-name">Aircraft Towing Tractor (ATT)</div>
+                <div class="lic-empty-sub">Anda belum memiliki lisensi ini</div>
+              </div>
+              <div class="lic-actions" style="border-top: 1px solid #e2e8f0">
+                <button class="lic-btn btn-ajukan">
+                  + Ajukan Lisensi Baru
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- end .lisensi-grid -->
+
+          <!-- ── STATUS PERMOHONAN ── -->
+          <div class="section-head"></div>
+
+          <div class="status-card">
+            <div class="status-card-header">
+              <div>
+                <div class="status-card-title">Perpanjangan Lisensi BTT</div>
+                <div class="status-card-sub">
+                  No. Pengajuan: PJN-2026-0215 · Diajukan 12 Feb 2026
+                </div>
+              </div>
+              <span
+                class="lic-status-badge badge-segera"
+                style="font-size: 11px; padding: 5px 14px"
+                >Sedang Diproses</span
+              >
+            </div>
+
+            <!-- Alert -->
+            <div class="status-alert">
+              <div class="status-alert-icon">ℹ️</div>
+              <div>
+                <div class="status-alert-title">
+                  Permohonan sedang diverifikasi Admin
+                </div>
+                <div class="status-alert-sub">
+                  Estimasi waktu verifikasi: 1–2 hari kerja. Anda akan mendapat
+                  notifikasi ketika status berubah.
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline">
+              <!-- Step 1: Upload Dokumen — DONE -->
+              <div class="tl-item">
+                <div class="tl-left">
+                  <div class="tl-dot done">✓</div>
+                  <div class="tl-connector full-done"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-title">Upload Dokumen</div>
+                  <div class="tl-desc">Dokumen berhasil diunggah — 6 file</div>
+                  <div class="doc-chips">
+                    <span class="doc-chip"
+                      ><i class="bi bi-file-earmark-check"></i>KTP.pdf</span
+                    >
+                    <span class="doc-chip"
+                      ><i class="bi bi-file-earmark-check"></i>Sertifikat
+                      Training.pdf</span
+                    >
+                    <span class="doc-chip"
+                      ><i class="bi bi-file-earmark-check"></i>Medical
+                      Check.pdf</span
+                    >
+                    <span class="doc-chip"
+                      ><i class="bi bi-file-earmark-check"></i>+3 file
+                      lainnya</span
+                    >
+                  </div>
+                  <div class="tl-time" style="margin-top: 8px">
+                    ✓ 12 Feb 2026, 14:30
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2: Verifikasi Admin — CURRENT -->
+              <div class="tl-item">
+                <div class="tl-left">
+                  <div class="tl-dot current">2</div>
+                  <div class="tl-connector done-line"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-title">Verifikasi Admin</div>
+                  <div class="tl-desc">
+                    Dokumen sedang diperiksa kelengkapan dan keasliannya oleh
+                    Admin
+                  </div>
+                  <div class="tl-time amber">
+                    ⏳ Dalam proses · Sejak 12 Feb 2026, 16:00
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3: Verifikasi Manager — WAIT -->
+              <div class="tl-item">
+                <div class="tl-left">
+                  <div class="tl-dot wait">3</div>
+                  <div class="tl-connector"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-title muted">Verifikasi Manager</div>
+                  <div class="tl-desc" style="color: #cbd5e1">
+                    Persetujuan akhir dari Manager sebelum lisensi diterbitkan
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 4: Penerbitan Lisensi — WAIT -->
+              <div class="tl-item">
+                <div class="tl-left">
+                  <div class="tl-dot wait">4</div>
+                </div>
+                <div class="tl-right" style="padding-bottom: 0">
+                  <div class="tl-title muted">Penerbitan Lisensi</div>
+                  <div class="tl-desc" style="color: #cbd5e1">
+                    Lisensi baru akan diterbitkan dan tersedia untuk diunduh
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end .page-content -->
+
+        <footer>2026 &copy; Agung Eka — GSE License Management</footer>
+      </div>
+    </div>
+
+    <script>
+      // Mobile sidebar
+      function mobToggle() {
+        var sb = document.getElementById("sidebar");
+        var ov = document.getElementById("mob-overlay");
+        sb.classList.toggle("mob-open");
+        ov.classList.toggle("mob-show");
+      }
+      function mobClose() {
+        document.getElementById("sidebar").classList.remove("mob-open");
+        document.getElementById("mob-overlay").classList.remove("mob-show");
+      }
+
+      // Animate progress bars on load
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          document
+            .querySelectorAll(".lic-bar-fill[data-w]")
+            .forEach(function (el) {
+              el.style.width = el.getAttribute("data-w");
+            });
+        }, 400);
+      });
+    </script>
+
+    <!-- ═══ PREVIEW MODAL ═══ -->
+    <div
+      id="previewModal"
+      onclick="if (event.target === this) closePreview();"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.78);
+        backdrop-filter: blur(6px);
+        z-index: 99999;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      "
+    >
+      <div
+        id="previewBox"
+        style="
+          background: #fff;
+          border-radius: 20px;
+          width: 100%;
+          max-width: 660px;
+          max-height: 90vh;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+          animation: previewIn 0.32s cubic-bezier(0.34, 1.1, 0.64, 1) both;
+        "
+      >
+        <div
+          style="
+            padding: 16px 22px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+          "
+        >
+          <div>
+            <div
+              id="pvTitle"
+              style="font-size: 15px; font-weight: 800; color: #0f172a"
+            ></div>
+            <div
+              id="pvSub"
+              style="font-size: 12px; color: #94a3b8; margin-top: 2px"
+            ></div>
+          </div>
+          <div style="display: flex; gap: 8px">
+            <button
+              onclick="downloadFromPreview()"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 8px 16px;
+                background: linear-gradient(135deg, #16a34a, #15803d);
+                color: #fff;
+                border: none;
+                border-radius: 10px;
+                font-size: 12.5px;
+                font-weight: 700;
+                cursor: pointer;
+                font-family: inherit;
+                box-shadow: 0 3px 10px rgba(22, 163, 74, 0.3);
+              "
+            >
+              ⬇ Download
+            </button>
+            <button
+              onclick="closePreview()"
+              style="
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+                border: none;
+                background: #f1f5f9;
+                color: #64748b;
+                cursor: pointer;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+        <div
+          style="
+            flex: 1;
+            overflow-y: auto;
+            background: #f0f4f8;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+          "
+        >
+          <div id="pvContent" style="width: 100%; max-width: 560px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DOWNLOAD TOAST ═══ -->
+    <div
+      id="dlToast"
+      style="
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 999999;
+        display: none;
+        background: #fff;
+        border-radius: 14px;
+        padding: 14px 18px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+        border: 1.5px solid #86efac;
+        min-width: 290px;
+        max-width: 360px;
+        overflow: hidden;
+      "
+    >
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div
+          style="
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+          "
+        >
+          ✓
+        </div>
+        <div style="flex: 1">
+          <div
+            style="
+              font-size: 13.5px;
+              font-weight: 700;
+              color: #15803d;
+              margin-bottom: 2px;
+            "
+          >
+            Berhasil Didownload!
+          </div>
+          <div id="dlToastName" style="font-size: 12px; color: #64748b"></div>
+        </div>
+        <button
+          onclick="closeDlToast()"
+          style="
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0 4px;
+          "
+        >
+          ✕
+        </button>
+      </div>
+      <div
+        id="dlBar"
+        style="
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 3px;
+          border-radius: 0 0 14px 14px;
+          background: #16a34a;
+          width: 100%;
+          transition: width 3.2s linear;
+        "
+      ></div>
+    </div>
+
+    <style>
+      @keyframes previewIn {
+        from {
+          transform: scale(0.93) translateY(18px);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes toastSlide {
+        from {
+          transform: translateX(120%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .lpd-wrap {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      }
+      .lpd-hdr {
+        background: linear-gradient(135deg, #0d9a23, #16a34a, #22c55e);
+        padding: 22px 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .lpd-hdr-left .co {
+        font-size: 17px;
+        font-weight: 900;
+        color: #fff;
+      }
+      .lpd-hdr-left .sub {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 2px;
+      }
+      .lpd-status {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 5px 14px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .lpd-body {
+        padding: 22px 26px;
+      }
+      .lpd-gse-type {
+        font-size: 10px;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 4px;
+      }
+      .lpd-num {
+        font-size: 26px;
+        font-weight: 900;
+        color: #0f172a;
+        letter-spacing: 0.03em;
+        margin-bottom: 18px;
+      }
+      .lpd-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .lpd-fl {
+        font-size: 10px;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 3px;
+      }
+      .lpd-fv {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .lpd-fv.red {
+        color: #dc2626;
+      }
+      .lpd-sep {
+        height: 1px;
+        background: #f1f5f9;
+        margin: 14px 0;
+      }
+      .lpd-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 26px;
+        background: #fafbfc;
+        border-top: 1px solid #f1f5f9;
+      }
+      .lpd-foot-txt {
+        font-size: 11px;
+        color: #94a3b8;
+        line-height: 1.5;
+      }
+      .lpd-stamp {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        border: 3px solid #16a34a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #16a34a;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: center;
+        line-height: 1.3;
+        flex-shrink: 0;
+      }
+    </style>
+
+    <script>
+      var LIC = {
+        BTT: {
+          title: "Preview Lisensi BTT",
+          sub: "BTT-2022-083 · Baggage Towing Tractor",
+          file: "Lisensi_BTT-2022-083_SitiRahayu.pdf",
+          type: "Baggage Towing Tractor (BTT)",
+          num: "BTT-2022-083",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          terbit: "02 Apr 2023",
+          exp: "02 Apr 2026",
+          status: "SEGERA EXPIRED",
+          expRed: true,
+          by: "Admin GSE Gapura",
+        },
+        LLD: {
+          title: "Preview Lisensi LLD",
+          sub: "LLD-2023-047 · Lift Loader",
+          file: "Lisensi_LLD-2023-047_SitiRahayu.pdf",
+          type: "Lift Loader (LLD)",
+          num: "LLD-2023-047",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          terbit: "15 Jun 2023",
+          exp: "15 Jun 2026",
+          status: "AKTIF",
+          expRed: false,
+          by: "Admin GSE Gapura",
+        },
+      };
+
+      function openPreview(key) {
+        var d = LIC[key];
+        document.getElementById("pvTitle").textContent = d.title;
+        document.getElementById("pvSub").textContent = d.sub;
+        document.getElementById("pvContent").innerHTML = buildDoc(d);
+        document.getElementById("previewModal").dataset.key = key;
+        document.getElementById("previewModal").style.display = "flex";
+      }
+      function closePreview() {
+        document.getElementById("previewModal").style.display = "none";
+      }
+
+      function buildDoc(d) {
+        return (
+          '<div class="lpd-wrap">' +
+          '<div class="lpd-hdr"><div class="lpd-hdr-left"><div class="co">GAPURA AIRPORT SERVICES</div><div class="sub">Ground Support Equipment License</div></div>' +
+          '<span class="lpd-status">' +
+          d.status +
+          "</span></div>" +
+          '<div class="lpd-body">' +
+          '<div class="lpd-gse-type">' +
+          d.type +
+          "</div>" +
+          '<div class="lpd-num">' +
+          d.num +
+          "</div>" +
+          '<div class="lpd-row">' +
+          '<div><div class="lpd-fl">Nama Lengkap</div><div class="lpd-fv">' +
+          d.nama +
+          "</div></div>" +
+          '<div><div class="lpd-fl">NIK</div><div class="lpd-fv">' +
+          d.nik +
+          "</div></div>" +
+          '<div><div class="lpd-fl">Diterbitkan Oleh</div><div class="lpd-fv">' +
+          d.by +
+          "</div></div>" +
+          "</div>" +
+          '<div class="lpd-sep"></div>' +
+          '<div class="lpd-row">' +
+          '<div><div class="lpd-fl">Tanggal Terbit</div><div class="lpd-fv">' +
+          d.terbit +
+          "</div></div>" +
+          '<div><div class="lpd-fl">Tanggal Expired</div><div class="lpd-fv' +
+          (d.expRed ? " red" : "") +
+          '">' +
+          d.exp +
+          "</div></div>" +
+          '<div><div class="lpd-fl">No. Lisensi</div><div class="lpd-fv">' +
+          d.num +
+          "</div></div>" +
+          "</div>" +
+          "</div>" +
+          '<div class="lpd-foot">' +
+          '<div class="lpd-foot-txt">Dokumen resmi GSE Gapura Airport Services<br/>Verifikasi: gse.gapura.co.id/verify/' +
+          d.num +
+          "</div>" +
+          '<div class="lpd-stamp">✓<br/>SAH</div>' +
+          "</div></div>"
+        );
+      }
+
+      var dlTimer;
+      function showDownloadToast(key) {
+        var d = LIC[key];
+        clearTimeout(dlTimer);
+        var toast = document.getElementById("dlToast");
+        var bar = document.getElementById("dlBar");
+        document.getElementById("dlToastName").textContent =
+          d.file + " tersimpan";
+        // reset
+        bar.style.transition = "none";
+        bar.style.width = "100%";
+        toast.style.animation = "none";
+        toast.style.display = "block";
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            toast.style.animation =
+              "toastSlide .38s cubic-bezier(.34,1.56,.64,1) both";
+            bar.style.transition = "width 3.2s linear";
+            bar.style.width = "0%";
+          });
+        });
+        dlTimer = setTimeout(closeDlToast, 3500);
+      }
+      function closeDlToast() {
+        document.getElementById("dlToast").style.display = "none";
+      }
+      function downloadFromPreview() {
+        showDownloadToast(document.getElementById("previewModal").dataset.key);
+      }
+
+      // Notif dropdown — same as admin
+      var notifToggle = document.getElementById("notifToggle");
+      var notifDropdown = document.getElementById("notifDropdown");
+      notifToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        notifDropdown.style.display =
+          notifDropdown.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", function () {
+        notifDropdown.style.display = "none";
+      });
+      function readNotif(el) {
+        if (el.classList.contains("unread-item")) {
+          el.classList.remove("unread-item");
+          var dot = el.querySelector(".notif-dot");
+          if (dot) dot.style.opacity = "0";
+          var cnt = document.querySelectorAll(".notif-item.unread-item").length;
+          var badge = document.getElementById("notifCount");
+          if (badge) {
+            cnt === 0
+              ? (badge.style.display = "none")
+              : (badge.textContent = cnt);
+          }
+        }
+      }
+      function markAllRead() {
+        document
+          .querySelectorAll(".notif-item.unread-item")
+          .forEach(function (el) {
+            readNotif(el);
+          });
+      }
+    </script>
+  </body>
+</html>

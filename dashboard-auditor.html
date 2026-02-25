@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Auditor — GSE</title>
+    <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
+    <link rel="stylesheet" href="assets/extensions/simple-datatables/style.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/table-datatable.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/iconly.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+      /* ── ROOT ── */
+      :root {
+        --g-dark:   #14532d;
+        --g-mid:    #16a34a;
+        --g-light:  #dcfce7;
+        --g-border: #bbf7d0;
+        --amber:    #d97706;
+        --red:      #dc2626;
+        --blue:     #2563eb;
+        --slate:    #64748b;
+        --slate-lt: #f8fafc;
+        --white:    #ffffff;
+        --text:     #0f172a;
+      }
+
+      /* ── MOBILE SIDEBAR ── */
+      @media (max-width: 991.98px) {
+        html body #sidebar {
+          left: -270px !important; transition: left .3s ease, box-shadow .3s ease !important;
+          z-index: 1000 !important; display: block !important; width: 260px !important;
+          height: 100vh !important; position: fixed !important; top: 0 !important;
+          background: #fff !important; overflow-y: auto !important; box-shadow: none !important;
+        }
+        html body #sidebar.mob-open { left: 0 !important; box-shadow: 4px 0 30px rgba(0,0,0,.18) !important; }
+        html body #main { margin-left: 0 !important; }
+        html body #sidebar .sidebar-wrapper,
+        html body #sidebar .sidebar-wrapper.active {
+          display: flex !important; flex-direction: column !important; height: 100vh !important;
+          width: 260px !important; visibility: visible !important; opacity: 1 !important;
+          overflow: hidden !important; transform: none !important; position: static !important;
+        }
+        html body #sidebar .sidebar-header {
+          display: flex !important; min-height: 80px !important; flex-shrink: 0 !important;
+          padding: 20px 15px 15px !important; border-bottom: 1px solid #f0f0f0 !important;
+          position: static !important; overflow: visible !important;
+        }
+        html body #sidebar .sidebar-logo { display: flex !important; justify-content: center !important; width: 100% !important; }
+        html body #sidebar .sidebar-logo img { display: block !important; max-width: 140px !important; height: auto !important; }
+        html body #sidebar .sidebar-menu { display: flex !important; flex-direction: column !important; flex: 1 !important; overflow-y: auto !important; margin-top: 8px !important; }
+        html body #sidebar .menu { display: flex !important; flex-direction: column !important; flex: 1 !important; list-style: none !important; padding: 0 !important; margin: 0 !important; width: 100% !important; }
+        html body #sidebar .sidebar-title { display: block !important; font-size: 11px !important; font-weight: 600 !important; color: #94a3b8 !important; text-transform: uppercase !important; letter-spacing: 1px !important; padding-left: 20px !important; margin-top: 8px !important; margin-bottom: 4px !important; }
+        html body #sidebar .sidebar-item { display: block !important; width: 100% !important; }
+        html body #sidebar .sidebar-item.mt-auto { margin-top: auto !important; }
+        html body #sidebar .sidebar-link { display: flex !important; align-items: center !important; gap: .75rem !important; padding: .72rem 1.25rem !important; color: #374151 !important; text-decoration: none !important; font-size: .9rem !important; font-weight: 500 !important; border-radius: 10px !important; margin: 1px 8px !important; }
+        html body #sidebar .sidebar-link:hover { background: #f0fdf4 !important; color: #16a34a !important; }
+        html body #sidebar .sidebar-item.active .sidebar-link { background: #dcfce7 !important; color: #15803d !important; font-weight: 600 !important; }
+        html body #sidebar .sidebar-toggler { display: none !important; }
+        html body #sidebar .logout-link, html body #sidebar .logout-link i { color: #dc3545 !important; }
+        html body #sidebar .logout-link:hover { background: #fef2f2 !important; }
+      }
+
+      /* ── AUDITOR BADGE SIDEBAR ── */
+      .aud-role-badge {
+        display: flex; align-items: center; gap: 8px;
+        background: linear-gradient(135deg, #14532d, #16a34a);
+        border-radius: 12px; padding: 10px 14px; margin: 12px 12px 4px;
+        color: #fff;
+      }
+      .aud-role-badge .aud-role-icon {
+        width: 34px; height: 34px; background: rgba(255,255,255,.2);
+        border-radius: 9px; display: flex; align-items: center; justify-content: center;
+        font-size: .95rem; flex-shrink: 0;
+      }
+      .aud-role-name { font-size: .8rem; font-weight: 800; font-family: 'Sora', sans-serif; }
+      .aud-role-sub  { font-size: .65rem; opacity: .75; }
+      .aud-read-only-banner {
+        background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
+        padding: 8px 12px; margin: 6px 12px; display: flex; align-items: center; gap: 8px;
+        font-size: .72rem; color: #92400e; font-weight: 600;
+      }
+
+      /* ── WELCOME BANNER ── */
+      .aud-welcome {
+        background: linear-gradient(135deg, #14532d 0%, #166534 50%, #15803d 100%);
+        border-radius: 18px; padding: 28px 32px; margin-bottom: 1.5rem;
+        display: flex; align-items: center; justify-content: space-between;
+        color: #fff; position: relative; overflow: hidden;
+      }
+      .aud-welcome::before {
+        content: ''; position: absolute; top: -40px; right: -40px;
+        width: 200px; height: 200px; background: rgba(255,255,255,.05);
+        border-radius: 50%;
+      }
+      .aud-welcome::after {
+        content: ''; position: absolute; bottom: -60px; right: 120px;
+        width: 160px; height: 160px; background: rgba(255,255,255,.04);
+        border-radius: 50%;
+      }
+      .aud-welcome-title {
+        font-family: 'Sora', sans-serif; font-size: 1.45rem; font-weight: 800;
+        margin-bottom: 4px; line-height: 1.3;
+      }
+      .aud-welcome-sub { font-size: .875rem; opacity: .8; }
+      .aud-welcome-tag {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: rgba(255,255,255,.15); border-radius: 20px;
+        padding: 4px 12px; font-size: .72rem; font-weight: 600; margin-bottom: 10px;
+      }
+      .aud-clock-wrap { text-align: center; flex-shrink: 0; }
+      .aud-clock {
+        font-family: 'DM Mono', monospace; font-size: 2rem; font-weight: 500;
+        letter-spacing: 2px; line-height: 1;
+      }
+      .aud-clock-label { font-size: .68rem; opacity: .6; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+      /* ── STAT CARDS ── */
+      .aud-stat-card {
+        background: #fff; border-radius: 14px; padding: 20px 22px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.06); display: flex; align-items: center;
+        gap: 16px; border-left: 4px solid transparent; transition: transform .2s, box-shadow .2s;
+      }
+      .aud-stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+      .aud-stat-card.s-green  { border-color: var(--g-mid); }
+      .aud-stat-card.s-amber  { border-color: var(--amber); }
+      .aud-stat-card.s-red    { border-color: var(--red); }
+      .aud-stat-card.s-blue   { border-color: var(--blue); }
+      .aud-stat-icon {
+        width: 46px; height: 46px; border-radius: 13px; display: flex;
+        align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+      }
+      .s-green .aud-stat-icon  { background: var(--g-light); color: var(--g-dark); }
+      .s-amber .aud-stat-icon  { background: #fef3c7; color: var(--amber); }
+      .s-red   .aud-stat-icon  { background: #fee2e2; color: var(--red); }
+      .s-blue  .aud-stat-icon  { background: #eff6ff; color: var(--blue); }
+      .aud-stat-label { font-size: .75rem; color: var(--slate); font-weight: 600; margin-bottom: 2px; }
+      .aud-stat-value { font-size: 1.6rem; font-weight: 800; color: var(--text); font-family: 'Sora', sans-serif; line-height: 1; }
+      .aud-stat-note  { font-size: .7rem; color: #94a3b8; margin-top: 3px; }
+
+      /* ── TOOLBAR ── */
+      .aud-toolbar {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 10px; padding: 1rem 1.25rem; border-bottom: 1px solid #f1f5f9;
+      }
+      .aud-toolbar-left { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+      .aud-toolbar-right { display: flex; gap: 8px; align-items: center; }
+
+      /* Filter tabs */
+      .aud-ftabs { display: flex; gap: 6px; flex-wrap: wrap; }
+      .aud-ftab {
+        padding: 6px 14px; border-radius: 20px; border: 1px solid #e2e8f0;
+        background: #f8fafc; color: var(--slate); font-size: .8rem; font-weight: 600;
+        cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: 6px;
+      }
+      .aud-ftab:hover { border-color: var(--g-mid); color: var(--g-dark); background: var(--g-light); }
+      .aud-ftab.active { background: var(--g-dark); color: #fff; border-color: var(--g-dark); }
+      .aud-fcnt { background: rgba(255,255,255,.25); border-radius: 10px; padding: 1px 7px; font-size: .72rem; }
+      .aud-ftab:not(.active) .aud-fcnt { background: #e2e8f0; color: var(--slate); }
+
+      /* Search */
+      .aud-search {
+        display: flex; align-items: center; gap: 8px;
+        background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;
+        padding: 7px 14px;
+      }
+      .aud-search i { color: #94a3b8; font-size: .85rem; }
+      .aud-search input { border: none; background: transparent; outline: none; font-size: .85rem; color: var(--text); width: 200px; }
+      .aud-search input::placeholder { color: #94a3b8; }
+
+      /* Download all button */
+      .aud-dl-all {
+        display: flex; align-items: center; gap: 7px;
+        background: var(--g-dark); color: #fff; border: none; border-radius: 10px;
+        padding: 8px 16px; font-size: .82rem; font-weight: 700; cursor: pointer;
+        transition: all .2s;
+      }
+      .aud-dl-all:hover { background: #166534; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(22,163,74,.3); }
+
+      /* Filter jenis */
+      .aud-jenis-select {
+        border: 1px solid #e2e8f0; border-radius: 10px; padding: 7px 12px;
+        font-size: .82rem; color: var(--text); background: #f8fafc;
+        outline: none; cursor: pointer; font-weight: 600;
+      }
+      .aud-jenis-select:focus { border-color: var(--g-mid); }
+
+      /* ── TABLE ── */
+      .aud-table-wrap { overflow-x: auto; }
+      .aud-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+      .aud-table thead th {
+        background: #f8fafc; padding: 11px 16px; font-size: .72rem; font-weight: 700;
+        color: #64748b; text-transform: uppercase; letter-spacing: .5px;
+        border-bottom: 2px solid #f1f5f9; white-space: nowrap;
+      }
+      .aud-table tbody tr {
+        transition: background .15s; cursor: pointer;
+      }
+      .aud-table tbody tr:hover { background: #f0fdf4; }
+      .aud-table tbody td {
+        padding: 13px 16px; border-bottom: 1px solid #f8fafc;
+        font-size: .85rem; color: var(--text); vertical-align: middle;
+      }
+      .aud-op-name { font-weight: 700; color: var(--text); font-size: .875rem; }
+      .aud-op-nip  { font-size: .72rem; color: #94a3b8; margin-top: 1px; }
+      .aud-lic-no  { font-family: 'DM Mono', monospace; font-size: .8rem; color: #475569; }
+
+      /* Jenis badge */
+      .aud-jenis {
+        padding: 3px 10px; border-radius: 8px; font-size: .75rem; font-weight: 700;
+        display: inline-block;
+      }
+      .j-BTT { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+      .j-HLL { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+      .j-CBL { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+      .j-ATT { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; }
+
+      /* Status badge */
+      .aud-status {
+        padding: 4px 10px; border-radius: 20px; font-size: .72rem; font-weight: 700;
+        display: inline-flex; align-items: center; gap: 5px;
+      }
+      .st-aktif   { background: #dcfce7; color: #14532d; }
+      .st-segera  { background: #fef3c7; color: #92400e; }
+      .st-expired { background: #fee2e2; color: #991b1b; }
+      .aud-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; }
+
+      /* Expired countdown */
+      .aud-exp-days {
+        font-family: 'DM Mono', monospace; font-size: .78rem; font-weight: 500;
+        padding: 2px 8px; border-radius: 6px;
+      }
+      .exp-ok    { background: #dcfce7; color: #14532d; }
+      .exp-warn  { background: #fef3c7; color: #92400e; }
+      .exp-crit  { background: #fee2e2; color: #991b1b; }
+      .exp-dead  { background: #f1f5f9; color: #64748b; }
+
+      /* Action buttons */
+      .aud-btn-wrap { display: flex; gap: 6px; }
+      .aud-btn-view {
+        background: var(--g-light); color: var(--g-dark); border: none;
+        border-radius: 8px; padding: 6px 12px; font-size: .78rem; font-weight: 700;
+        cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all .2s;
+        white-space: nowrap;
+      }
+      .aud-btn-view:hover { background: var(--g-mid); color: #fff; }
+      .aud-btn-dl {
+        background: #f1f5f9; color: #475569; border: none; border-radius: 8px;
+        padding: 6px 10px; font-size: .78rem; cursor: pointer; transition: all .2s;
+        display: flex; align-items: center; gap: 5px;
+      }
+      .aud-btn-dl:hover { background: var(--g-dark); color: #fff; }
+
+      /* ── MODAL ── */
+      #modalLisensi {
+        display: none; position: fixed; inset: 0; background: rgba(15,23,42,.6);
+        z-index: 9999; align-items: center; justify-content: center; padding: 16px;
+        backdrop-filter: blur(3px);
+      }
+      #modalLisensi.show { display: flex; }
+      .aud-modal-box {
+        background: #fff; border-radius: 22px; width: 100%; max-width: 600px;
+        max-height: 90vh; overflow-y: auto;
+        box-shadow: 0 30px 80px rgba(0,0,0,.2);
+        animation: mIn .24s cubic-bezier(.34,1.56,.64,1);
+      }
+      @keyframes mIn { from { transform: scale(.93) translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+      .aud-modal-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.25rem 1.5rem; border-bottom: 1px solid #f1f5f9;
+      }
+      .aud-modal-title { font-size: 1rem; font-weight: 800; color: var(--text); font-family: 'Sora', sans-serif; display: flex; align-items: center; gap: 8px; }
+      .aud-modal-close { background: #f1f5f9; border: none; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--slate); transition: all .2s; }
+      .aud-modal-close:hover { background: #fee2e2; color: var(--red); }
+      .aud-modal-body { padding: 1.5rem; }
+      .aud-modal-footer { padding: 1rem 1.5rem; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end; gap: 8px; }
+
+      /* Modal info grid */
+      .aud-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1.25rem; }
+      .aud-info-item { background: #f8fafc; border-radius: 11px; padding: .7rem 1rem; }
+      .aud-info-label { font-size: .68rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; display: block; margin-bottom: 3px; }
+      .aud-info-value { font-size: .9rem; font-weight: 700; color: var(--text); }
+      .aud-info-value.mono { font-family: 'DM Mono', monospace; }
+
+      /* Doc list modal */
+      .aud-doc-header { font-size: .8rem; font-weight: 700; color: #475569; margin-bottom: .6rem; display: flex; align-items: center; gap: .4rem; }
+      .aud-doc-card {
+        display: flex; align-items: center; background: #fff;
+        border: 1px solid #e2e8f0; border-radius: 11px; overflow: hidden;
+        margin-bottom: 8px;
+      }
+      .aud-doc-accent { width: 4px; align-self: stretch; flex-shrink: 0; }
+      .aud-doc-info { flex: 1; padding: .55rem .85rem; }
+      .aud-doc-name { font-size: .855rem; font-weight: 700; color: var(--text); }
+      .aud-doc-size { font-size: .72rem; color: #94a3b8; }
+      .aud-doc-btns { padding: .5rem .75rem; display: flex; gap: 6px; }
+
+      /* Read-only note */
+      .aud-readonly-note {
+        background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
+        padding: .65rem 1rem; display: flex; align-items: center; gap: .5rem;
+        font-size: .78rem; color: #92400e; margin-bottom: 1rem;
+      }
+
+      /* ── TOAST ── */
+      #aud-toasts { position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
+      .aud-toast {
+        display: flex; align-items: flex-start; gap: 12px; background: #fff;
+        border-radius: 12px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0,0,0,.12);
+        min-width: 280px; position: relative; overflow: hidden; animation: tIn .3s ease;
+      }
+      @keyframes tIn { from { transform: translateX(100%); opacity: 0; } to { transform: none; opacity: 1; } }
+      .aud-toast.t-exit { animation: tOut .3s ease forwards; }
+      @keyframes tOut { to { transform: translateX(110%); opacity: 0; } }
+      .aud-toast.t-success { border-left: 4px solid var(--g-mid); }
+      .aud-toast.t-info    { border-left: 4px solid var(--blue); }
+      .aud-toast i { font-size: 1.1rem; flex-shrink: 0; }
+      .aud-toast.t-success i { color: var(--g-mid); }
+      .aud-toast.t-info    i { color: var(--blue); }
+      .aud-toast-msg { font-size: .85rem; font-weight: 600; color: var(--text); }
+      .aud-toast-close { background: none; border: none; color: #94a3b8; cursor: pointer; margin-left: auto; }
+      .aud-toast-bar { position: absolute; bottom: 0; left: 0; height: 3px; animation: bShrink 3s linear forwards; }
+      .t-success .aud-toast-bar { background: var(--g-mid); }
+      .t-info    .aud-toast-bar { background: var(--blue); }
+      @keyframes bShrink { from { width: 100%; } to { width: 0; } }
+
+      /* ── EMPTY ── */
+      .aud-empty { text-align: center; padding: 60px 20px; color: #94a3b8; }
+      .aud-empty i { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+
+      /* ── READ-ONLY OVERLAY on page ── */
+      .aud-page-banner {
+        display: flex; align-items: center; gap: 12px;
+        background: linear-gradient(90deg, #fffbeb, #fef3c7);
+        border: 1px solid #fde68a; border-radius: 12px;
+        padding: 12px 18px; margin-bottom: 1.25rem;
+        font-size: .82rem; color: #78350f;
+      }
+      .aud-page-banner i { font-size: 1.1rem; color: #d97706; flex-shrink: 0; }
+      .aud-page-banner strong { color: #92400e; }
+
+      /* ── CARD WRAPPER ── */
+      .aud-card { background: #fff; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,.06); overflow: hidden; }
+      .aud-card-header { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.25rem; border-bottom: 1px solid #f1f5f9; }
+      .aud-card-title { font-size: .95rem; font-weight: 800; color: var(--text); font-family: 'Sora', sans-serif; }
+      .aud-card-sub   { font-size: .75rem; color: #94a3b8; margin-top: 2px; }
+
+      /* Pagination */
+      .aud-pager { display: flex; align-items: center; justify-content: space-between; padding: .9rem 1.25rem; border-top: 1px solid #f8fafc; flex-wrap: wrap; gap: 8px; }
+      .aud-pager-info { font-size: .78rem; color: #94a3b8; }
+      .aud-pager-btns { display: flex; gap: 4px; }
+      .aud-pager-btn { border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; padding: 5px 12px; font-size: .8rem; font-weight: 600; cursor: pointer; color: var(--slate); transition: all .15s; }
+      .aud-pager-btn:hover { background: var(--g-light); color: var(--g-dark); border-color: var(--g-border); }
+      .aud-pager-btn.active { background: var(--g-dark); color: #fff; border-color: var(--g-dark); }
+      .aud-pager-btn:disabled { opacity: .4; cursor: not-allowed; }
+    </style>
+  </head>
+  <body>
+    <div id="aud-toasts"></div>
+    <div id="mob-overlay" onclick="mobClose()"></div>
+
+    <div id="app">
+      <!-- SIDEBAR -->
+      <div id="sidebar">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="sidebar-logo">
+                <img src="assets/Foto/LOGO BARU.png" alt="Logo" />
+              </div>
+              <div class="sidebar-toggler x">
+                <a href="#" class="sidebar-hide d-xl-none d-block">
+                  <i class="bi bi-x bi-middle"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role Badge -->
+          <div class="aud-role-badge">
+            <div class="aud-role-icon"><i class="fas fa-user-shield"></i></div>
+            <div>
+              <div class="aud-role-name">Yusuf Pratama</div>
+              <div class="aud-role-sub">Auditor Eksternal</div>
+            </div>
+          </div>
+
+          <!-- Read-only warning -->
+          <div class="aud-read-only-banner">
+            <i class="fas fa-lock" style="font-size:.8rem;"></i>
+            Akses Baca &amp; Unduh Saja
+          </div>
+
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item active">
+                <a href="dashboard-auditor.html" class="sidebar-link">
+                  <i class="bi bi-grid-fill"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="sidebar-item mt-auto">
+                <a href="login.html" class="sidebar-link logout-link">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div id="main">
+        <header class="main-header d-flex align-items-center justify-content-between px-4 py-3">
+          <div class="d-flex align-items-center gap-3">
+            <button id="mob-ham" class="d-lg-none" onclick="mobToggle()" aria-label="Menu">
+              <i class="bi bi-list"></i>
+            </button>
+            <h4 class="mb-0 fw-bold">Dashboard Auditor</h4>
+          </div>
+          <div class="d-flex align-items-center gap-4 position-relative">
+            <div class="d-flex align-items-center">
+              <div class="text-end me-3">
+                <h6 class="mb-0 fw-bold">Yusuf Pratama</h6>
+                <small class="text-muted" style="font-size:.7rem;color:#d97706 !important;font-weight:600;">
+                  🔒 Auditor Eksternal
+                </small>
+              </div>
+              <div class="avatar avatar-md">
+                <img src="./assets/compiled/jpg/1.jpg" alt="Profile" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <section class="row">
+            <div class="col-12">
+
+              <!-- WELCOME BANNER -->
+              <div class="aud-welcome mb-4">
+                <div>
+                  <div class="aud-welcome-tag"><i class="fas fa-calendar-alt"></i> <span id="audDate">—</span></div>
+                  <div class="aud-welcome-title">Halo, Yusuf Pratama 👋</div>
+                  <div class="aud-welcome-sub">Anda login sebagai <strong>Auditor Eksternal</strong> — hanya dapat melihat &amp; mengunduh data lisensi operator GSE.</div>
+                </div>
+                <div class="aud-clock-wrap">
+                  <div class="aud-clock" id="audClock">--:--:--</div>
+                  <div class="aud-clock-label">Waktu Saat Ini</div>
+                </div>
+              </div>
+
+              <!-- READ-ONLY BANNER -->
+              <div class="aud-page-banner">
+                <i class="fas fa-shield-halved"></i>
+                <div>
+                  <strong>Mode Audit — Hanya Baca &amp; Unduh</strong>
+                  Anda tidak dapat mengubah, menambah, atau menghapus data apapun. Semua aksi hanya terbatas pada melihat detail dan mengunduh dokumen lisensi.
+                </div>
+              </div>
+
+              <!-- STAT CARDS -->
+              <div class="row g-4 mb-4">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="aud-stat-card s-blue">
+                    <div class="aud-stat-icon"><i class="fas fa-users"></i></div>
+                    <div>
+                      <div class="aud-stat-label">Total Operator</div>
+                      <div class="aud-stat-value" id="cntTotal">0</div>
+                      <div class="aud-stat-note">Seluruh operator GSE</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="aud-stat-card s-green">
+                    <div class="aud-stat-icon"><i class="fas fa-certificate"></i></div>
+                    <div>
+                      <div class="aud-stat-label">Lisensi Aktif</div>
+                      <div class="aud-stat-value" id="cntAktif">0</div>
+                      <div class="aud-stat-note">Berlaku saat ini</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="aud-stat-card s-amber">
+                    <div class="aud-stat-icon"><i class="fas fa-triangle-exclamation"></i></div>
+                    <div>
+                      <div class="aud-stat-label">Segera Expired</div>
+                      <div class="aud-stat-value" id="cntSegera">0</div>
+                      <div class="aud-stat-note">Dalam 90 hari</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="aud-stat-card s-red">
+                    <div class="aud-stat-icon"><i class="fas fa-circle-xmark"></i></div>
+                    <div>
+                      <div class="aud-stat-label">Kedaluwarsa</div>
+                      <div class="aud-stat-value" id="cntExpired">0</div>
+                      <div class="aud-stat-note">Perlu perpanjangan</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MAIN TABLE CARD -->
+              <div class="aud-card mb-4">
+                <div class="aud-card-header">
+                  <div>
+                    <div class="aud-card-title">Data Lisensi Operator GSE</div>
+                    <div class="aud-card-sub">Seluruh lisensi operator — klik baris untuk melihat detail &amp; unduh dokumen</div>
+                  </div>
+                  <button class="aud-dl-all" onclick="downloadAll()">
+                    <i class="fas fa-file-arrow-down"></i> Ekspor Semua (.xlsx)
+                  </button>
+                </div>
+
+                <!-- Toolbar -->
+                <div class="aud-toolbar">
+                  <div class="aud-toolbar-left">
+                    <div class="aud-ftabs" id="audFilterTabs">
+                      <button class="aud-ftab active" data-filter="all">Semua <span class="aud-fcnt" id="tAll">0</span></button>
+                      <button class="aud-ftab" data-filter="aktif">Aktif <span class="aud-fcnt" id="tAktif">0</span></button>
+                      <button class="aud-ftab" data-filter="segera">Segera Exp. <span class="aud-fcnt" id="tSegera">0</span></button>
+                      <button class="aud-ftab" data-filter="expired">Expired <span class="aud-fcnt" id="tExpired">0</span></button>
+                    </div>
+                    <select class="aud-jenis-select" id="jenisFilter">
+                      <option value="all">Semua Jenis</option>
+                      <option value="BTT">BTT</option>
+                      <option value="HLL">HLL</option>
+                      <option value="CBL">CBL</option>
+                      <option value="ATT">ATT</option>
+                    </select>
+                  </div>
+                  <div class="aud-toolbar-right">
+                    <div class="aud-search">
+                      <i class="fas fa-search"></i>
+                      <input type="text" id="audSearch" placeholder="Cari nama, NIP, no. lisensi..." />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Table -->
+                <div class="aud-table-wrap">
+                  <table class="aud-table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Nama Operator</th>
+                        <th>Jenis Lisensi</th>
+                        <th>No. Lisensi</th>
+                        <th>Tgl. Terbit</th>
+                        <th>Tgl. Expired</th>
+                        <th>Sisa Hari</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="audTableBody"></tbody>
+                  </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="aud-pager">
+                  <div class="aud-pager-info" id="pagerInfo">Menampilkan 0 data</div>
+                  <div class="aud-pager-btns" id="pagerBtns"></div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+        </div>
+
+        <footer>
+          <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start"><p>2026 &copy; GSE License Management System</p></div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- MODAL DETAIL LISENSI -->
+    <div id="modalLisensi" onclick="closeModalOverlay(event)">
+      <div class="aud-modal-box">
+        <div class="aud-modal-header">
+          <div class="aud-modal-title"><i class="fas fa-id-card" style="color:var(--g-mid);"></i> <span id="mTitle">Detail Lisensi</span></div>
+          <button class="aud-modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="aud-modal-body">
+          <!-- Read-only note -->
+          <div class="aud-readonly-note">
+            <i class="fas fa-lock" style="color:#d97706;"></i>
+            <span>Mode <strong>Baca Saja</strong> — Anda hanya dapat melihat dan mengunduh dokumen.</span>
+          </div>
+          <div class="aud-info-grid" id="mInfo"></div>
+          <div class="aud-doc-header"><i class="fas fa-paperclip"></i> Dokumen Lisensi</div>
+          <div id="mDocs"></div>
+        </div>
+        <div class="aud-modal-footer">
+          <button class="aud-btn-dl" style="padding:9px 18px;font-size:.85rem;" onclick="downloadSingle()">
+            <i class="fas fa-file-arrow-down"></i> Unduh Semua Dokumen
+          </button>
+          <button onclick="closeModal()" style="background:#f1f5f9;color:#64748b;border:none;border-radius:10px;padding:9px 18px;font-size:.85rem;font-weight:700;cursor:pointer;">
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/compiled/js/app.js"></script>
+
+    <script>
+      /* ── DATA ── */
+      var licData = [
+        { id:1,  name:'I Gusti Lanang Parmadi', nip:'52647291', jenis:'BTT', noLisensi:'BTT-2021-047', terbit:'15 Mar 2021', expired:'15 Mar 2024', status:'expired',
+          docs:[ {name:'Lisensi BTT.pdf',size:'1.2 MB',type:'pdf'}, {name:'Sertifikat.pdf',size:'890 KB',type:'pdf'} ] },
+        { id:2,  name:'Nabil Firmansyah',       nip:'52648100', jenis:'HLL', noLisensi:'HLL-2023-008', terbit:'10 Jan 2023', expired:'10 Jan 2026', status:'expired',
+          docs:[ {name:'Lisensi HLL.pdf',size:'980 KB',type:'pdf'} ] },
+        { id:3,  name:'Budi Santoso',            nip:'52649201', jenis:'CBL', noLisensi:'CBL-2022-055', terbit:'08 Aug 2022', expired:'08 Aug 2025', status:'expired',
+          docs:[ {name:'Lisensi CBL.pdf',size:'1.0 MB',type:'pdf'}, {name:'Foto.jpg',size:'415 KB',type:'img'} ] },
+        { id:4,  name:'Made Wijaya',             nip:'74821039', jenis:'ATT', noLisensi:'ATT-2024-012', terbit:'05 Jun 2024', expired:'05 Jun 2027', status:'aktif',
+          docs:[ {name:'Lisensi ATT.pdf',size:'890 KB',type:'pdf'}, {name:'Sertifikat ATT.pdf',size:'1.3 MB',type:'pdf'} ] },
+        { id:5,  name:'Ketut Suardana',          nip:'85910284', jenis:'BTT', noLisensi:'BTT-2023-099', terbit:'01 Apr 2023', expired:'01 Apr 2026', status:'expired',
+          docs:[ {name:'Lisensi BTT.pdf',size:'1.1 MB',type:'pdf'} ] },
+        { id:6,  name:'Putu Ariana',             nip:'96034782', jenis:'HLL', noLisensi:'HLL-2024-031', terbit:'28 Jan 2024', expired:'28 Jan 2027', status:'aktif',
+          docs:[ {name:'Lisensi HLL.pdf',size:'950 KB',type:'pdf'}, {name:'Rekomendasi.pdf',size:'640 KB',type:'pdf'} ] },
+        { id:7,  name:'Wayan Darma',             nip:'63847201', jenis:'BTT', noLisensi:'BTT-2024-115', terbit:'15 Apr 2024', expired:'10 Mar 2026', status:'segera',
+          docs:[ {name:'Lisensi BTT.pdf',size:'1.1 MB',type:'pdf'}, {name:'Foto 4x6.jpg',size:'280 KB',type:'img'} ] },
+        { id:8,  name:'Joni Santoso',            nip:'74920183', jenis:'BTT', noLisensi:'BTT-2022-041', terbit:'20 Sep 2022', expired:'10 Mar 2026', status:'segera',
+          docs:[ {name:'Lisensi BTT.pdf',size:'1.0 MB',type:'pdf'} ] },
+        { id:9,  name:'Siti Rahayu',             nip:'80134729', jenis:'BTT', noLisensi:'BTT-2022-083', terbit:'12 Jun 2022', expired:'02 Apr 2026', status:'segera',
+          docs:[ {name:'Lisensi BTT.pdf',size:'870 KB',type:'pdf'}, {name:'Sertifikat.pdf',size:'760 KB',type:'pdf'} ] },
+        { id:10, name:'Agus Priyanto',           nip:'91827364', jenis:'HLL', noLisensi:'HLL-2023-012', terbit:'07 Jan 2023', expired:'07 Apr 2026', status:'segera',
+          docs:[ {name:'Lisensi HLL.pdf',size:'1.0 MB',type:'pdf'} ] },
+        { id:11, name:'Maya Kusuma',             nip:'81234567', jenis:'ATT', noLisensi:'ATT-2023-055', terbit:'24 Jul 2023', expired:'24 Apr 2026', status:'segera',
+          docs:[ {name:'Lisensi ATT.pdf',size:'920 KB',type:'pdf'}, {name:'Foto.jpg',size:'300 KB',type:'img'} ] },
+        { id:12, name:'Fajar Nugroho',           nip:'71234890', jenis:'CBL', noLisensi:'CBL-2023-089', terbit:'11 Aug 2023', expired:'11 Mei 2026', status:'segera',
+          docs:[ {name:'Lisensi CBL.pdf',size:'850 KB',type:'pdf'} ] },
+        { id:13, name:'Dian Saputra',            nip:'62839471', jenis:'ATT', noLisensi:'ATT-2024-077', terbit:'03 Feb 2024', expired:'03 Feb 2027', status:'aktif',
+          docs:[ {name:'Lisensi ATT.pdf',size:'1.1 MB',type:'pdf'} ] },
+        { id:14, name:'Rizky Aditya',            nip:'53748291', jenis:'HLL', noLisensi:'HLL-2025-003', terbit:'15 Jan 2025', expired:'15 Jan 2028', status:'aktif',
+          docs:[ {name:'Lisensi HLL.pdf',size:'980 KB',type:'pdf'}, {name:'Sertifikat HLL.pdf',size:'720 KB',type:'pdf'} ] },
+        { id:15, name:'Sari Dewi',               nip:'93847201', jenis:'CBL', noLisensi:'CBL-2024-022', terbit:'20 May 2024', expired:'20 May 2027', status:'aktif',
+          docs:[ {name:'Lisensi CBL.pdf',size:'1.0 MB',type:'pdf'} ] },
+      ];
+
+      /* Compute sisa hari */
+      var today = new Date(); today.setHours(0,0,0,0);
+      licData.forEach(function(r) {
+        var parts = r.expired.split(' ');
+        var monthMap = { Jan:0, Feb:1, Mar:2, Apr:3, Mei:4, Jun:5, Jul:6, Aug:7, Sep:8, Okt:9, Nov:10, Des:11 };
+        var d = new Date(parts[2], monthMap[parts[1]] || 0, parseInt(parts[0]));
+        r.sisaHari = Math.ceil((d - today) / 86400000);
+      });
+
+      var currentFilter = 'all';
+      var currentJenis  = 'all';
+      var searchQ = '';
+      var currentPage = 1;
+      var perPage = 10;
+      var activeRow = null;
+
+      function getFiltered() {
+        return licData.filter(function(r) {
+          var mf = currentFilter === 'all' || r.status === currentFilter;
+          var mj = currentJenis === 'all'  || r.jenis === currentJenis;
+          var q  = searchQ.toLowerCase();
+          var ms = !q || r.name.toLowerCase().includes(q) || r.nip.includes(q) || r.noLisensi.toLowerCase().includes(q);
+          return mf && mj && ms;
+        });
+      }
+
+      function updateCounts() {
+        var all  = licData.length;
+        var akt  = licData.filter(function(x){ return x.status==='aktif';  }).length;
+        var seg  = licData.filter(function(x){ return x.status==='segera'; }).length;
+        var exp  = licData.filter(function(x){ return x.status==='expired';}).length;
+        document.getElementById('cntTotal').textContent   = all;
+        document.getElementById('cntAktif').textContent   = akt;
+        document.getElementById('cntSegera').textContent  = seg;
+        document.getElementById('cntExpired').textContent = exp;
+        document.getElementById('tAll').textContent     = all;
+        document.getElementById('tAktif').textContent   = akt;
+        document.getElementById('tSegera').textContent  = seg;
+        document.getElementById('tExpired').textContent = exp;
+      }
+
+      function sisaHTML(days, status) {
+        if (status === 'expired') return "<span class='aud-exp-days exp-dead'>Kedaluwarsa</span>";
+        if (days <= 30) return "<span class='aud-exp-days exp-crit'>"+days+" hari</span>";
+        if (days <= 90) return "<span class='aud-exp-days exp-warn'>"+days+" hari</span>";
+        return "<span class='aud-exp-days exp-ok'>"+days+" hari</span>";
+      }
+
+      function statusHTML(st) {
+        var map = { aktif:'st-aktif', segera:'st-segera', expired:'st-expired' };
+        var lbl = { aktif:'Aktif', segera:'Segera Expired', expired:'Kedaluwarsa' };
+        return "<span class='aud-status "+map[st]+"'>"+lbl[st]+"</span>";
+      }
+
+      function renderTable() {
+        var filtered = getFiltered();
+        var total    = filtered.length;
+        var pages    = Math.max(1, Math.ceil(total / perPage));
+        if (currentPage > pages) currentPage = 1;
+        var start = (currentPage - 1) * perPage;
+        var rows  = filtered.slice(start, start + perPage);
+
+        var tbody = document.getElementById('audTableBody');
+        if (!rows.length) {
+          tbody.innerHTML = "<tr><td colspan='9'><div class='aud-empty'><i class='fas fa-inbox'></i>Tidak ada data ditemukan</div></td></tr>";
+        } else {
+          tbody.innerHTML = rows.map(function(r, i) {
+            return "<tr onclick='openModal("+r.id+")'>" +
+              "<td style='color:#94a3b8;font-size:.78rem;font-family:DM Mono,monospace;'>"+(start+i+1)+"</td>" +
+              "<td><div class='aud-op-name'>"+r.name+"</div><div class='aud-op-nip'>NIP: "+r.nip+"</div></td>" +
+              "<td><span class='aud-jenis j-"+r.jenis+"'>"+r.jenis+"</span></td>" +
+              "<td class='aud-lic-no'>"+r.noLisensi+"</td>" +
+              "<td style='color:#64748b;font-size:.82rem;'>"+r.terbit+"</td>" +
+              "<td style='color:#64748b;font-size:.82rem;'>"+r.expired+"</td>" +
+              "<td>"+sisaHTML(r.sisaHari, r.status)+"</td>" +
+              "<td>"+statusHTML(r.status)+"</td>" +
+              "<td><div class='aud-btn-wrap'>" +
+                "<button class='aud-btn-view' onclick='event.stopPropagation();openModal("+r.id+")'><i class='fas fa-eye'></i> Detail</button>" +
+                "<button class='aud-btn-dl'   onclick='event.stopPropagation();dlRow("+r.id+")'><i class='fas fa-download'></i></button>" +
+              "</div></td>" +
+              "</tr>";
+          }).join('');
+        }
+
+        /* pager info */
+        document.getElementById('pagerInfo').textContent = "Menampilkan "+(Math.min(start+1,total))+"–"+Math.min(start+perPage,total)+" dari "+total+" data";
+
+        /* pager buttons */
+        var pb = document.getElementById('pagerBtns');
+        pb.innerHTML = '';
+        var prevBtn = document.createElement('button');
+        prevBtn.className = 'aud-pager-btn';
+        prevBtn.innerHTML = '‹ Prev';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = function(){ currentPage--; renderTable(); };
+        pb.appendChild(prevBtn);
+        for (var p = 1; p <= pages; p++) {
+          (function(pg) {
+            var b = document.createElement('button');
+            b.className = 'aud-pager-btn' + (pg === currentPage ? ' active' : '');
+            b.textContent = pg;
+            b.onclick = function(){ currentPage = pg; renderTable(); };
+            pb.appendChild(b);
+          })(p);
+        }
+        var nextBtn = document.createElement('button');
+        nextBtn.className = 'aud-pager-btn';
+        nextBtn.innerHTML = 'Next ›';
+        nextBtn.disabled = currentPage === pages;
+        nextBtn.onclick = function(){ currentPage++; renderTable(); };
+        pb.appendChild(nextBtn);
+      }
+
+      /* ── Filter events ── */
+      document.getElementById('audFilterTabs').addEventListener('click', function(e) {
+        var btn = e.target.closest('.aud-ftab');
+        if (!btn) return;
+        document.querySelectorAll('.aud-ftab').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        currentPage = 1;
+        renderTable();
+      });
+      document.getElementById('jenisFilter').addEventListener('change', function() {
+        currentJenis = this.value; currentPage = 1; renderTable();
+      });
+      document.getElementById('audSearch').addEventListener('input', function() {
+        searchQ = this.value; currentPage = 1; renderTable();
+      });
+
+      /* ── Modal ── */
+      function openModal(id) {
+        var r = licData.find(function(x){ return x.id === id; });
+        if (!r) return;
+        activeRow = r;
+        document.getElementById('mTitle').textContent = r.noLisensi + ' — ' + r.name;
+        var s = { aktif:'<span class="aud-status st-aktif">Aktif</span>', segera:'<span class="aud-status st-segera">Segera Expired</span>', expired:'<span class="aud-status st-expired">Kedaluwarsa</span>' };
+        document.getElementById('mInfo').innerHTML =
+          infoItem('Nama Operator', r.name) +
+          infoItem('NIP', r.nip, 'mono') +
+          infoItem('Jenis Lisensi', '<span class="aud-jenis j-'+r.jenis+'">'+r.jenis+'</span>', '', true) +
+          infoItem('No. Lisensi', r.noLisensi, 'mono') +
+          infoItem('Tanggal Terbit', r.terbit) +
+          infoItem('Tanggal Expired', r.expired) +
+          infoItem('Sisa Berlaku', sisaHTML(r.sisaHari, r.status), '', true) +
+          infoItem('Status', s[r.status] || r.status, '', true);
+
+        document.getElementById('mDocs').innerHTML = r.docs.map(function(d) {
+          var isPdf = d.type === 'pdf';
+          return "<div class='aud-doc-card'>" +
+            "<div class='aud-doc-accent' style='background:"+(isPdf?'#dc2626':'#059669')+";'></div>" +
+            "<div class='aud-doc-info'>" +
+              "<div class='aud-doc-name'><i class='fas fa-file-"+(isPdf?'pdf':'image')+"' style='color:"+(isPdf?'#dc2626':'#059669')+";margin-right:6px;'></i>"+d.name+"</div>" +
+              "<div class='aud-doc-size'>"+d.size+"</div>" +
+            "</div>" +
+            "<div class='aud-doc-btns'>" +
+              "<button class='aud-btn-view' onclick='showToast(\"Membuka "+d.name+"...\",\"info\")'><i class='fas fa-eye'></i> Lihat</button>" +
+              "<button class='aud-btn-dl' onclick='showToast(\"Mengunduh "+d.name+"...\",\"success\")'><i class='fas fa-download'></i></button>" +
+            "</div></div>";
+        }).join('');
+
+        document.getElementById('modalLisensi').classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function infoItem(label, val, extraClass, raw) {
+        var v = raw ? val : "<span class='aud-info-value "+(extraClass||'')+"'>"+val+"</span>";
+        if (!raw) v = "<span class='aud-info-value "+(extraClass||'')+"'>"+val+"</span>";
+        else v = "<div class='aud-info-value'>"+val+"</div>";
+        return "<div class='aud-info-item'><span class='aud-info-label'>"+label+"</span>"+v+"</div>";
+      }
+
+      function closeModal() {
+        document.getElementById('modalLisensi').classList.remove('show');
+        document.body.style.overflow = '';
+      }
+      function closeModalOverlay(e) {
+        if (e.target === document.getElementById('modalLisensi')) closeModal();
+      }
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+      /* ── Actions ── */
+      function dlRow(id) {
+        var r = licData.find(function(x){ return x.id===id; });
+        if (r) showToast('Mengunduh dokumen ' + r.noLisensi + '...', 'success');
+      }
+      function downloadSingle() {
+        if (activeRow) showToast('Mengunduh semua dokumen ' + activeRow.noLisensi + '...', 'success');
+      }
+      function downloadAll() {
+        showToast('Mengekspor seluruh data lisensi ke .xlsx...', 'success');
+      }
+
+      /* ── Toast ── */
+      function showToast(msg, type) {
+        var c = document.getElementById('aud-toasts');
+        var el = document.createElement('div');
+        el.className = 'aud-toast t-' + type;
+        var ico = type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+        el.innerHTML = "<i class='fas "+ico+"'></i><span class='aud-toast-msg'>"+msg+"</span>" +
+          "<button class='aud-toast-close' onclick='this.parentElement.remove()'><i class='fas fa-times'></i></button>" +
+          "<div class='aud-toast-bar'></div>";
+        c.appendChild(el);
+        setTimeout(function(){ el.classList.add('t-exit'); setTimeout(function(){ el.remove(); }, 300); }, 3000);
+      }
+
+      /* ── Mobile sidebar ── */
+      function mobToggle() {
+        document.getElementById('sidebar').classList.toggle('mob-open');
+        document.getElementById('mob-overlay').classList.toggle('mob-show');
+      }
+      function mobClose() {
+        document.getElementById('sidebar').classList.remove('mob-open');
+        document.getElementById('mob-overlay').classList.remove('mob-show');
+      }
+      window.addEventListener('resize', function(){ if(window.innerWidth>=992) mobClose(); });
+
+      /* ── Clock & Date ── */
+      var bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      var hari  = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+      function tick() {
+        var now = new Date();
+        var h = String(now.getHours()).padStart(2,'0');
+        var m = String(now.getMinutes()).padStart(2,'0');
+        var s = String(now.getSeconds()).padStart(2,'0');
+        var el = document.getElementById('audClock');
+        if (el) el.textContent = h+':'+m+':'+s;
+        var dateEl = document.getElementById('audDate');
+        if (dateEl) dateEl.textContent = hari[now.getDay()]+', '+now.getDate()+' '+bulan[now.getMonth()]+' '+now.getFullYear();
+      }
+      tick(); setInterval(tick, 1000);
+
+      /* ── Counter animation ── */
+      function animCount(el, target, dur) {
+        if (!el) return;
+        var start = performance.now();
+        (function frame(now) {
+          var p = Math.min((now-start)/dur, 1);
+          var ease = 1 - Math.pow(2, -10*p);
+          el.textContent = Math.round(ease * target);
+          if (p < 1) requestAnimationFrame(frame);
+        })(performance.now());
+      }
+      setTimeout(function() {
+        animCount(document.getElementById('cntTotal'),   15, 1200);
+        animCount(document.getElementById('cntAktif'),    5, 1100);
+        animCount(document.getElementById('cntSegera'),   6, 1000);
+        animCount(document.getElementById('cntExpired'),  4,  900);
+      }, 300);
+
+      /* ── Init ── */
+      updateCounts();
+      renderTable();
+    </script>
+  </body>
+</html>

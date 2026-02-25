@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat Pengajuan — Operator</title>
+    <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
+
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/iconly.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="mob-overlay" onclick="mobClose()"></div>
+
+    <div id="app">
+      <!-- ═══ SIDEBAR ═══ -->
+      <div id="sidebar">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="sidebar-logo">
+                <img src="assets/Foto/LOGO BARU.png" alt="Logo" />
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item">
+                <a href="dashboard-operator.html" class="sidebar-link">
+                  <i class="bi bi-card-checklist"></i>
+                  <span>Lisensi Saya</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="perpanjanganLisensi-operator.html"
+                  class="sidebar-link"
+                >
+                  <i class="bi bi-file-earmark-plus"></i>
+                  <span>Perpanjangan Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item active">
+                <a href="riwayatPengajuan-operator.html" class="sidebar-link">
+                  <i class="bi bi-clock-history"></i>
+                  <span>Riwayat Pengajuan</span>
+                </a>
+              </li>
+              <li class="sidebar-item mt-auto">
+                <a href="login.html" class="sidebar-link logout-link">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ MAIN ═══ -->
+      <div id="main">
+        <!-- Header -->
+        <header class="main-header">
+          <div class="d-flex align-items-center gap-3">
+            <button
+              id="mob-ham"
+              class="d-lg-none"
+              onclick="mobToggle()"
+              aria-label="Buka Menu"
+            >
+              <i class="bi bi-list"></i>
+            </button>
+            <h4 class="mb-0">Riwayat Pengajuan</h4>
+          </div>
+          <div class="d-flex align-items-center gap-4 position-relative">
+            <div class="position-relative">
+              <div id="notifToggle" style="cursor: pointer">
+                <i class="bi bi-bell fs-4"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size: 10px"
+                  >1</span
+                >
+              </div>
+              <div id="notifDropdown" class="notif-dropdown">
+                <div class="notif-header">🔔 Notifikasi</div>
+                <div class="notif-item unread-item">
+                  <div
+                    class="notif-icon-sm"
+                    style="background: #fef3c7; color: #d97706"
+                  >
+                    ⚠
+                  </div>
+                  <div style="flex: 1">
+                    <div
+                      style="
+                        font-size: 12.5px;
+                        font-weight: 700;
+                        color: #0f172a;
+                      "
+                    >
+                      Lisensi BTT Segera Expired
+                    </div>
+                    <div>Expired dalam <strong>48 hari</strong>.</div>
+                    <small style="font-size: 11px; color: #94a3b8"
+                      >2 menit lalu</small
+                    >
+                  </div>
+                  <span class="notif-dot"></span>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="text-end me-3">
+                <h6 class="mb-0 fw-bold">Operator</h6>
+                <small class="text-muted">Siti Rahayu</small>
+              </div>
+              <div class="avatar">
+                <img src="./assets/compiled/jpg/1.jpg" alt="Profile" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+          <!-- Table Card -->
+          <div class="table-card">
+            <div class="table-header">
+              <div class="table-title">Semua Permohonan Lisensi</div>
+            </div>
+
+            <table class="data-table" id="dataTable">
+              <thead>
+                <tr>
+                  <th>Tanggal Ajukan</th>
+                  <th>Jenis Lisensi</th>
+                  <th>Tipe</th>
+                  <th>Status</th>
+                  <th>Terakhir Update</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- ROW 1: BTT Recurrent - Verified -->
+                <tr
+                  data-status="verified"
+                  data-type="recurrent"
+                  data-license="btt"
+                >
+                  <td>
+                    <div class="date-cell">
+                      <div class="date-main">12 Feb 2026</div>
+                      <div class="date-time">14:30 WIB</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lic-type-cell">
+                      <div class="lic-type-icon icon-btt">B</div>
+                      <div class="lic-type-info">
+                        <div class="lic-type-name">BTT</div>
+                        <div class="lic-type-desc">Baggage Towing Tractor</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="type-badge type-recurrent">Recurrent</span>
+                  </td>
+                  <td>
+                    <span class="status-badge status-verified"
+                      >Diverifikasi</span
+                    >
+                  </td>
+                  <td>
+                    <div class="update-cell">
+                      <div class="update-date">13 Feb 2026</div>
+                      <div class="update-desc">Sedang diverifikasi Admin</div>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn-detail" onclick="showDetail('001')">
+                      <i class="bi bi-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- ROW 2: LLD Initial - Approved -->
+                <tr
+                  data-status="approved"
+                  data-type="initial"
+                  data-license="lld"
+                >
+                  <td>
+                    <div class="date-cell">
+                      <div class="date-main">08 Jan 2026</div>
+                      <div class="date-time">10:15 WIB</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lic-type-cell">
+                      <div class="lic-type-icon icon-lld">L</div>
+                      <div class="lic-type-info">
+                        <div class="lic-type-name">LLD</div>
+                        <div class="lic-type-desc">Lift Loader</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-badge type-initial">Initial</span></td>
+                  <td>
+                    <span class="status-badge status-approved">Disetujui</span>
+                  </td>
+                  <td>
+                    <div class="update-cell">
+                      <div class="update-date">15 Jan 2026</div>
+                      <div class="update-desc">Lisensi telah terbit</div>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn-detail" onclick="showDetail('002')">
+                      <i class="bi bi-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- ROW 3: CBL Initial - Rejected -->
+                <tr
+                  data-status="rejected"
+                  data-type="initial"
+                  data-license="cbl"
+                >
+                  <td>
+                    <div class="date-cell">
+                      <div class="date-main">20 Des 2025</div>
+                      <div class="date-time">16:45 WIB</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lic-type-cell">
+                      <div class="lic-type-icon icon-cbl">C</div>
+                      <div class="lic-type-info">
+                        <div class="lic-type-name">CBL</div>
+                        <div class="lic-type-desc">Conveyor Belt Loader</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-badge type-initial">Initial</span></td>
+                  <td>
+                    <span class="status-badge status-rejected">Ditolak</span>
+                  </td>
+                  <td>
+                    <div class="update-cell">
+                      <div class="update-date">22 Des 2025</div>
+                      <div class="update-desc">Dokumen tidak lengkap</div>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn-detail" onclick="showDetail('003')">
+                      <i class="bi bi-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- ROW 4: BTT Recurrent - Approved -->
+                <tr
+                  data-status="approved"
+                  data-type="recurrent"
+                  data-license="btt"
+                >
+                  <td>
+                    <div class="date-cell">
+                      <div class="date-main">05 Nov 2025</div>
+                      <div class="date-time">09:20 WIB</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lic-type-cell">
+                      <div class="lic-type-icon icon-btt">B</div>
+                      <div class="lic-type-info">
+                        <div class="lic-type-name">BTT</div>
+                        <div class="lic-type-desc">Baggage Towing Tractor</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="type-badge type-recurrent">Recurrent</span>
+                  </td>
+                  <td>
+                    <span class="status-badge status-approved">Disetujui</span>
+                  </td>
+                  <td>
+                    <div class="update-cell">
+                      <div class="update-date">12 Nov 2025</div>
+                      <div class="update-desc">Lisensi telah terbit</div>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn-detail" onclick="showDetail('004')">
+                      <i class="bi bi-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- ROW 5: ATT Initial - Pending -->
+                <tr
+                  data-status="pending"
+                  data-type="initial"
+                  data-license="att"
+                >
+                  <td>
+                    <div class="date-cell">
+                      <div class="date-main">10 Feb 2026</div>
+                      <div class="date-time">11:20 WIB</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lic-type-cell">
+                      <div class="lic-type-icon icon-att">A</div>
+                      <div class="lic-type-info">
+                        <div class="lic-type-name">ATT</div>
+                        <div class="lic-type-desc">Aircraft Towing Tractor</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-badge type-initial">Initial</span></td>
+                  <td>
+                    <span class="status-badge status-pending">Pending</span>
+                  </td>
+                  <td>
+                    <div class="update-cell">
+                      <div class="update-date">10 Feb 2026</div>
+                      <div class="update-desc">Menunggu verifikasi Admin</div>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn-detail" onclick="showDetail('005')">
+                      <i class="bi bi-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- ROW 6: LLD Recurrent - Approved -->
+                <tr
+                  data-status="approved"
+                  data-type="recurrent"
+                  data-license="lld"
+                >
+                  <td>
+                    <div class="date-cell">
+                      <div class="date-main">28 Okt 2025</div>
+                      <div class="date-time">14:10 WIB</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lic-type-cell">
+                      <div class="lic-type-icon icon-lld">L</div>
+                      <div class="lic-type-info">
+                        <div class="lic-type-name">LLD</div>
+                        <div class="lic-type-desc">Lift Loader</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="type-badge type-recurrent">Recurrent</span>
+                  </td>
+                  <td>
+                    <span class="status-badge status-approved">Disetujui</span>
+                  </td>
+                  <td>
+                    <div class="update-cell">
+                      <div class="update-date">05 Nov 2025</div>
+                      <div class="update-desc">Lisensi telah terbit</div>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn-detail" onclick="showDetail('006')">
+                      <i class="bi bi-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Empty State (hidden by default) -->
+            <div class="empty-state" id="emptyState" style="display: none">
+              <div class="empty-icon">📋</div>
+              <div class="empty-title">Tidak ada permohonan ditemukan</div>
+              <div class="empty-desc">
+                Coba ubah filter atau kata kunci pencarian Anda
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer>2026 © Agung Eka — GSE License Management</footer>
+      </div>
+    </div>
+
+    <!-- ═══ DETAIL MODAL ═══ -->
+    <div
+      class="modal-overlay"
+      id="detailModal"
+      onclick="if (event.target === this) closeModal();"
+    >
+      <div class="modal-box">
+        <div class="modal-header">
+          <div class="modal-title" id="modalTitle">Detail Permohonan</div>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modalContent">
+          <!-- Content will be injected here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mobile sidebar
+      function mobToggle() {
+        document.getElementById("sidebar").classList.toggle("mob-open");
+        document.getElementById("mob-overlay").classList.toggle("mob-show");
+      }
+      function mobClose() {
+        document.getElementById("sidebar").classList.remove("mob-open");
+        document.getElementById("mob-overlay").classList.remove("mob-show");
+      }
+
+      // Notif dropdown
+      var notifToggle = document.getElementById("notifToggle");
+      var notifDropdown = document.getElementById("notifDropdown");
+      notifToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        notifDropdown.style.display =
+          notifDropdown.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", function () {
+        notifDropdown.style.display = "none";
+      });
+
+      // Modal data
+      var modalData = {
+        "001": {
+          type: "BTT",
+          typeIcon: "B",
+          typeFull: "Baggage Towing Tractor (BTT)",
+          tipe: "Recurrent",
+          status: "Diverifikasi",
+          noPengajuan: "PJN-2026-0215",
+          tglAjukan: "12 Feb 2026, 14:30 WIB",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          timeline: [
+            {
+              status: "done",
+              title: "Upload Dokumen",
+              desc: "Dokumen berhasil diunggah — 6 file",
+              time: "12 Feb 2026, 14:30",
+              type: "green",
+            },
+            {
+              status: "active",
+              title: "Verifikasi Admin",
+              desc: "Sedang diverifikasi oleh Admin",
+              time: "Dalam proses",
+              type: "amber",
+            },
+            {
+              status: "wait",
+              title: "Persetujuan Manager",
+              desc: "Menunggu verifikasi Admin selesai",
+              time: "-",
+              type: "",
+            },
+            {
+              status: "wait",
+              title: "Lisensi Terbit",
+              desc: "Lisensi baru akan diterbitkan",
+              time: "-",
+              type: "",
+            },
+          ],
+        },
+        "002": {
+          type: "LLD",
+          typeIcon: "L",
+          typeFull: "Lift Loader (LLD)",
+          tipe: "Initial",
+          status: "Disetujui",
+          noPengajuan: "PJN-2026-0108",
+          tglAjukan: "08 Jan 2026, 10:15 WIB",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          timeline: [
+            {
+              status: "done",
+              title: "Upload Dokumen",
+              desc: "Dokumen berhasil diunggah",
+              time: "08 Jan 2026, 10:15",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Verifikasi Admin",
+              desc: "Dokumen diverifikasi",
+              time: "10 Jan 2026, 09:20",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Persetujuan Manager",
+              desc: "Permohonan disetujui",
+              time: "12 Jan 2026, 14:00",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Lisensi Terbit",
+              desc: "LLD-2023-047 telah terbit",
+              time: "15 Jan 2026",
+              type: "green",
+            },
+          ],
+        },
+        "003": {
+          type: "CBL",
+          typeIcon: "C",
+          typeFull: "Conveyor Belt Loader (CBL)",
+          tipe: "Initial",
+          status: "Ditolak",
+          noPengajuan: "PJN-2025-1220",
+          tglAjukan: "20 Des 2025, 16:45 WIB",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          timeline: [
+            {
+              status: "done",
+              title: "Upload Dokumen",
+              desc: "Dokumen berhasil diunggah",
+              time: "20 Des 2025, 16:45",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Verifikasi Admin",
+              desc: "Dokumen tidak lengkap - Ditolak",
+              time: "22 Des 2025, 11:30",
+              type: "green",
+            },
+          ],
+        },
+        "004": {
+          type: "BTT",
+          typeIcon: "B",
+          typeFull: "Baggage Towing Tractor (BTT)",
+          tipe: "Recurrent",
+          status: "Disetujui",
+          noPengajuan: "PJN-2025-1105",
+          tglAjukan: "05 Nov 2025, 09:20 WIB",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          timeline: [
+            {
+              status: "done",
+              title: "Upload Dokumen",
+              desc: "Dokumen berhasil diunggah",
+              time: "05 Nov 2025, 09:20",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Verifikasi Admin",
+              desc: "Dokumen diverifikasi",
+              time: "06 Nov 2025, 15:10",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Persetujuan Manager",
+              desc: "Permohonan disetujui",
+              time: "08 Nov 2025, 10:45",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Lisensi Terbit",
+              desc: "BTT-2022-083 telah terbit",
+              time: "12 Nov 2025",
+              type: "green",
+            },
+          ],
+        },
+        "005": {
+          type: "ATT",
+          typeIcon: "A",
+          typeFull: "Aircraft Towing Tractor (ATT)",
+          tipe: "Initial",
+          status: "Pending",
+          noPengajuan: "PJN-2026-0210",
+          tglAjukan: "10 Feb 2026, 11:20 WIB",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          timeline: [
+            {
+              status: "done",
+              title: "Upload Dokumen",
+              desc: "Dokumen berhasil diunggah",
+              time: "10 Feb 2026, 11:20",
+              type: "green",
+            },
+            {
+              status: "wait",
+              title: "Verifikasi Admin",
+              desc: "Menunggu verifikasi Admin",
+              time: "-",
+              type: "",
+            },
+            {
+              status: "wait",
+              title: "Persetujuan Manager",
+              desc: "Menunggu verifikasi Admin selesai",
+              time: "-",
+              type: "",
+            },
+            {
+              status: "wait",
+              title: "Lisensi Terbit",
+              desc: "Lisensi akan diterbitkan",
+              time: "-",
+              type: "",
+            },
+          ],
+        },
+        "006": {
+          type: "LLD",
+          typeIcon: "L",
+          typeFull: "Lift Loader (LLD)",
+          tipe: "Recurrent",
+          status: "Disetujui",
+          noPengajuan: "PJN-2025-1028",
+          tglAjukan: "28 Okt 2025, 14:10 WIB",
+          nama: "Siti Rahayu",
+          nik: "198502142010",
+          timeline: [
+            {
+              status: "done",
+              title: "Upload Dokumen",
+              desc: "Dokumen berhasil diunggah",
+              time: "28 Okt 2025, 14:10",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Verifikasi Admin",
+              desc: "Dokumen diverifikasi",
+              time: "30 Okt 2025, 10:00",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Persetujuan Manager",
+              desc: "Permohonan disetujui",
+              time: "02 Nov 2025, 16:20",
+              type: "green",
+            },
+            {
+              status: "done",
+              title: "Lisensi Terbit",
+              desc: "LLD-2023-047 diperpanjang",
+              time: "05 Nov 2025",
+              type: "green",
+            },
+          ],
+        },
+      };
+
+      // Show detail modal
+      function showDetail(id) {
+        var data = modalData[id];
+        if (!data) return;
+
+        document.getElementById("modalTitle").textContent =
+          "Detail Permohonan " + data.typeFull;
+
+        var timelineHTML = '<div class="modal-timeline">';
+        data.timeline.forEach(function (step, index) {
+          var isLast = index === data.timeline.length - 1;
+          timelineHTML += '<div class="tl-step">';
+          timelineHTML += '<div style="position:relative">';
+          timelineHTML += '<div class="tl-dot ' + step.status + '">';
+          timelineHTML += step.status === "done" ? "✓" : index + 1;
+          timelineHTML += "</div>";
+          if (!isLast) {
+            timelineHTML +=
+              '<div class="tl-line' +
+              (step.status === "done" ? " done" : "") +
+              '"></div>';
+          }
+          timelineHTML += "</div>";
+          timelineHTML += '<div class="tl-content">';
+          timelineHTML +=
+            '<div class="tl-title' +
+            (step.status === "wait" ? " muted" : "") +
+            '">' +
+            step.title +
+            "</div>";
+          timelineHTML += '<div class="tl-desc">' + step.desc + "</div>";
+          if (step.time !== "-") {
+            timelineHTML +=
+              '<span class="tl-time' +
+              (step.type === "amber" ? " amber" : "") +
+              '">' +
+              step.time +
+              "</span>";
+          }
+          timelineHTML += "</div></div>";
+        });
+        timelineHTML += "</div>";
+
+        document.getElementById("modalContent").innerHTML =
+          '<div class="modal-section">' +
+          '<div class="modal-section-title">Informasi Permohonan</div>' +
+          '<div class="modal-info-grid">' +
+          '<div class="modal-info-item"><div class="modal-info-label">No. Pengajuan</div><div class="modal-info-value">' +
+          data.noPengajuan +
+          "</div></div>" +
+          '<div class="modal-info-item"><div class="modal-info-label">Tanggal Ajukan</div><div class="modal-info-value">' +
+          data.tglAjukan +
+          "</div></div>" +
+          '<div class="modal-info-item"><div class="modal-info-label">Nama Pemohon</div><div class="modal-info-value">' +
+          data.nama +
+          "</div></div>" +
+          '<div class="modal-info-item"><div class="modal-info-label">NIK</div><div class="modal-info-value">' +
+          data.nik +
+          "</div></div>" +
+          '<div class="modal-info-item"><div class="modal-info-label">Tipe Permohonan</div><div class="modal-info-value">' +
+          data.tipe +
+          "</div></div>" +
+          '<div class="modal-info-item"><div class="modal-info-label">Status</div><div class="modal-info-value">' +
+          data.status +
+          "</div></div>" +
+          "</div></div>" +
+          '<div class="modal-section">' +
+          '<div class="modal-section-title">Timeline Proses</div>' +
+          timelineHTML +
+          "</div>";
+
+        document.getElementById("detailModal").classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      // Close modal
+      function closeModal() {
+        document.getElementById("detailModal").classList.remove("active");
+        document.body.style.overflow = "auto";
+      }
+
+      // ESC key to close
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeModal();
+      });
+    </script>
+  </body>
+</html>

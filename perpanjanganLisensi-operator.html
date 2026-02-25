@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perpanjangan Lisensi — Operator</title>
+    <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/iconly.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="mob-overlay" onclick="mobClose()"></div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="successModal">
+      <div class="success-modal-box">
+        <div class="success-icon-wrap">✅</div>
+        <div class="success-title">Permohonan Terkirim!</div>
+        <div class="success-sub">
+          Permohonan perpanjangan lisensi Anda berhasil dikirim.<br />
+          Admin akan memverifikasi dokumen dalam
+          <strong>1–2 hari kerja</strong>.
+        </div>
+        <div class="success-ref">No. Pengajuan: PJN-2026-0221</div>
+        <a href="dashboard-operator.html" class="btn-success-back"
+          >← Kembali ke Lisensi Saya</a
+        >
+      </div>
+    </div>
+
+    <div id="app">
+      <!-- ═══ SIDEBAR ═══ -->
+      <div id="sidebar">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header">
+            <div class="sidebar-logo">
+              <img
+                src="assets/Foto/LOGO BARU.png"
+                alt="Logo"
+                onerror="
+                  this.style.display = 'none';
+                  this.parentElement.innerHTML =
+                    '<span style=\'font-size:18px;font-weight:900;color:#16a34a;\'>GSE GAPURA</span>';
+                "
+              />
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item">
+                <a href="dashboard-operator.html" class="sidebar-link">
+                  <i class="bi bi-card-checklist"></i>
+                  <span>Lisensi Saya</span>
+                </a>
+              </li>
+              <li class="sidebar-item active">
+                <a
+                  href="perpanjanganLisensi-operator.html"
+                  class="sidebar-link"
+                >
+                  <i class="bi bi-file-earmark-plus"></i>
+                  <span>Perpanjangan Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="riwayatPengajuan-operator.html" class="sidebar-link">
+                  <i class="bi bi-clock-history"></i>
+                  <span>Riwayat Pengajuan</span>
+                </a>
+              </li>
+              <li class="sidebar-item mt-auto">
+                <a href="login.html" class="sidebar-link logout-link">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ MAIN ═══ -->
+      <div id="main">
+        <header class="main-header">
+          <div class="header-left">
+            <button id="mob-ham" class="d-lg-none" onclick="mobToggle()">
+              <i class="bi bi-list"></i>
+            </button>
+            <div>
+              <h4>Perpanjangan Lisensi</h4>
+              <div class="header-breadcrumb">
+                <a href="dashboard-operator.html">Lisensi Saya</a>
+                <span>›</span>
+                <span>Perpanjangan Lisensi</span>
+              </div>
+            </div>
+          </div>
+          <div class="header-right">
+            <!-- NOTIF -->
+            <div class="notif-wrap">
+              <div id="notifToggle">
+                <i class="bi bi-bell fs-4"></i>
+                <span id="notifCount" class="notif-badge">1</span>
+              </div>
+              <div id="notifDropdown" class="notif-dropdown">
+                <div class="notif-header">
+                  &#128276; Notifikasi
+                  <span onclick="markAllRead()" class="notif-mark-all"
+                    >Tandai Dibaca</span
+                  >
+                </div>
+                <div class="notif-item unread-item" onclick="readNotif(this)">
+                  <div class="notif-icon-sm notif-icon-amber">&#9888;</div>
+                  <div class="notif-text-wrap">
+                    <div class="notif-item-title-sm">
+                      Lisensi BTT Segera Expired
+                    </div>
+                    <div>
+                      BTT-2022-083 expired dalam <strong>48 hari</strong>.
+                      Ajukan perpanjangan.
+                    </div>
+                    <small>2 menit lalu</small>
+                  </div>
+                  <span class="notif-dot"></span>
+                </div>
+                <div class="notif-item" onclick="readNotif(this)">
+                  <div class="notif-icon-sm notif-icon-green">&#10003;</div>
+                  <div class="notif-text-wrap">
+                    <div class="notif-item-title-sm">Permohonan Diterima</div>
+                    <div>PJN-2026-0215 sedang diverifikasi Admin.</div>
+                    <small>1 jam lalu</small>
+                  </div>
+                  <span class="notif-dot notif-dot-hidden"></span>
+                </div>
+                <div class="notif-item" onclick="readNotif(this)">
+                  <div class="notif-icon-sm notif-icon-blue">&#128196;</div>
+                  <div class="notif-text-wrap">
+                    <div class="notif-item-title-sm">Lisensi LLD Aktif</div>
+                    <div>
+                      LLD-2023-047 expired <strong>15 Jun 2026</strong> (122
+                      hari lagi).
+                    </div>
+                    <small>Kemarin, 09:00</small>
+                  </div>
+                  <span class="notif-dot notif-dot-hidden"></span>
+                </div>
+                <div class="notif-footer">Lihat Semua Notifikasi</div>
+              </div>
+            </div>
+
+            <div class="user-info">
+              <div class="name">Siti Rahayu</div>
+              <div class="role">Operator GSE</div>
+            </div>
+            <div class="avatar avatar-initial">S</div>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <!-- Warning Banner -->
+          <div class="warn-banner">
+            <div class="warn-banner-icon">⚠️</div>
+            <div class="warn-banner-text">
+              <strong>Perhatian:</strong> Pastikan semua dokumen yang diupload
+              sudah benar dan sesuai persyaratan. Dokumen yang tidak lengkap
+              atau tidak jelas akan ditolak oleh Admin.
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- ══ FORM KIRI ══ -->
+            <div class="form-card">
+              <div class="form-card-header">
+                <div class="form-card-title">Form Perpanjangan Lisensi</div>
+                <div class="form-card-sub">
+                  Isi data dan upload dokumen persyaratan perpanjangan
+                </div>
+              </div>
+
+              <div class="form-card-body">
+                <!-- TIPE PERMOHONAN -->
+                <div class="form-section-label">📋 Tipe Permohonan</div>
+                <div class="tipe-grid">
+                  <button
+                    class="tipe-btn"
+                    onclick="selectTipe(this, 'recurrent')"
+                  >
+                    <div class="tipe-icon">🔄</div>
+                    <div class="tipe-info">
+                      <div class="tipe-name">Recurrent</div>
+                      <div class="tipe-desc">
+                        Perpanjangan lisensi yang sudah ada
+                      </div>
+                    </div>
+                  </button>
+                  <button
+                    class="tipe-btn"
+                    onclick="selectTipe(this, 'initial')"
+                  >
+                    <div class="tipe-icon">🆕</div>
+                    <div class="tipe-info">
+                      <div class="tipe-name">Initial</div>
+                      <div class="tipe-desc">
+                        Pengajuan lisensi pertama kali
+                      </div>
+                    </div>
+                  </button>
+                </div>
+                <div class="field-hint">
+                  Pilih <strong>Recurrent</strong> untuk perpanjangan,
+                  <strong>Initial</strong> jika belum pernah punya lisensi ini.
+                </div>
+
+                <div class="form-section-divider"></div>
+
+                <!-- JENIS LISENSI -->
+                <div class="form-section-label">🪪 Jenis Lisensi GSE</div>
+                <div class="field-group">
+                  <label class="field-label"
+                    >Jenis Lisensi <span class="req">*</span></label
+                  >
+                  <select class="field-select" id="jenisLisensi">
+                    <option value="">-- Pilih Jenis Lisensi --</option>
+                    <option value="BTT" selected>
+                      Baggage Towing Tractor (BTT)
+                    </option>
+                    <option value="LLD">Lift Loader (LLD)</option>
+                    <option value="CBL">Conveyor Belt Loader (CBL)</option>
+                    <option value="ATT">Aircraft Towing Tractor (ATT)</option>
+                  </select>
+                </div>
+
+                <div class="form-section-divider"></div>
+
+                <!-- DATA DIRI -->
+                <div class="form-section-label">👤 Data Diri Operator</div>
+                <div class="field-row">
+                  <div>
+                    <label class="field-label"
+                      >Nama Lengkap <span class="req">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="field-input"
+                      value="Siti Rahayu"
+                      disabled
+                    />
+                  </div>
+                  <div>
+                    <label class="field-label"
+                      >NIK <span class="req">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="field-input"
+                      value="198502142010"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div>
+                    <label class="field-label">Email</label>
+                    <input
+                      type="email"
+                      class="field-input"
+                      value="siti.rahayu@gapura.co.id"
+                      disabled
+                    />
+                  </div>
+                  <div>
+                    <label class="field-label"
+                      >No. HP <span class="req">*</span></label
+                    >
+                    <input
+                      type="tel"
+                      class="field-input"
+                      value="082345678901"
+                    />
+                  </div>
+                </div>
+                <div class="field-hint">
+                  Data diri diisi otomatis dari profil Anda. Hubungi Admin untuk
+                  mengubah data.
+                </div>
+
+                <div class="form-section-divider"></div>
+
+                <!-- UPLOAD DOKUMEN -->
+                <div class="form-section-label">
+                  📁 Upload Dokumen Persyaratan
+                </div>
+                <div class="upload-list">
+                  <div class="upload-item">
+                    <div class="upload-label-row">
+                      <div class="upload-item-label">
+                        1. Foto KTP <span class="req">*</span>
+                      </div>
+                      <div class="upload-item-req">JPG, PNG · Maks 2MB</div>
+                    </div>
+                    <div class="drop-zone" id="dz-ktp">
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.png"
+                        onchange="markUploaded('dz-ktp', this)"
+                      />
+                      <div class="drop-icon">🪪</div>
+                      <div class="drop-text">Klik untuk upload Foto KTP</div>
+                      <div class="drop-hint">Format: JPG, PNG · Maks: 2MB</div>
+                    </div>
+                  </div>
+                  <div class="upload-item">
+                    <div class="upload-label-row">
+                      <div class="upload-item-label">
+                        2. Pas Bandara <span class="req">*</span>
+                      </div>
+                      <div class="upload-item-req">JPG, PNG · Maks 1MB</div>
+                    </div>
+                    <div class="drop-zone" id="dz-bandara">
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.png"
+                        onchange="markUploaded('dz-bandara', this)"
+                      />
+                      <div class="drop-icon">📷</div>
+                      <div class="drop-text">Klik untuk upload Pas Bandara</div>
+                      <div class="drop-hint">Format: JPG, PNG · Maks: 1MB</div>
+                    </div>
+                  </div>
+                  <div class="upload-item">
+                    <div class="upload-label-row">
+                      <div class="upload-item-label">
+                        3. Pas Foto 3×4 <span class="req">*</span>
+                      </div>
+                      <div class="upload-item-req">JPG, PNG · Maks 1MB</div>
+                    </div>
+                    <div class="drop-zone" id="dz-foto3x4">
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.png"
+                        onchange="markUploaded('dz-foto3x4', this)"
+                      />
+                      <div class="drop-icon">📷</div>
+                      <div class="drop-text">Klik untuk upload Foto 3×4</div>
+                      <div class="drop-hint">Format: JPG, PNG · Maks: 1MB</div>
+                    </div>
+                  </div>
+                  <div class="upload-item">
+                    <div class="upload-label-row">
+                      <div class="upload-item-label">
+                        4. Foto SIM A <span class="req">*</span>
+                      </div>
+                      <div class="upload-item-req">JPG, PNG · Maks 1MB</div>
+                    </div>
+                    <div class="drop-zone" id="dz-sima">
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.png"
+                        onchange="markUploaded('dz-sima', this)"
+                      />
+                      <div class="drop-icon">📷</div>
+                      <div class="drop-text">Klik untuk upload Foto SIM A</div>
+                      <div class="drop-hint">Format: JPG, PNG · Maks: 1MB</div>
+                    </div>
+                  </div>
+                  <div class="upload-item">
+                    <div class="upload-label-row">
+                      <div class="upload-item-label">
+                        5. Surat Keterangan Sehat <span class="req">*</span>
+                      </div>
+                      <div class="upload-item-req">PDF · Maks 2MB</div>
+                    </div>
+                    <div class="drop-zone" id="dz-sehat">
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        onchange="markUploaded('dz-sehat', this)"
+                      />
+                      <div class="drop-icon">🏥</div>
+                      <div class="drop-text">Klik untuk upload Surat Sehat</div>
+                      <div class="drop-hint">Format: PDF · Maks: 2MB</div>
+                    </div>
+                  </div>
+                  <div class="upload-item">
+                    <div class="upload-label-row">
+                      <div class="upload-item-label">
+                        6. Lisensi Operator GSE <span class="req">*</span>
+                      </div>
+                      <div class="upload-item-req">PDF · Maks 3MB</div>
+                    </div>
+                    <div class="drop-zone" id="dz-sertifikat">
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        onchange="markUploaded('dz-sertifikat', this)"
+                      />
+                      <div class="drop-icon">📋</div>
+                      <div class="drop-text">
+                        Klik untuk upload Lisensi Operator GSE
+                      </div>
+                      <div class="drop-hint">Format: PDF · Maks: 3MB</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <a href="dashboard-operator.html" class="btn-back">← Batal</a>
+                <button class="btn-submit" onclick="submitForm()">
+                  📤 Submit Permohonan
+                </button>
+              </div>
+            </div>
+
+            <!-- ══ KOLOM KANAN (INFO) ══ -->
+            <div class="info-col">
+              <!-- Lisensi yang Diperpanjang -->
+              <div class="info-card">
+                <div class="info-card-header">
+                  <div class="info-card-icon icon-amber">⚠️</div>
+                  <div class="info-card-title">Lisensi yang Diperpanjang</div>
+                </div>
+                <div class="info-card-body">
+                  <div class="lic-preview-card">
+                    <div class="lic-preview-type">
+                      Baggage Towing Tractor (BTT)
+                    </div>
+                    <div class="lic-preview-num">BTT-2022-083</div>
+                    <div class="lic-preview-row">
+                      <span class="lic-preview-label">Terbit</span>
+                      <span class="lic-preview-val">02 Apr 2023</span>
+                    </div>
+                    <div class="lic-preview-row">
+                      <span class="lic-preview-label">Expired</span>
+                      <span class="lic-preview-val red">02 Apr 2026</span>
+                    </div>
+                    <div class="lic-preview-row">
+                      <span class="lic-preview-label">Sisa masa berlaku</span>
+                      <span class="lic-preview-val red">48 hari</span>
+                    </div>
+                    <div class="lic-preview-bar-bg">
+                      <div class="lic-preview-bar-fill"></div>
+                    </div>
+                  </div>
+                  <div class="field-hint">
+                    Segera ajukan perpanjangan sebelum lisensi kedaluwarsa.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Persyaratan Dokumen -->
+              <div class="info-card">
+                <div class="info-card-header">
+                  <div class="info-card-icon icon-blue">ℹ️</div>
+                  <div class="info-card-title">Persyaratan Dokumen</div>
+                </div>
+                <div class="info-card-body">
+                  <div class="doc-req-list">
+                    <div class="doc-req-item">
+                      <div class="doc-req-num">1</div>
+                      <div>Foto KTP yang jelas dan masih berlaku</div>
+                    </div>
+                    <div class="doc-req-item">
+                      <div class="doc-req-num">2</div>
+                      <div>Pas bandara yang masih berlaku</div>
+                    </div>
+                    <div class="doc-req-item">
+                      <div class="doc-req-num">3</div>
+                      <div>SIM A yang masih berlaku</div>
+                    </div>
+                    <div class="doc-req-item">
+                      <div class="doc-req-num">4</div>
+                      <div>Pas foto 3×4 latar merah/biru</div>
+                    </div>
+                    <div class="doc-req-item">
+                      <div class="doc-req-num">5</div>
+                      <div>Surat sehat dari dokter (maks 3 bulan terakhir)</div>
+                    </div>
+                    <div class="doc-req-item">
+                      <div class="doc-req-num">6</div>
+                      <div>Lisensi operator GSE yang ingin diperpanjang</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Proses Verifikasi -->
+              <div class="info-card">
+                <div class="info-card-header">
+                  <div class="info-card-icon icon-green">🔄</div>
+                  <div class="info-card-title">Proses Verifikasi</div>
+                </div>
+                <div class="info-card-body">
+                  <div class="proc-list">
+                    <div class="proc-item">
+                      <div class="proc-dot">1</div>
+                      <div>
+                        <div class="proc-text">Upload dokumen lengkap</div>
+                      </div>
+                    </div>
+                    <div class="proc-item">
+                      <div class="proc-dot">2</div>
+                      <div>
+                        <div class="proc-text">Verifikasi Admin</div>
+                        <div class="proc-time">⏱ Estimasi 1–2 hari kerja</div>
+                      </div>
+                    </div>
+                    <div class="proc-item">
+                      <div class="proc-dot">3</div>
+                      <div>
+                        <div class="proc-text">Persetujuan Manager</div>
+                        <div class="proc-time">⏱ Estimasi 1–2 hari kerja</div>
+                      </div>
+                    </div>
+                    <div class="proc-item">
+                      <div class="proc-dot">4</div>
+                      <div>
+                        <div class="proc-text">
+                          Lisensi terbit & siap diunduh
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="warn-box">
+                    <div class="warn-box-icon">⚠️</div>
+                    <div class="warn-box-text">
+                      <strong>Perhatian:</strong> Dokumen yang tidak sesuai atau
+                      tidak jelas akan ditolak oleh Admin.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer>2026 &copy; Agung Eka — GSE License Management</footer>
+      </div>
+    </div>
+
+    <script>
+      function mobToggle() {
+        var sb = document.getElementById("sidebar");
+        var ov = document.getElementById("mob-overlay");
+        sb.classList.toggle("mob-open");
+        ov.classList.toggle("mob-show");
+      }
+      function mobClose() {
+        document.getElementById("sidebar").classList.remove("mob-open");
+        document.getElementById("mob-overlay").classList.remove("mob-show");
+      }
+
+      function selectTipe(btn, tipe) {
+        document.querySelectorAll(".tipe-btn").forEach(function (b) {
+          b.classList.remove("selected");
+        });
+        btn.classList.add("selected");
+      }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        var btns = document.querySelectorAll(".tipe-btn");
+        if (btns.length > 0) btns[0].classList.add("selected");
+      });
+
+      function markUploaded(dzId, input) {
+        if (!input.files || !input.files[0]) return;
+        var dz = document.getElementById(dzId);
+        var fname = input.files[0].name;
+        dz.classList.add("uploaded");
+        dz.querySelector(".drop-icon").textContent = "✅";
+        dz.querySelector(".drop-text").textContent = fname;
+        dz.querySelector(".drop-hint").textContent =
+          "File terpilih · Klik untuk ganti";
+      }
+
+      function submitForm() {
+        document.getElementById("successModal").classList.add("show");
+      }
+
+      // ── NOTIFIKASI ──
+      var notifToggle = document.getElementById("notifToggle");
+      var notifDropdown = document.getElementById("notifDropdown");
+
+      notifToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        notifDropdown.style.display =
+          notifDropdown.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", function () {
+        notifDropdown.style.display = "none";
+      });
+      notifDropdown.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+
+      function readNotif(el) {
+        if (el.classList.contains("unread-item")) {
+          el.classList.remove("unread-item");
+          var dot = el.querySelector(".notif-dot");
+          if (dot) dot.classList.add("notif-dot-hidden");
+          var cnt = document.querySelectorAll(".notif-item.unread-item").length;
+          var badge = document.getElementById("notifCount");
+          if (badge) {
+            cnt === 0
+              ? (badge.style.display = "none")
+              : (badge.textContent = cnt);
+          }
+        }
+      }
+
+      function markAllRead() {
+        document
+          .querySelectorAll(".notif-item.unread-item")
+          .forEach(function (el) {
+            readNotif(el);
+          });
+      }
+    </script>
+  </body>
+</html>

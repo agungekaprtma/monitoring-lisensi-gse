@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verifikasi Lisensi — Admin</title>
+    <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
+
+    <link
+      rel="stylesheet"
+      href="assets/extensions/simple-datatables/style.css"
+    />
+    <link rel="stylesheet" href="./assets/compiled/css/table-datatable.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/iconly.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- NUCLEAR MOBILE SIDEBAR FIX -->
+    <style>
+      @media (max-width: 991.98px) {
+        html body #sidebar {
+          left: -270px !important;
+          transition:
+            left 0.3s ease,
+            box-shadow 0.3s ease !important;
+          z-index: 1000 !important;
+          display: block !important;
+          width: 260px !important;
+          height: 100vh !important;
+          position: fixed !important;
+          top: 0 !important;
+          background: #fff !important;
+          overflow-y: auto !important;
+          box-shadow: none !important;
+        }
+        html body #sidebar.mob-open {
+          left: 0 !important;
+          box-shadow: 4px 0 30px rgba(0, 0, 0, 0.18) !important;
+        }
+        html body #main {
+          margin-left: 0 !important;
+        }
+        html body #sidebar .sidebar-wrapper,
+        html body #sidebar .sidebar-wrapper.active {
+          display: flex !important;
+          flex-direction: column !important;
+          height: 100vh !important;
+          width: 260px !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          overflow: hidden !important;
+          transform: none !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+        }
+        html body #sidebar .sidebar-header {
+          display: flex !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          min-height: 80px !important;
+          flex-shrink: 0 !important;
+          padding: 20px 15px 15px !important;
+          border-bottom: 1px solid #f0f0f0 !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          overflow: visible !important;
+        }
+        html body #sidebar .sidebar-logo {
+          display: flex !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          justify-content: center !important;
+          width: 100% !important;
+        }
+        html body #sidebar .sidebar-logo img {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          max-width: 140px !important;
+          height: auto !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          overflow: visible !important;
+          width: auto !important;
+        }
+        html body #sidebar .sidebar-menu {
+          display: flex !important;
+          flex-direction: column !important;
+          flex: 1 !important;
+          overflow-y: auto !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          margin-top: 8px !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          height: auto !important;
+        }
+        html body #sidebar .menu {
+          display: flex !important;
+          flex-direction: column !important;
+          flex: 1 !important;
+          list-style: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          width: 100% !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          overflow: visible !important;
+        }
+        html body #sidebar .sidebar-title {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          font-size: 11px !important;
+          font-weight: 600 !important;
+          color: #94a3b8 !important;
+          text-transform: uppercase !important;
+          letter-spacing: 1px !important;
+          padding-left: 20px !important;
+          margin-top: 8px !important;
+          margin-bottom: 4px !important;
+          height: auto !important;
+          max-height: none !important;
+          overflow: visible !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          text-indent: 0 !important;
+          width: auto !important;
+        }
+        html body #sidebar .sidebar-item {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          width: 100% !important;
+          position: static !important;
+          transform: none !important;
+          height: auto !important;
+          max-height: none !important;
+          overflow: visible !important;
+          clip: auto !important;
+          clip-path: none !important;
+        }
+        html body #sidebar .sidebar-item.mt-auto {
+          margin-top: auto !important;
+        }
+        html body #sidebar .sidebar-link {
+          display: flex !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          align-items: center !important;
+          gap: 0.75rem !important;
+          padding: 0.72rem 1.25rem !important;
+          color: #374151 !important;
+          text-decoration: none !important;
+          font-size: 0.9rem !important;
+          font-weight: 500 !important;
+          border-radius: 10px !important;
+          margin: 1px 8px !important;
+          height: auto !important;
+          max-height: none !important;
+          width: auto !important;
+          overflow: visible !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          transform: none !important;
+          white-space: nowrap !important;
+          background: transparent !important;
+          text-indent: 0 !important;
+        }
+        html body #sidebar .sidebar-link:hover {
+          background: #f0fdf4 !important;
+          color: #16a34a !important;
+        }
+        html body #sidebar .sidebar-item.active .sidebar-link {
+          background: #dcfce7 !important;
+          color: #15803d !important;
+          font-weight: 600 !important;
+        }
+        html body #sidebar .sidebar-link i {
+          display: inline-flex !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          font-size: 1.05rem !important;
+          flex-shrink: 0 !important;
+          width: auto !important;
+          height: auto !important;
+          min-width: 0 !important;
+          overflow: visible !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          transform: none !important;
+        }
+        html body #sidebar .sidebar-link span {
+          display: inline !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          width: auto !important;
+          height: auto !important;
+          max-width: none !important;
+          overflow: visible !important;
+          clip: auto !important;
+          clip-path: none !important;
+          position: static !important;
+          transform: none !important;
+          white-space: nowrap !important;
+          font-size: inherit !important;
+          color: inherit !important;
+          text-indent: 0 !important;
+          letter-spacing: normal !important;
+        }
+        html body #sidebar .sidebar-toggler {
+          display: none !important;
+        }
+        html body #sidebar .logout-link,
+        html body #sidebar .logout-link i {
+          color: #dc3545 !important;
+        }
+        html body #sidebar .logout-link:hover {
+          background: #fef2f2 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gse-toast-container"></div>
+
+    <!-- OVERLAY MOBILE -->
+    <div id="mob-overlay" onclick="mobClose()"></div>
+
+    <div id="app">
+      <!-- SIDEBAR -->
+      <div id="sidebar">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="sidebar-logo">
+                <img src="assets/Foto/LOGO BARU.png" alt="Logo" />
+              </div>
+              <div class="sidebar-toggler x">
+                <a href="#" class="sidebar-hide d-xl-none d-block">
+                  <i class="bi bi-x bi-middle"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item">
+                <a href="dashboard-admin.html" class="sidebar-link">
+                  <i class="bi bi-grid-fill"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="kelolaDataOperator-admin.html" class="sidebar-link">
+                  <i class="bi bi-people-fill"></i>
+                  <span>Data Operator GSE</span>
+                </a>
+              </li>
+              <li class="sidebar-item active">
+                <a href="verifikasiLisensi-admin.html" class="sidebar-link">
+                  <i class="bi bi-file-earmark-check-fill"></i>
+                  <span>Pengajuan Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="monitoringLisensi-admin.html" class="sidebar-link">
+                  <i class="bi bi-clipboard-check-fill"></i>
+                  <span>Monitoring Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item mt-auto">
+                <a href="login.html" class="sidebar-link logout-link">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div id="main">
+        <header
+          class="main-header d-flex align-items-center justify-content-between px-4 py-3"
+        >
+          <div class="d-flex align-items-center gap-3">
+            <button
+              id="mob-ham"
+              class="d-lg-none"
+              onclick="mobToggle()"
+              aria-label="Buka Menu"
+            >
+              <i class="bi bi-list"></i>
+            </button>
+            <h4 class="mb-0 fw-bold">Pengajuan &amp; Verifikasi Lisensi</h4>
+          </div>
+          <div class="d-flex align-items-center gap-4 position-relative">
+            <div class="position-relative">
+              <div id="notifToggle" style="cursor: pointer">
+                <i class="bi bi-bell fs-4"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size: 10px"
+                  >5</span
+                >
+              </div>
+              <div id="notifDropdown" class="notif-dropdown">
+                <div class="notif-header">Notifikasi</div>
+                <div class="notif-item">
+                  Permohonan baru dari I G. L. Parmadi<small
+                    >5 menit lalu</small
+                  >
+                </div>
+                <div class="notif-item">
+                  Lisensi PT Angkasa Pura akan expired<small
+                    >2 menit lalu</small
+                  >
+                </div>
+                <div class="notif-item">
+                  3 Lisensi mendekati expired<small>1 jam lalu</small>
+                </div>
+                <div class="notif-footer">Lihat Semua</div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="text-end me-3">
+                <h6 class="mb-0 fw-bold">Admin</h6>
+                <small class="text-muted">Agung Eka</small>
+              </div>
+              <div class="avatar avatar-md">
+                <img src="./assets/compiled/jpg/1.jpg" alt="Profile" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <section class="row">
+            <div class="col-12">
+              <!-- SUMMARY CARDS -->
+              <div class="row g-4 mb-4">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-blue">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-blue">
+                          <i class="fas fa-inbox"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Total Permohonan
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                          >
+                            24
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-amber">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-amber">
+                          <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Menunggu Verifikasi
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                          >
+                            8
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-green">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-green">
+                          <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Disetujui Manager
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                          >
+                            13
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-red">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-red">
+                          <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Ditolak
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                          >
+                            3
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PIPELINE BANNER -->
+              <div class="card shadow-sm mb-4">
+                <div class="card-body py-3 px-4">
+                  <div class="verif-pipeline-banner">
+                    <div class="verif-pip-step">
+                      <div class="verif-pip-dot verif-pip-done">
+                        <i class="fas fa-paper-plane"></i>
+                      </div>
+                      <div class="verif-pip-label">Operator</div>
+                      <div class="verif-pip-sub">Kirim Permohonan</div>
+                    </div>
+                    <div class="verif-pip-connector verif-conn-active"></div>
+                    <div class="verif-pip-step">
+                      <div class="verif-pip-dot verif-pip-cur">
+                        <i class="fas fa-search"></i>
+                      </div>
+                      <div class="verif-pip-label">Admin</div>
+                      <div class="verif-pip-sub">Verifikasi Dokumen</div>
+                    </div>
+                    <div class="verif-pip-connector"></div>
+                    <div class="verif-pip-step">
+                      <div class="verif-pip-dot verif-pip-wait">
+                        <i class="fas fa-user-tie"></i>
+                      </div>
+                      <div class="verif-pip-label">Manager</div>
+                      <div class="verif-pip-sub">Persetujuan Akhir</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TABEL -->
+              <section class="section">
+                <div class="card">
+                  <div class="card-header-operator">
+                    <h5 class="card-title-operator">
+                      Daftar Permohonan Perpanjangan Lisensi
+                    </h5>
+                  </div>
+                  <div class="operator-toolbar">
+                    <div class="toolbar-left">
+                      <div class="verif-filter-tabs" id="filterTabs">
+                        <button class="verif-ftab active" data-filter="all">
+                          Semua <span class="verif-fcnt">24</span>
+                        </button>
+                        <button class="verif-ftab" data-filter="pending">
+                          Menunggu <span class="verif-fcnt">8</span>
+                        </button>
+                        <button class="verif-ftab" data-filter="review">
+                          Proses Manager <span class="verif-fcnt">3</span>
+                        </button>
+                        <button class="verif-ftab" data-filter="approved">
+                          Disetujui <span class="verif-fcnt">13</span>
+                        </button>
+                        <button class="verif-ftab" data-filter="rejected">
+                          Ditolak <span class="verif-fcnt">3</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="toolbar-right">
+                      <div class="custom-search-box">
+                        <i class="fas fa-search"></i>
+                        <input
+                          type="text"
+                          id="verifSearch"
+                          placeholder="Cari nama, NIP, lisensi..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-wrapper-custom">
+                    <table class="table table-striped" id="verifTable">
+                      <thead>
+                        <tr>
+                          <th>Operator</th>
+                          <th>Jenis Lisensi</th>
+                          <th>No. Lisensi Lama</th>
+                          <th>Tgl. Pengajuan</th>
+                          <th>Status</th>
+                          <th>Pipeline</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody id="verifTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DETAIL VERIFIKASI -->
+    <div
+      id="modalVerifDetail"
+      onclick="tutupModalJikaOverlay(event, 'modalVerifDetail')"
+    >
+      <div class="modal-box" style="max-width: 660px">
+        <div class="modal-header-custom">
+          <h6 class="modal-title-custom" id="mVerifTitle">
+            <i class="fas fa-file-check"></i> Detail Permohonan
+          </h6>
+          <button
+            class="btn-modal-close"
+            onclick="tutupModal('modalVerifDetail')"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body-custom">
+          <div class="verif-tracker-wrap" id="mVerifPipeline"></div>
+          <div class="detail-info-grid" id="mVerifInfo"></div>
+          <div class="detail-lisensi-header">
+            <i class="fas fa-paperclip"></i> Dokumen Diunggah
+          </div>
+          <div class="detail-lisensi-list" id="mVerifDocs"></div>
+          <div id="mVerifCatatanWrap" style="margin-top: 1.25rem">
+            <label class="form-label-custom">
+              <i
+                class="fas fa-pen"
+                style="color: #d97706; margin-right: 4px"
+              ></i>
+              Catatan Admin
+            </label>
+            <textarea
+              class="form-input-custom verif-catatan"
+              id="mVerifCatatan"
+              rows="3"
+              placeholder="Tulis catatan atau alasan keputusan di sini..."
+            ></textarea>
+          </div>
+        </div>
+        <div
+          class="modal-footer-custom"
+          id="mVerifFooter"
+          style="
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+          "
+        >
+          <span class="verif-foot-note" id="mVerifFootNote"
+            >Periksa semua dokumen sebelum memverifikasi.</span
+          >
+          <div style="display: flex; gap: 0.6rem" id="mVerifFootBtns">
+            <button
+              class="btn-berhenti-custom"
+              onclick="doVerifAction('reject')"
+            >
+              <i class="fas fa-times"></i> Tolak
+            </button>
+            <button
+              class="btn-submit-custom"
+              onclick="doVerifAction('approve')"
+            >
+              <i class="fas fa-check"></i> Verifikasi &amp; Teruskan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/compiled/js/app.js"></script>
+    <script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+
+    <script>
+      /* ── Mobile Sidebar ── */
+      function mobToggle() {
+        document.getElementById("sidebar").classList.toggle("mob-open");
+        document.getElementById("mob-overlay").classList.toggle("mob-show");
+        document.body.style.overflow = document
+          .getElementById("sidebar")
+          .classList.contains("mob-open")
+          ? "hidden"
+          : "";
+      }
+      function mobClose() {
+        document.getElementById("sidebar").classList.remove("mob-open");
+        document.getElementById("mob-overlay").classList.remove("mob-show");
+        document.body.style.overflow = "";
+      }
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 992) mobClose();
+      });
+
+      /* ── Notifikasi ── */
+      var toggle = document.getElementById("notifToggle");
+      var dropdown = document.getElementById("notifDropdown");
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+
+      /* ── Modal helpers ── */
+      function tutupModal(id) {
+        document.getElementById(id).classList.remove("show");
+        document.body.style.overflow = "";
+      }
+      function tutupModalJikaOverlay(e, id) {
+        if (e.target === document.getElementById(id)) tutupModal(id);
+      }
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") tutupModal("modalVerifDetail");
+      });
+
+      /* ── Data ── */
+      var verifData = [
+        {
+          id: 1,
+          name: "I Gusti Lanang Parmadi",
+          nip: "52647291",
+          jenis: "BTT",
+          noLama: "BTT-2021-047",
+          tgl: "12 Feb 2026",
+          status: "pending",
+          pengajuan: "Perpanjangan Lisensi BTT",
+          docs: [
+            { name: "KTP Operator.pdf", size: "1.2 MB", type: "pdf" },
+            { name: "Sertifikat Lama.pdf", size: "850 KB", type: "pdf" },
+            { name: "Foto 4x6.jpg", size: "320 KB", type: "img" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "I G. L. Parmadi",
+              time: "12 Feb 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Menunggu verifikasi",
+              time: "—",
+              state: "cur",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Belum diproses",
+              time: "—",
+              state: "wait",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: "Nabil",
+          nip: "52648100",
+          jenis: "HLL",
+          noLama: "HLL-2021-008",
+          tgl: "10 Feb 2026",
+          status: "pending",
+          pengajuan: "Perpanjangan Lisensi HLL",
+          docs: [
+            { name: "KTP Operator.pdf", size: "980 KB", type: "pdf" },
+            { name: "Sertifikat HLL.pdf", size: "1.1 MB", type: "pdf" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Nabil",
+              time: "10 Feb 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Menunggu verifikasi",
+              time: "—",
+              state: "cur",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Belum diproses",
+              time: "—",
+              state: "wait",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 3,
+          name: "Budi Santoso",
+          nip: "52649201",
+          jenis: "CBL",
+          noLama: "CBL-2022-055",
+          tgl: "08 Feb 2026",
+          status: "review",
+          pengajuan: "Perpanjangan Lisensi CBL",
+          docs: [
+            { name: "KTP Operator.pdf", size: "1.0 MB", type: "pdf" },
+            { name: "Sertifikat CBL.pdf", size: "760 KB", type: "pdf" },
+            { name: "Foto Terbaru.jpg", size: "415 KB", type: "img" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Budi Santoso",
+              time: "08 Feb 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✓",
+              time: "09 Feb 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Menunggu persetujuan",
+              time: "—",
+              state: "cur",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 4,
+          name: "Made Wijaya",
+          nip: "74821039",
+          jenis: "ATT",
+          noLama: "ATT-2023-012",
+          tgl: "05 Feb 2026",
+          status: "approved",
+          pengajuan: "Perpanjangan Lisensi ATT",
+          docs: [
+            { name: "KTP Operator.pdf", size: "890 KB", type: "pdf" },
+            { name: "Sertifikat ATT.pdf", size: "1.3 MB", type: "pdf" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Made Wijaya",
+              time: "05 Feb 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✓",
+              time: "06 Feb 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Budi Manager ✓",
+              time: "07 Feb 2026",
+              state: "done",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 5,
+          name: "Ketut Suardana",
+          nip: "85910284",
+          jenis: "BTT",
+          noLama: "BTT-2021-099",
+          tgl: "01 Feb 2026",
+          status: "rejected",
+          pengajuan: "Perpanjangan Lisensi BTT",
+          docs: [{ name: "KTP Operator.pdf", size: "1.1 MB", type: "pdf" }],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Ketut Suardana",
+              time: "01 Feb 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✗",
+              time: "02 Feb 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Tidak diperlukan",
+              time: "—",
+              state: "wait",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 6,
+          name: "Putu Ariana",
+          nip: "96034782",
+          jenis: "HLL",
+          noLama: "HLL-2022-031",
+          tgl: "28 Jan 2026",
+          status: "approved",
+          pengajuan: "Perpanjangan Lisensi HLL",
+          docs: [
+            { name: "KTP Operator.pdf", size: "950 KB", type: "pdf" },
+            { name: "Sertifikat HLL.pdf", size: "1.2 MB", type: "pdf" },
+            { name: "Rekomendasi Atasan.pdf", size: "640 KB", type: "pdf" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Putu Ariana",
+              time: "28 Jan 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✓",
+              time: "29 Jan 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Budi Manager ✓",
+              time: "30 Jan 2026",
+              state: "done",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+      ];
+
+      var currentFilter = "all";
+      var activeVerif = null;
+
+      var statusCfg = {
+        pending: { label: "Menunggu Verifikasi", cls: "verif-badge-pending" },
+        review: { label: "Proses Manager", cls: "verif-badge-review" },
+        approved: { label: "Disetujui", cls: "verif-badge-approved" },
+        rejected: { label: "Ditolak", cls: "verif-badge-rejected" },
+      };
+
+      var pipStateClass = {
+        done: "verif-tracker-done",
+        cur: "verif-tracker-cur",
+        wait: "verif-tracker-wait",
+      };
+
+      function pipelineMiniHTML(status) {
+        var stateMap = {
+          pending: ["done", "cur", "wait"],
+          review: ["done", "done", "cur"],
+          approved: ["done", "done", "done"],
+          rejected: ["done", "wait", "wait"],
+        };
+        var states = stateMap[status] || ["wait", "wait", "wait"];
+        return (
+          "<div class='verif-pip-mini'>" +
+          states
+            .map(function (s) {
+              return (
+                "<div class='verif-pip-mini-step verif-pms-" + s + "'></div>"
+              );
+            })
+            .join("") +
+          "</div>"
+        );
+      }
+
+      function renderTable(rows) {
+        var tbody = document.getElementById("verifTableBody");
+        if (!rows.length) {
+          tbody.innerHTML =
+            "<tr><td colspan='7' style='text-align:center;padding:40px;color:#94a3b8;'><i class='fas fa-inbox' style='font-size:28px;display:block;margin-bottom:8px;'></i>Tidak ada data</td></tr>";
+          return;
+        }
+        tbody.innerHTML = rows
+          .map(function (r) {
+            var s = statusCfg[r.status];
+            var jenisColor = {
+              BTT: "#2563eb",
+              HLL: "#dc2626",
+              CBL: "#d97706",
+              ATT: "#16a34a",
+            };
+            var jenisBg = {
+              BTT: "#eff6ff",
+              HLL: "#fee2e2",
+              CBL: "#fef3c7",
+              ATT: "#dcfce7",
+            };
+            var c = jenisColor[r.jenis] || "#64748b";
+            var bg = jenisBg[r.jenis] || "#f1f5f9";
+            return (
+              "<tr style='cursor:pointer;' onclick='bukaModalVerif(" +
+              r.id +
+              ")'>" +
+              "<td><div class='operator-name'>" +
+              r.name +
+              "</div><div class='operator-nip'>NIP: " +
+              r.nip +
+              "</div></td>" +
+              "<td><span class='verif-jenis-badge' style='color:" +
+              c +
+              ";background:" +
+              bg +
+              ";border:1px solid " +
+              c +
+              "20;'>" +
+              r.jenis +
+              "</span></td>" +
+              "<td style='font-family:monospace;font-size:.8rem;color:#475569;'>" +
+              r.noLama +
+              "</td>" +
+              "<td style='color:#64748b;font-size:.85rem;'>" +
+              r.tgl +
+              "</td>" +
+              "<td><span class='verif-badge " +
+              s.cls +
+              "'>" +
+              s.label +
+              "</span></td>" +
+              "<td>" +
+              pipelineMiniHTML(r.status) +
+              "</td>" +
+              "<td><button class='btn-detail-operator' onclick='event.stopPropagation();bukaModalVerif(" +
+              r.id +
+              ")'><i class='fas fa-eye'></i> Detail</button></td>" +
+              "</tr>"
+            );
+          })
+          .join("");
+      }
+
+      function getFiltered() {
+        var q = document.getElementById("verifSearch").value.toLowerCase();
+        return verifData.filter(function (r) {
+          var matchFilter =
+            currentFilter === "all" || r.status === currentFilter;
+          var matchSearch =
+            !q ||
+            r.name.toLowerCase().indexOf(q) >= 0 ||
+            r.nip.indexOf(q) >= 0 ||
+            r.noLama.toLowerCase().indexOf(q) >= 0;
+          return matchFilter && matchSearch;
+        });
+      }
+
+      document
+        .getElementById("filterTabs")
+        .addEventListener("click", function (e) {
+          var btn = e.target.closest(".verif-ftab");
+          if (!btn) return;
+          document.querySelectorAll(".verif-ftab").forEach(function (b) {
+            b.classList.remove("active");
+          });
+          btn.classList.add("active");
+          currentFilter = btn.dataset.filter;
+          renderTable(getFiltered());
+        });
+
+      document
+        .getElementById("verifSearch")
+        .addEventListener("input", function () {
+          renderTable(getFiltered());
+        });
+
+      function bukaModalVerif(id) {
+        var r = verifData.find(function (x) {
+          return x.id === id;
+        });
+        if (!r) return;
+        activeVerif = r;
+
+        document.getElementById("mVerifTitle").innerHTML =
+          "<i class='fas fa-file-check'></i> " + r.pengajuan;
+
+        var pipHTML = r.pipeline
+          .map(function (p, i) {
+            var cls = pipStateClass[p.state] || "verif-tracker-wait";
+            var connector =
+              i < r.pipeline.length - 1
+                ? "<div class='verif-tracker-conn " +
+                  (p.state === "done" ? "verif-conn-done" : "") +
+                  "'></div>"
+                : "";
+            return (
+              "<div class='verif-tracker-step " +
+              cls +
+              "'>" +
+              "<div class='verif-tracker-icon'><i class='" +
+              p.icon +
+              "'></i></div>" +
+              "<div class='verif-tracker-label'>" +
+              p.label +
+              "</div>" +
+              "<div class='verif-tracker-who'>" +
+              p.who +
+              "</div>" +
+              (p.time !== "—"
+                ? "<div class='verif-tracker-time'>" + p.time + "</div>"
+                : "") +
+              "</div>" +
+              connector
+            );
+          })
+          .join("");
+        document.getElementById("mVerifPipeline").innerHTML = pipHTML;
+
+        var s = statusCfg[r.status];
+        document.getElementById("mVerifInfo").innerHTML =
+          "<div class='detail-info-item'><span class='detail-info-label'>Nama Lengkap</span><span class='detail-info-value'>" +
+          r.name +
+          "</span></div>" +
+          "<div class='detail-info-item'><span class='detail-info-label'>NIP</span><span class='detail-info-value'>" +
+          r.nip +
+          "</span></div>" +
+          "<div class='detail-info-item'><span class='detail-info-label'>Jenis Lisensi</span><span class='detail-info-value'>" +
+          r.jenis +
+          "</span></div>" +
+          "<div class='detail-info-item'><span class='detail-info-label'>No. Lisensi Lama</span><span class='detail-info-value' style='font-family:monospace;'>" +
+          r.noLama +
+          "</span></div>" +
+          "<div class='detail-info-item'><span class='detail-info-label'>Tanggal Pengajuan</span><span class='detail-info-value'>" +
+          r.tgl +
+          "</span></div>" +
+          "<div class='detail-info-item'><span class='detail-info-label'>Status</span><span class='detail-info-value'><span class='verif-badge " +
+          s.cls +
+          "'>" +
+          s.label +
+          "</span></span></div>";
+
+        document.getElementById("mVerifDocs").innerHTML = r.docs
+          .map(function (d) {
+            var isPdf = d.type === "pdf";
+            return (
+              "<div class='lisensi-card-h' style='border-color:#e2e8f0;'>" +
+              "<div class='lisensi-card-h-accent' style='background:" +
+              (isPdf ? "#dc2626" : "#7c3aed") +
+              ";'></div>" +
+              "<div class='lisensi-card-h-info'>" +
+              "<div style='display:flex;align-items:center;gap:.5rem;'>" +
+              "<i class='fas fa-file-" +
+              (isPdf
+                ? "pdf' style='color:#dc2626"
+                : "image' style='color:#7c3aed") +
+              ";font-size:1.1rem;'></i>" +
+              "<span style='font-size:.875rem;font-weight:700;color:#0f172a;'>" +
+              d.name +
+              "</span>" +
+              "<span style='font-size:.75rem;color:#94a3b8;'>" +
+              d.size +
+              "</span>" +
+              "</div></div>" +
+              "<div class='lisensi-card-h-file'>" +
+              "<div style='display:flex;gap:.45rem;'>" +
+              "<button class='lisensi-btn-view' onclick='tampilkanToastVerif(\"Membuka " +
+              d.name +
+              "...\",\"success\")'><i class='fas fa-eye'></i> Lihat</button>" +
+              "<button class='lisensi-btn-download' onclick='tampilkanToastVerif(\"Mengunduh " +
+              d.name +
+              "...\",\"success\")'><i class='fas fa-download'></i></button>" +
+              "</div></div></div>"
+            );
+          })
+          .join("");
+
+        var catatanWrap = document.getElementById("mVerifCatatanWrap");
+        var footNote = document.getElementById("mVerifFootNote");
+        var footBtns = document.getElementById("mVerifFootBtns");
+        document.getElementById("mVerifCatatan").value = "";
+
+        if (r.status === "pending") {
+          catatanWrap.style.display = "block";
+          footNote.textContent = "Periksa semua dokumen sebelum memverifikasi.";
+          footBtns.innerHTML =
+            "<button class='btn-berhenti-custom' onclick='doVerifAction(\"reject\")'><i class='fas fa-times'></i> Tolak</button>" +
+            "<button class='btn-submit-custom' onclick='doVerifAction(\"approve\")'><i class='fas fa-check'></i> Verifikasi &amp; Teruskan</button>";
+        } else {
+          catatanWrap.style.display = "none";
+          footNote.innerHTML =
+            "Status: <span class='verif-badge " +
+            s.cls +
+            "'>" +
+            s.label +
+            "</span>";
+          footBtns.innerHTML =
+            "<button class='btn-tutup-custom' onclick='tutupModal(\"modalVerifDetail\")'><i class='fas fa-times'></i> Tutup</button>";
+        }
+
+        document.getElementById("modalVerifDetail").classList.add("show");
+        document.body.style.overflow = "hidden";
+      }
+
+      function doVerifAction(type) {
+        if (!activeVerif) return;
+        if (type === "approve") {
+          activeVerif.status = "review";
+          activeVerif.pipeline[1].who = "Agung Eka ✓";
+          activeVerif.pipeline[1].time = "Hari ini";
+          activeVerif.pipeline[1].state = "done";
+          activeVerif.pipeline[2].state = "cur";
+          activeVerif.pipeline[2].who = "Menunggu persetujuan";
+          tampilkanToastVerif(
+            "Permohonan " +
+              activeVerif.name +
+              " berhasil diverifikasi & diteruskan ke Manager!",
+            "success",
+          );
+        } else {
+          activeVerif.status = "rejected";
+          activeVerif.pipeline[1].who = "Agung Eka ✗";
+          activeVerif.pipeline[1].time = "Hari ini";
+          tampilkanToastVerif(
+            "Permohonan " + activeVerif.name + " ditolak.",
+            "error",
+          );
+        }
+        tutupModal("modalVerifDetail");
+        renderTable(getFiltered());
+      }
+
+      function tampilkanToastVerif(msg, type) {
+        var container = document.getElementById("gse-toast-container");
+        var el = document.createElement("div");
+        el.className = "gse-toast gse-toast-" + type;
+        var icon = type === "success" ? "fa-check-circle" : "fa-times-circle";
+        el.innerHTML =
+          "<div class='gse-toast-icon'><i class='fas " +
+          icon +
+          "'></i></div>" +
+          "<div class='gse-toast-body'><p class='gse-toast-title'>" +
+          msg +
+          "</p></div>" +
+          "<button class='gse-toast-close'><i class='fas fa-times'></i></button>" +
+          "<div class='gse-toast-bar' style='animation-duration:3500ms;'></div>";
+        el.querySelector(".gse-toast-close").addEventListener(
+          "click",
+          function () {
+            el.classList.add("gse-toast-exit");
+            setTimeout(function () {
+              el.remove();
+            }, 300);
+          },
+        );
+        container.appendChild(el);
+        setTimeout(function () {
+          el.classList.add("gse-toast-exit");
+          setTimeout(function () {
+            el.remove();
+          }, 300);
+        }, 3500);
+      }
+
+      /* Init */
+      renderTable(verifData);
+    </script>
+  </body>
+</html>

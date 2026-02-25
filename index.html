@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Gapura GSE</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/compiled/svg/favicon.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Override font untuk login page aja */
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        font-family: "DM Sans", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- BG PHOTO -->
+    <div class="login-bg"></div>
+    <div class="login-vignette"></div>
+
+    <!-- FORM CENTER -->
+    <div class="login-center">
+      <div class="login-card">
+        <!-- Brand -->
+
+        <div class="login-brand-divider"></div>
+
+        <!-- Heading -->
+        <div class="login-heading">
+          <h2>Masuk ke <em>Sistem</em></h2>
+        </div>
+        <p class="login-sub-text">
+          Pilih role demo atau masukkan kredensial Anda.
+        </p>
+
+        <!-- Role selector -->
+        <div class="login-role-label">Pilih Role (Demo)</div>
+        <div class="login-role-grid">
+          <button
+            class="login-role-btn"
+            data-role="operator"
+            data-user="operator01"
+            data-pass="operator123"
+            data-dest="dashboard-operator.html"
+            onclick="pilihRole(this)"
+          >
+            <div class="login-role-icon"><i class="fas fa-hard-hat"></i></div>
+            <span class="login-role-name">Operator</span>
+          </button>
+          <button
+            class="login-role-btn"
+            data-role="admin"
+            data-user="admin.gse"
+            data-pass="admin2026"
+            data-dest="dashboard-admin.html"
+            onclick="pilihRole(this)"
+          >
+            <div class="login-role-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <span class="login-role-name">Admin</span>
+          </button>
+          <button
+            class="login-role-btn"
+            data-role="manager"
+            data-user="manager.gse"
+            data-pass="manager2026"
+            data-dest="dashboard-manager.html"
+            onclick="pilihRole(this)"
+          >
+            <div class="login-role-icon"><i class="fas fa-user-tie"></i></div>
+            <span class="login-role-name">Manager</span>
+          </button>
+        </div>
+
+        <div class="login-creds-hint" id="loginCredsHint">
+          <i class="fas fa-circle-check"></i>
+          <span
+            >Kredensial demo diisi otomatis — klik <strong>Masuk</strong> untuk
+            lanjut.</span
+          >
+        </div>
+
+        <!-- Fields -->
+        <div class="login-field-group">
+          <label class="login-field-label">Username</label>
+          <div class="login-field-wrap">
+            <input
+              type="text"
+              class="login-field-input"
+              id="inputUser"
+              placeholder="Masukkan username"
+            />
+            <i class="fas fa-user login-field-icon"></i>
+          </div>
+          <div class="login-field-error" id="errUser">
+            <i class="fas fa-circle-exclamation"></i> Username tidak boleh
+            kosong
+          </div>
+        </div>
+        <div class="login-field-group">
+          <label class="login-field-label">Password</label>
+          <div class="login-field-wrap">
+            <input
+              type="password"
+              class="login-field-input"
+              id="inputPass"
+              placeholder="Masukkan password"
+            />
+            <i class="fas fa-lock login-field-icon"></i>
+            <i
+              class="fas fa-eye login-pw-toggle"
+              id="pwToggle"
+              onclick="togglePw()"
+            ></i>
+          </div>
+          <div class="login-field-error" id="errPass">
+            <i class="fas fa-circle-exclamation"></i> Password tidak boleh
+            kosong
+          </div>
+        </div>
+
+        <button class="btn-login-submit" id="btnLogin" onclick="doLogin()">
+          <span class="login-btn-text"
+            ><i class="fas fa-arrow-right-to-bracket"></i> Masuk</span
+          >
+          <span class="login-btn-spinner"
+            ><div class="login-spinner-ring"></div
+          ></span>
+        </button>
+
+        <div class="login-card-footer">
+          <span>© 2026 Gapura Airport Services</span>
+          <a href="#">Lupa Password?</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-page-credit">
+      Sistem Informasi Monitoring Lisensi Operator GSE
+    </div>
+
+    <script>
+      var selectedRole = null;
+      var destMap = {};
+
+      function pilihRole(btn) {
+        document.querySelectorAll(".login-role-btn").forEach(function (b) {
+          b.classList.remove("active");
+        });
+        btn.classList.add("active");
+        selectedRole = btn.dataset.role;
+        destMap[selectedRole] = btn.dataset.dest;
+
+        document.getElementById("inputUser").value = btn.dataset.user;
+        document.getElementById("inputPass").value = btn.dataset.pass;
+
+        document.getElementById("errUser").classList.remove("show");
+        document.getElementById("errPass").classList.remove("show");
+        document.getElementById("inputUser").classList.remove("err");
+        document.getElementById("inputPass").classList.remove("err");
+
+        document.getElementById("loginCredsHint").classList.add("show");
+      }
+
+      function togglePw() {
+        var inp = document.getElementById("inputPass");
+        var ico = document.getElementById("pwToggle");
+        if (inp.type === "password") {
+          inp.type = "text";
+          ico.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+          inp.type = "password";
+          ico.classList.replace("fa-eye-slash", "fa-eye");
+        }
+      }
+
+      function doLogin() {
+        var user = document.getElementById("inputUser").value.trim();
+        var pass = document.getElementById("inputPass").value.trim();
+        var errU = document.getElementById("errUser");
+        var errP = document.getElementById("errPass");
+        var inpU = document.getElementById("inputUser");
+        var inpP = document.getElementById("inputPass");
+        var btn = document.getElementById("btnLogin");
+        var ok = true;
+
+        errU.classList.remove("show");
+        inpU.classList.remove("err");
+        errP.classList.remove("show");
+        inpP.classList.remove("err");
+
+        if (!user) {
+          errU.classList.add("show");
+          inpU.classList.add("err");
+          ok = false;
+        }
+        if (!pass) {
+          errP.classList.add("show");
+          inpP.classList.add("err");
+          ok = false;
+        }
+        if (!ok) return;
+
+        btn.classList.add("loading");
+        btn.disabled = true;
+
+        setTimeout(function () {
+          btn.classList.remove("loading");
+          btn.disabled = false;
+          var dest =
+            selectedRole && destMap[selectedRole]
+              ? destMap[selectedRole]
+              : "dashboard-admin.html";
+          window.location.href = dest;
+        }, 1400);
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") doLogin();
+      });
+    </script>
+  </body>
+</html>

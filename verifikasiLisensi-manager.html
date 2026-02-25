@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Persetujuan Lisensi — Manager</title>
+    <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
+    <link
+      rel="stylesheet"
+      href="assets/extensions/simple-datatables/style.css"
+    />
+    <link rel="stylesheet" href="./assets/compiled/css/table-datatable.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/iconly.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="gse-toast-container"></div>
+    <div id="mob-overlay" onclick="mobClose()"></div>
+
+    <div id="app">
+      <!-- SIDEBAR -->
+      <div id="sidebar">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="sidebar-logo">
+                <img src="assets/Foto/LOGO BARU.png" alt="Logo" />
+              </div>
+              <div class="sidebar-toggler x">
+                <a href="#" class="sidebar-hide d-xl-none d-block">
+                  <i class="bi bi-x bi-middle"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item">
+                <a href="dashboard-manager.html" class="sidebar-link">
+                  <i class="bi bi-grid-fill"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="sidebar-item active">
+                <a href="verifikasiLisensi-manager.html" class="sidebar-link">
+                  <i class="bi bi-file-earmark-plus-fill"></i>
+                  <span>Pengajuan Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="monitoringLisensi-manager.html" class="sidebar-link">
+                  <i class="bi bi-clipboard-check-fill"></i>
+                  <span>Monitoring Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item mt-auto">
+                <a href="login.html" class="sidebar-link logout-link">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div id="main">
+        <header
+          class="main-header d-flex align-items-center justify-content-between px-4 py-3"
+        >
+          <div class="d-flex align-items-center gap-3">
+            <button
+              id="mob-ham"
+              class="d-lg-none"
+              onclick="mobToggle()"
+              aria-label="Buka Menu"
+            >
+              <i class="bi bi-list"></i>
+            </button>
+            <h4 class="mb-0 fw-bold">Persetujuan Akhir Lisensi</h4>
+          </div>
+          <div class="d-flex align-items-center gap-4 position-relative">
+            <div class="position-relative">
+              <div id="notifToggle" style="cursor: pointer">
+                <i class="bi bi-bell fs-4"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size: 10px"
+                  >3</span
+                >
+              </div>
+              <div id="notifDropdown" class="notif-dropdown">
+                <div class="notif-header">Notifikasi</div>
+                <div class="notif-item">
+                  Permohonan Budi Santoso siap disetujui<small
+                    >10 menit lalu</small
+                  >
+                </div>
+                <div class="notif-item">
+                  Permohonan Made Wijaya telah diverifikasi Admin<small
+                    >1 jam lalu</small
+                  >
+                </div>
+                <div class="notif-item">
+                  2 lisensi mendekati expired<small>2 jam lalu</small>
+                </div>
+                <div class="notif-footer">Lihat Semua</div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="text-end me-3">
+                <h6 class="mb-0 fw-bold">Agung Eka</h6>
+                <small class="text-muted">Manager Unit GSE</small>
+              </div>
+              <div class="avatar avatar-md">
+                <img src="./assets/compiled/jpg/1.jpg" alt="Profile" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <section class="row">
+            <div class="col-12">
+              <!-- SUMMARY CARDS -->
+              <div class="row g-4 mb-4">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-green2">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-green2">
+                          <i class="fas fa-inbox"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Menunggu Keputusan
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                            id="cntReview"
+                          >
+                            0
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-green">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-green">
+                          <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Disetujui
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                            id="cntApproved"
+                          >
+                            0
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-red">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-red">
+                          <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Ditolak Manager
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                            id="cntRejected"
+                          >
+                            0
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card shadow-sm verif-sum-card verif-c-amber">
+                    <div
+                      class="card-body px-4"
+                      style="height: 88px; display: flex; align-items: center"
+                    >
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="verif-sum-icon verif-icon-amber">
+                          <i class="fas fa-list-check"></i>
+                        </div>
+                        <div>
+                          <h6
+                            class="text-muted font-semibold mb-1"
+                            style="font-size: 0.78rem"
+                          >
+                            Total Diterima
+                          </h6>
+                          <h6
+                            class="font-extrabold mb-0"
+                            style="font-size: 1.5rem"
+                            id="cntTotal"
+                          >
+                            0
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PIPELINE BANNER -->
+              <div class="card shadow-sm mb-4">
+                <div class="card-body py-3 px-4">
+                  <div class="verif-pipeline-banner">
+                    <div class="verif-pip-step">
+                      <div class="verif-pip-dot verif-pip-done">
+                        <i class="fas fa-paper-plane"></i>
+                      </div>
+                      <div class="verif-pip-label">Operator</div>
+                      <div class="verif-pip-sub">Kirim Permohonan</div>
+                    </div>
+                    <div class="verif-pip-connector verif-conn-active"></div>
+                    <div class="verif-pip-step">
+                      <div class="verif-pip-dot verif-pip-done">
+                        <i class="fas fa-search"></i>
+                      </div>
+                      <div class="verif-pip-label">Admin</div>
+                      <div class="verif-pip-sub">Verifikasi Dokumen</div>
+                    </div>
+                    <div class="verif-pip-connector verif-conn-active"></div>
+                    <div class="verif-pip-step">
+                      <div class="verif-pip-dot verif-pip-cur">
+                        <i class="fas fa-user-tie"></i>
+                      </div>
+                      <div class="verif-pip-label">Manager</div>
+                      <div class="verif-pip-sub">Persetujuan Akhir</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- INFO BOX -->
+              <div
+                class="admin-note-box mb-4"
+                style="background: #f0fdf4; border-color: #bbf7d0"
+              >
+                <i class="fas fa-info-circle" style="color: #16a34a"></i>
+                <div class="admin-note-text" style="color: #14532d">
+                  <div class="admin-note-label" style="color: #166534">
+                    Peran Anda di tahap ini
+                  </div>
+                  Permohonan yang muncul di halaman ini telah
+                  <strong>diverifikasi dokumennya oleh Admin</strong>. Tugas
+                  Anda adalah memberikan <strong>persetujuan akhir</strong> atau
+                  menolak perpanjangan lisensi.
+                </div>
+              </div>
+
+              <!-- TABEL -->
+              <section class="section">
+                <div class="card">
+                  <div class="card-header-operator">
+                    <h5 class="card-title-operator">
+                      Daftar Permohonan Siap Disetujui
+                    </h5>
+                  </div>
+                  <div class="operator-toolbar">
+                    <div class="toolbar-left">
+                      <div class="verif-filter-tabs" id="filterTabs">
+                        <button class="verif-ftab active" data-filter="all">
+                          Semua <span class="verif-fcnt" id="tabAll">0</span>
+                        </button>
+                        <button class="verif-ftab" data-filter="review">
+                          Menunggu
+                          <span class="verif-fcnt" id="tabReview">0</span>
+                        </button>
+                        <button class="verif-ftab" data-filter="approved">
+                          Disetujui
+                          <span class="verif-fcnt" id="tabApproved">0</span>
+                        </button>
+                        <button class="verif-ftab" data-filter="rejected-mgr">
+                          Ditolak
+                          <span class="verif-fcnt" id="tabRejected">0</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="toolbar-right">
+                      <div class="custom-search-box">
+                        <i class="fas fa-search"></i>
+                        <input
+                          type="text"
+                          id="verifSearch"
+                          placeholder="Cari nama, NIP, lisensi..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-wrapper-custom">
+                    <table class="table table-striped" id="verifTable">
+                      <thead>
+                        <tr>
+                          <th>Operator</th>
+                          <th>Jenis Lisensi</th>
+                          <th>No. Lisensi Lama</th>
+                          <th>Tgl. Pengajuan</th>
+                          <th>Verifikasi Admin</th>
+                          <th>Status Manager</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody id="verifTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DETAIL -->
+    <div
+      id="modalVerifDetail"
+      onclick="tutupModalJikaOverlay(event, 'modalVerifDetail')"
+    >
+      <div class="modal-box" style="max-width: 680px">
+        <div class="modal-header-custom">
+          <h6 class="modal-title-custom" id="mVerifTitle">
+            <i class="fas fa-stamp"></i> Detail Permohonan
+          </h6>
+          <button
+            class="btn-modal-close"
+            onclick="tutupModal('modalVerifDetail')"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body-custom">
+          <div class="verif-tracker-wrap" id="mVerifPipeline"></div>
+          <div class="admin-note-box" id="mAdminNoteBox">
+            <i class="fas fa-comment-dots"></i>
+            <div class="admin-note-text">
+              <div class="admin-note-label">Catatan Admin</div>
+              <span id="mAdminNote">—</span>
+            </div>
+          </div>
+          <div class="detail-info-grid" id="mVerifInfo"></div>
+          <div class="detail-lisensi-header">
+            <i class="fas fa-paperclip"></i> Dokumen Diunggah &amp; Diverifikasi
+            Admin
+          </div>
+          <div class="detail-lisensi-list" id="mVerifDocs"></div>
+          <div id="mMgrCatatanWrap" style="margin-top: 1.25rem">
+            <label class="form-label-custom">
+              <i
+                class="fas fa-pen"
+                style="color: #166534; margin-right: 4px"
+              ></i>
+              Catatan / Alasan Keputusan Manager
+            </label>
+            <textarea
+              class="form-input-custom"
+              id="mMgrCatatan"
+              rows="3"
+              placeholder="Tulis catatan keputusan Anda di sini..."
+            ></textarea>
+          </div>
+        </div>
+        <div
+          class="modal-footer-custom"
+          id="mVerifFooter"
+          style="
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+          "
+        >
+          <span class="verif-foot-note" id="mVerifFootNote"></span>
+          <div style="display: flex; gap: 0.6rem" id="mVerifFootBtns"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI -->
+    <div
+      id="modalConfirm"
+      onclick="tutupModalJikaOverlay(event, 'modalConfirm')"
+    >
+      <div class="confirm-box">
+        <div class="confirm-icon" id="confirmIcon"></div>
+        <div class="confirm-title" id="confirmTitle"></div>
+        <div class="confirm-sub" id="confirmSub"></div>
+        <div class="confirm-btns">
+          <button
+            class="confirm-btn-cancel"
+            onclick="tutupModal('modalConfirm')"
+          >
+            Batal
+          </button>
+          <button
+            class="confirm-btn-ok"
+            id="confirmOkBtn"
+            onclick="doFinalAction()"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/compiled/js/app.js"></script>
+
+    <script>
+      /* ── Mobile ── */
+      function mobToggle() {
+        document.getElementById("sidebar").classList.toggle("mob-open");
+        document.getElementById("mob-overlay").classList.toggle("mob-show");
+        document.body.style.overflow = document
+          .getElementById("sidebar")
+          .classList.contains("mob-open")
+          ? "hidden"
+          : "";
+      }
+      function mobClose() {
+        document.getElementById("sidebar").classList.remove("mob-open");
+        document.getElementById("mob-overlay").classList.remove("mob-show");
+        document.body.style.overflow = "";
+      }
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 992) mobClose();
+      });
+
+      /* ── Notif ── */
+      const toggle = document.getElementById("notifToggle");
+      const dropdown = document.getElementById("notifDropdown");
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+
+      /* ── Modal helpers ── */
+      function tutupModal(id) {
+        document.getElementById(id).classList.remove("show");
+        document.body.style.overflow = "";
+      }
+      function tutupModalJikaOverlay(e, id) {
+        if (e.target === document.getElementById(id)) tutupModal(id);
+      }
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          tutupModal("modalVerifDetail");
+          tutupModal("modalConfirm");
+        }
+      });
+
+      /* ── Data ── */
+      const verifData = [
+        {
+          id: 1,
+          name: "Budi Santoso",
+          nip: "52649201",
+          jenis: "CBL",
+          noLama: "CBL-2022-055",
+          tgl: "08 Feb 2026",
+          tglAdmin: "09 Feb 2026",
+          adminVerif: "Agung Eka",
+          status: "review",
+          pengajuan: "Perpanjangan Lisensi CBL",
+          adminNote:
+            "Semua dokumen lengkap dan valid. KTP, sertifikat CBL, dan foto terbaru sudah sesuai.",
+          docs: [
+            { name: "KTP Operator.pdf", size: "1.0 MB", type: "pdf" },
+            { name: "Sertifikat CBL.pdf", size: "760 KB", type: "pdf" },
+            { name: "Foto Terbaru.jpg", size: "415 KB", type: "img" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Budi Santoso",
+              time: "08 Feb 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✓",
+              time: "09 Feb 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Menunggu keputusan",
+              time: "—",
+              state: "cur",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: "Putu Ariana",
+          nip: "96034782",
+          jenis: "HLL",
+          noLama: "HLL-2022-031",
+          tgl: "28 Jan 2026",
+          tglAdmin: "29 Jan 2026",
+          adminVerif: "Agung Eka",
+          status: "approved",
+          pengajuan: "Perpanjangan Lisensi HLL",
+          adminNote:
+            "Dokumen lengkap. Rekomendasi atasan sudah dilampirkan dan sesuai format.",
+          mgrNote: "Perpanjangan disetujui. Masa berlaku 3 tahun ke depan.",
+          docs: [
+            { name: "KTP Operator.pdf", size: "950 KB", type: "pdf" },
+            { name: "Sertifikat HLL.pdf", size: "1.2 MB", type: "pdf" },
+            { name: "Rekomendasi Atasan.pdf", size: "640 KB", type: "pdf" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Putu Ariana",
+              time: "28 Jan 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✓",
+              time: "29 Jan 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Budi Setiawan ✓",
+              time: "30 Jan 2026",
+              state: "done",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 3,
+          name: "Made Wijaya",
+          nip: "74821039",
+          jenis: "ATT",
+          noLama: "ATT-2023-012",
+          tgl: "05 Feb 2026",
+          tglAdmin: "06 Feb 2026",
+          adminVerif: "Agung Eka",
+          status: "review",
+          pengajuan: "Perpanjangan Lisensi ATT",
+          adminNote:
+            "Dokumen KTP dan sertifikat ATT sudah valid. Lanjutkan ke persetujuan.",
+          docs: [
+            { name: "KTP Operator.pdf", size: "890 KB", type: "pdf" },
+            { name: "Sertifikat ATT.pdf", size: "1.3 MB", type: "pdf" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Made Wijaya",
+              time: "05 Feb 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✓",
+              time: "06 Feb 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Menunggu keputusan",
+              time: "—",
+              state: "cur",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+        {
+          id: 4,
+          name: "Wayan Darma",
+          nip: "63847201",
+          jenis: "BTT",
+          noLama: "BTT-2021-115",
+          tgl: "15 Jan 2026",
+          tglAdmin: "17 Jan 2026",
+          adminVerif: "Agung Eka",
+          status: "rejected-mgr",
+          pengajuan: "Perpanjangan Lisensi BTT",
+          adminNote:
+            "Semua dokumen tersedia, namun ada catatan minor pada foto yang perlu diperhatikan.",
+          mgrNote:
+            "Ditolak — sertifikat pelatihan tidak sesuai periode yang disyaratkan. Harap ajukan ulang dengan sertifikat terbaru.",
+          docs: [
+            { name: "KTP Operator.pdf", size: "1.1 MB", type: "pdf" },
+            { name: "Sertifikat BTT.pdf", size: "900 KB", type: "pdf" },
+            { name: "Foto 4x6.jpg", size: "280 KB", type: "img" },
+          ],
+          pipeline: [
+            {
+              label: "Operator",
+              who: "Wayan Darma",
+              time: "15 Jan 2026",
+              state: "done",
+              icon: "fas fa-user",
+            },
+            {
+              label: "Admin",
+              who: "Agung Eka ✓",
+              time: "17 Jan 2026",
+              state: "done",
+              icon: "fas fa-search",
+            },
+            {
+              label: "Manager",
+              who: "Budi Setiawan ✗",
+              time: "18 Jan 2026",
+              state: "done",
+              icon: "fas fa-user-tie",
+            },
+          ],
+        },
+      ];
+
+      let currentFilter = "all";
+      let activeVerif = null;
+      let pendingAction = null;
+
+      const statusCfg = {
+        review: { label: "Menunggu Keputusan", cls: "verif-badge-review" },
+        approved: { label: "Disetujui", cls: "verif-badge-approved" },
+        "rejected-mgr": { label: "Ditolak", cls: "verif-badge-rejected" },
+      };
+
+      const pipStateClass = {
+        done: "verif-tracker-done",
+        cur: "verif-tracker-cur",
+        wait: "verif-tracker-wait",
+      };
+
+      function pipelineMiniHTML(status) {
+        const map = {
+          review: ["done", "done", "cur"],
+          approved: ["done", "done", "done"],
+          "rejected-mgr": ["done", "done", "wait"],
+        };
+        return (
+          "<div class='verif-pip-mini'>" +
+          (map[status] || ["done", "done", "wait"])
+            .map(
+              (s) => `<div class='verif-pip-mini-step verif-pms-${s}'></div>`,
+            )
+            .join("") +
+          "</div>"
+        );
+      }
+
+      function updateCounts() {
+        const r = verifData.filter((x) => x.status === "review").length;
+        const a = verifData.filter((x) => x.status === "approved").length;
+        const rej = verifData.filter((x) => x.status === "rejected-mgr").length;
+        const tot = verifData.length;
+        document.getElementById("cntReview").textContent = r;
+        document.getElementById("cntApproved").textContent = a;
+        document.getElementById("cntRejected").textContent = rej;
+        document.getElementById("cntTotal").textContent = tot;
+        document.getElementById("tabAll").textContent = tot;
+        document.getElementById("tabReview").textContent = r;
+        document.getElementById("tabApproved").textContent = a;
+        document.getElementById("tabRejected").textContent = rej;
+      }
+
+      function renderTable(rows) {
+        const tbody = document.getElementById("verifTableBody");
+        if (!rows.length) {
+          tbody.innerHTML =
+            "<tr><td colspan='7'><div class='empty-state'><i class='fas fa-inbox'></i>Tidak ada permohonan</div></td></tr>";
+          return;
+        }
+        const jenisColor = {
+          BTT: "#2563eb",
+          HLL: "#dc2626",
+          CBL: "#d97706",
+          ATT: "#16a34a",
+        };
+        const jenisBg = {
+          BTT: "#eff6ff",
+          HLL: "#fee2e2",
+          CBL: "#fef3c7",
+          ATT: "#dcfce7",
+        };
+        tbody.innerHTML = rows
+          .map((r) => {
+            const s = statusCfg[r.status];
+            const c = jenisColor[r.jenis] || "#64748b";
+            const bg = jenisBg[r.jenis] || "#f1f5f9";
+            const btn =
+              r.status === "review"
+                ? `<button class='btn-detail-operator' style='background:var(--mgr-primary-light,#dcfce7);color:var(--mgr-primary,#166534);' onclick='event.stopPropagation();bukaModal(${r.id})'><i class='fas fa-stamp'></i> Putuskan</button>`
+                : `<button class='btn-detail-operator' onclick='event.stopPropagation();bukaModal(${r.id})'><i class='fas fa-eye'></i> Lihat</button>`;
+            return `<tr style='cursor:pointer' onclick='bukaModal(${r.id})'>
+            <td><div class='operator-name'>${r.name}</div><div class='operator-nip'>NIP: ${r.nip}</div></td>
+            <td><span class='verif-jenis-badge' style='color:${c};background:${bg};border:1px solid ${c}20'>${r.jenis}</span></td>
+            <td style='font-family:monospace;font-size:.8rem;color:#475569'>${r.noLama}</td>
+            <td style='color:#64748b;font-size:.85rem'>${r.tgl}</td>
+            <td><div style='font-size:.78rem;font-weight:600;color:#16a34a'><i class='fas fa-check-circle' style='margin-right:4px'></i>${r.adminVerif}</div><div style='font-size:.7rem;color:#94a3b8'>${r.tglAdmin}</div></td>
+            <td><span class='verif-badge ${s.cls}'>${s.label}</span></td>
+            <td>${btn}</td>
+          </tr>`;
+          })
+          .join("");
+      }
+
+      function getFiltered() {
+        const q = document.getElementById("verifSearch").value.toLowerCase();
+        return verifData.filter((r) => {
+          const matchFilter =
+            currentFilter === "all" || r.status === currentFilter;
+          const matchSearch =
+            !q ||
+            r.name.toLowerCase().includes(q) ||
+            r.nip.includes(q) ||
+            r.noLama.toLowerCase().includes(q);
+          return matchFilter && matchSearch;
+        });
+      }
+
+      document
+        .getElementById("filterTabs")
+        .addEventListener("click", function (e) {
+          const btn = e.target.closest(".verif-ftab");
+          if (!btn) return;
+          document
+            .querySelectorAll(".verif-ftab")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentFilter = btn.dataset.filter;
+          renderTable(getFiltered());
+        });
+      document
+        .getElementById("verifSearch")
+        .addEventListener("input", () => renderTable(getFiltered()));
+
+      function bukaModal(id) {
+        const r = verifData.find((x) => x.id === id);
+        if (!r) return;
+        activeVerif = r;
+
+        document.getElementById("mVerifTitle").innerHTML =
+          `<i class='fas fa-stamp'></i> ${r.pengajuan}`;
+
+        /* Pipeline tracker */
+        document.getElementById("mVerifPipeline").innerHTML = r.pipeline
+          .map((p, i) => {
+            const cls = pipStateClass[p.state] || "verif-tracker-wait";
+            const connector =
+              i < r.pipeline.length - 1
+                ? `<div class='verif-tracker-conn ${p.state === "done" ? "verif-conn-done" : ""}'></div>`
+                : "";
+            return `<div class='verif-tracker-step ${cls}'>
+            <div class='verif-tracker-icon'><i class='${p.icon}'></i></div>
+            <div class='verif-tracker-label'>${p.label}</div>
+            <div class='verif-tracker-who'>${p.who}</div>
+            ${p.time !== "—" ? `<div class='verif-tracker-time'>${p.time}</div>` : ""}
+          </div>${connector}`;
+          })
+          .join("");
+
+        document.getElementById("mAdminNote").textContent = r.adminNote || "—";
+
+        /* Info grid */
+        const s = statusCfg[r.status];
+        document.getElementById("mVerifInfo").innerHTML = `
+          <div class='detail-info-item'><span class='detail-info-label'>Nama Lengkap</span><span class='detail-info-value'>${r.name}</span></div>
+          <div class='detail-info-item'><span class='detail-info-label'>NIP</span><span class='detail-info-value'>${r.nip}</span></div>
+          <div class='detail-info-item'><span class='detail-info-label'>Jenis Lisensi</span><span class='detail-info-value'>${r.jenis}</span></div>
+          <div class='detail-info-item'><span class='detail-info-label'>No. Lisensi Lama</span><span class='detail-info-value' style='font-family:monospace'>${r.noLama}</span></div>
+          <div class='detail-info-item'><span class='detail-info-label'>Tgl. Pengajuan</span><span class='detail-info-value'>${r.tgl}</span></div>
+          <div class='detail-info-item'><span class='detail-info-label'>Status</span><span class='detail-info-value'><span class='verif-badge ${s.cls}'>${s.label}</span></span></div>`;
+
+        /* Docs */
+        document.getElementById("mVerifDocs").innerHTML = r.docs
+          .map((d) => {
+            const isPdf = d.type === "pdf";
+            const accentColor = isPdf ? "#dc2626" : "#166534";
+            const fileIcon = isPdf
+              ? "fa-file-pdf' style='color:#dc2626"
+              : "fa-file-image' style='color:#166534";
+            return `<div class='lisensi-card-h' style='border-color:#e2e8f0'>
+            <div class='lisensi-card-h-accent' style='background:${accentColor}'></div>
+            <div class='lisensi-card-h-info'>
+              <div style='display:flex;align-items:center;gap:.5rem'>
+                <i class='fas ${fileIcon};font-size:1.1rem'></i>
+                <span style='font-size:.875rem;font-weight:700;color:#0f172a'>${d.name}</span>
+                <span style='font-size:.75rem;color:#94a3b8'>${d.size}</span>
+              </div>
+            </div>
+            <div class='lisensi-card-h-file'>
+              <div style='display:flex;gap:.45rem'>
+                <button class='lisensi-btn-view' onclick='showToast("Membuka ${d.name}...","success")'><i class='fas fa-eye'></i> Lihat</button>
+                <button class='lisensi-btn-download' onclick='showToast("Mengunduh ${d.name}...","success")'><i class='fas fa-download'></i></button>
+              </div>
+            </div>
+          </div>`;
+          })
+          .join("");
+
+        /* Catatan & footer */
+        const catatanWrap = document.getElementById("mMgrCatatanWrap");
+        const footNote = document.getElementById("mVerifFootNote");
+        const footBtns = document.getElementById("mVerifFootBtns");
+        document.getElementById("mMgrCatatan").value = "";
+        document.getElementById("mMgrCatatan").removeAttribute("readonly");
+
+        if (r.status === "review") {
+          catatanWrap.style.display = "block";
+          footNote.innerHTML =
+            '<i class="fas fa-exclamation-circle" style="color:#d97706"></i> Tinjau dokumen &amp; catatan admin sebelum memutuskan.';
+          footBtns.innerHTML = `
+            <button class='btn-reject-custom'  onclick='konfirmasi("reject")'><i class='fas fa-times'></i> Tolak</button>
+            <button class='btn-approve-custom' onclick='konfirmasi("approve")'><i class='fas fa-check'></i> Setujui Lisensi</button>`;
+        } else {
+          if (r.mgrNote) {
+            catatanWrap.style.display = "block";
+            document.getElementById("mMgrCatatan").value = r.mgrNote;
+            document
+              .getElementById("mMgrCatatan")
+              .setAttribute("readonly", true);
+          } else {
+            catatanWrap.style.display = "none";
+          }
+          footNote.innerHTML = `Status: <span class='verif-badge ${s.cls}'>${s.label}</span>`;
+          footBtns.innerHTML =
+            "<button class='btn-tutup-custom' onclick='tutupModal(\"modalVerifDetail\")'><i class='fas fa-times'></i> Tutup</button>";
+        }
+
+        document.getElementById("modalVerifDetail").classList.add("show");
+        document.body.style.overflow = "hidden";
+      }
+
+      function konfirmasi(type) {
+        pendingAction = type;
+        const isApprove = type === "approve";
+        const icon = document.getElementById("confirmIcon");
+        icon.className =
+          "confirm-icon " +
+          (isApprove ? "confirm-icon-approve" : "confirm-icon-reject");
+        icon.innerHTML = isApprove
+          ? "<i class='fas fa-check'></i>"
+          : "<i class='fas fa-times'></i>";
+        document.getElementById("confirmTitle").textContent = isApprove
+          ? "Setujui Perpanjangan Lisensi?"
+          : "Tolak Perpanjangan Lisensi?";
+        document.getElementById("confirmSub").textContent = isApprove
+          ? `Lisensi ${activeVerif.jenis} atas nama ${activeVerif.name} akan diperpanjang.`
+          : `Permohonan ${activeVerif.name} akan ditolak dan operator perlu mengajukan ulang.`;
+        const okBtn = document.getElementById("confirmOkBtn");
+        okBtn.textContent = isApprove ? "Ya, Setujui" : "Ya, Tolak";
+        okBtn.className =
+          "confirm-btn-ok " + (isApprove ? "approve" : "reject");
+        document.getElementById("modalConfirm").classList.add("show");
+      }
+
+      function doFinalAction() {
+        if (!activeVerif || !pendingAction) return;
+        const catatan = document.getElementById("mMgrCatatan").value.trim();
+        const today = new Date().toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+
+        if (pendingAction === "approve") {
+          activeVerif.status = "approved";
+          activeVerif.mgrNote =
+            catatan || "Perpanjangan disetujui oleh Manager.";
+          activeVerif.pipeline[2].who = "Budi Setiawan ✓";
+          activeVerif.pipeline[2].time = today;
+          activeVerif.pipeline[2].state = "done";
+          showToast(
+            `Lisensi ${activeVerif.jenis} atas nama ${activeVerif.name} berhasil disetujui!`,
+            "success",
+          );
+        } else {
+          activeVerif.status = "rejected-mgr";
+          activeVerif.mgrNote = catatan || "Ditolak oleh Manager.";
+          activeVerif.pipeline[2].who = "Budi Setiawan ✗";
+          activeVerif.pipeline[2].time = today;
+          activeVerif.pipeline[2].state = "done";
+          showToast(`Permohonan ${activeVerif.name} telah ditolak.`, "error");
+        }
+
+        tutupModal("modalConfirm");
+        tutupModal("modalVerifDetail");
+        updateCounts();
+        renderTable(getFiltered());
+        pendingAction = null;
+      }
+
+      function showToast(msg, type) {
+        const container = document.getElementById("gse-toast-container");
+        const el = document.createElement("div");
+        el.className = `gse-toast gse-toast-${type}`;
+        const icon = type === "success" ? "fa-check-circle" : "fa-times-circle";
+        el.innerHTML = `
+          <div class='gse-toast-icon'><i class='fas ${icon}'></i></div>
+          <div class='gse-toast-body'><p class='gse-toast-title'>${msg}</p></div>
+          <button class='gse-toast-close'><i class='fas fa-times'></i></button>
+          <div class='gse-toast-bar' style='animation-duration:3500ms'></div>`;
+        el.querySelector(".gse-toast-close").addEventListener("click", () => {
+          el.classList.add("gse-toast-exit");
+          setTimeout(() => el.remove(), 300);
+        });
+        container.appendChild(el);
+        setTimeout(() => {
+          el.classList.add("gse-toast-exit");
+          setTimeout(() => el.remove(), 300);
+        }, 3500);
+      }
+
+      /* Init */
+      updateCounts();
+      renderTable(verifData);
+    </script>
+  </body>
+</html>

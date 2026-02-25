@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Operator GSE</title>
+    <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
+
+    <link
+      rel="stylesheet"
+      href="assets/extensions/simple-datatables/style.css"
+    />
+    <link rel="stylesheet" href="./assets/compiled/css/table-datatable.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
+    <link rel="stylesheet" href="./assets/compiled/css/iconly.css" />
+    <link rel="stylesheet" href="assets/compiled/css/custom.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- NUCLEAR MOBILE SIDEBAR FIX -->
+  </head>
+
+  <body>
+    <div id="gse-toast-container"></div>
+
+    <!-- OVERLAY MOBILE -->
+    <div id="mob-overlay" onclick="mobClose()"></div>
+
+    <div id="app">
+      <!-- SIDEBAR -->
+      <div id="sidebar">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="sidebar-logo">
+                <img src="assets/Foto/LOGO BARU.png" alt="Logo" />
+              </div>
+              <div class="sidebar-toggler x">
+                <a href="#" class="sidebar-hide d-xl-none d-block">
+                  <i class="bi bi-x bi-middle"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item">
+                <a href="dashboard-admin.html" class="sidebar-link">
+                  <i class="bi bi-grid-fill"></i><span>Dashboard</span>
+                </a>
+              </li>
+              <li class="sidebar-item active">
+                <a href="kelolaDataOperator-admin.html" class="sidebar-link">
+                  <i class="bi bi-people-fill"></i
+                  ><span>Data Operator GSE</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="verifikasiLisensi-admin.html" class="sidebar-link">
+                  <i class="bi bi-file-earmark-plus-fill"></i
+                  ><span>Pengajuan Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="monitoringLisensi-admin.html" class="sidebar-link">
+                  <i class="bi bi-clipboard-check-fill"></i
+                  ><span>Monitoring Lisensi</span>
+                </a>
+              </li>
+              <li class="sidebar-item mt-auto">
+                <a href="login.html" class="sidebar-link logout-link">
+                  <i class="bi bi-box-arrow-right"></i><span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div id="main">
+        <header
+          class="main-header d-flex align-items-center justify-content-between px-4 py-3"
+        >
+          <!-- Hamburger (mobile only) -->
+          <button
+            id="mob-ham"
+            class="d-lg-none"
+            onclick="mobToggle()"
+            aria-label="Toggle menu"
+          >
+            <i class="bi bi-list"></i>
+          </button>
+
+          <h4 class="mb-0 fw-bold">Data Operator GSE</h4>
+          <div class="d-flex align-items-center gap-4 position-relative">
+            <div class="position-relative">
+              <div id="notifToggle" style="cursor: pointer">
+                <i class="bi bi-bell fs-4"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size: 10px"
+                  >3</span
+                >
+              </div>
+              <div id="notifDropdown" class="notif-dropdown">
+                <div class="notif-header">Notifikasi</div>
+                <div class="notif-item">
+                  Lisensi PT Angkasa Pura akan expired<small
+                    >2 menit lalu</small
+                  >
+                </div>
+                <div class="notif-item">
+                  Data Operator baru ditambahkan<small>10 menit lalu</small>
+                </div>
+                <div class="notif-item">
+                  3 Lisensi mendekati expired<small>1 jam lalu</small>
+                </div>
+                <div class="notif-footer">Lihat Semua</div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="text-end me-3">
+                <h6 class="mb-0 fw-bold">Admin</h6>
+                <small class="text-muted">Agung Eka</small>
+              </div>
+              <div class="avatar avatar-md">
+                <img src="./assets/compiled/jpg/1.jpg" alt="Profile" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="page-content monitoring-page">
+          <section class="row">
+            <div class="col-12">
+              <!-- STAT CARDS -->
+              <div class="row g-4">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card h-10 shadow-sm card-green">
+                    <div class="card-body px-4 py-4-5">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="stats-icon">
+                          <img
+                            src="assets/Foto/btt.jpg"
+                            alt="BTT"
+                            class="icon-img"
+                          />
+                        </div>
+                        <div>
+                          <h6 class="text-muted font-semibold mb-1">
+                            Operator BTT
+                          </h6>
+                          <h6 class="font-extrabold">112</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card h-10 shadow-sm card-green">
+                    <div class="card-body px-4 py-4-5">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="stats-icon">
+                          <img
+                            src="assets/Foto/hll.jpg"
+                            alt="HLL"
+                            class="icon-img"
+                          />
+                        </div>
+                        <div>
+                          <h6 class="text-muted font-semibold mb-1">
+                            Operator HLL
+                          </h6>
+                          <h6 class="font-extrabold">112</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card h-10 shadow-sm card-green">
+                    <div class="card-body px-4 py-4-5">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="stats-icon">
+                          <img
+                            src="assets/Foto/att.jpg"
+                            alt="ATT"
+                            class="icon-img"
+                          />
+                        </div>
+                        <div>
+                          <h6 class="text-muted font-semibold mb-1">
+                            Operator ATT
+                          </h6>
+                          <h6 class="font-extrabold">112</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="card h-10 shadow-sm card-green">
+                    <div class="card-body px-4 py-4-5">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="stats-icon">
+                          <img
+                            src="assets/Foto/cbl.jpg"
+                            alt="CBL"
+                            class="icon-img"
+                          />
+                        </div>
+                        <div>
+                          <h6 class="text-muted font-semibold mb-1">
+                            Operator CBL
+                          </h6>
+                          <h6 class="font-extrabold">112</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TABEL -->
+              <section class="section mt-4">
+                <div class="card">
+                  <div class="card-header-operator">
+                    <h5 class="card-title-operator">Data Operator GSE</h5>
+                  </div>
+                  <div class="operator-toolbar">
+                    <div class="toolbar-left">
+                      <select id="customLengthSelect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                      </select>
+                      <span>entries per page</span>
+                    </div>
+                    <div class="toolbar-right">
+                      <div class="custom-search-box">
+                        <i class="fas fa-search"></i>
+                        <input
+                          type="text"
+                          id="customSearchInput"
+                          placeholder="Search..."
+                        />
+                      </div>
+                      <button
+                        class="btn-tambah-operator"
+                        onclick="bukaModalTambah()"
+                      >
+                        <i class="fas fa-plus"></i> Tambah Operator
+                      </button>
+                    </div>
+                  </div>
+                  <div class="table-wrapper-custom">
+                    <table class="table table-striped" id="table1">
+                      <thead>
+                        <tr>
+                          <th>Nama</th>
+                          <th>NIP</th>
+                          <th>Jenis Lisensi</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>I Gusti Lanang Parmadi</td>
+                          <td>52647291</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                            <span class="badge bg-success">ATT</span>
+                            <span class="badge bg-warning">CBL</span>
+                            <span class="badge bg-danger">HLL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'I Gusti Lanang Parmadi',
+                                  nip: '52647291',
+                                  noHp: '081234567890',
+                                  email: 'igusti@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2021-047',
+                                      expired: '15 Feb 2026',
+                                      status: 'expired',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2023-012',
+                                      expired: '05 Sep 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2022-055',
+                                      expired: '10 Nov 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2022-031',
+                                      expired: '20 Agu 2026',
+                                      status: 'segera',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Nabil</td>
+                          <td>52648100</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                            <span class="badge bg-danger">HLL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Nabil',
+                                  nip: '52648100',
+                                  noHp: '089876543210',
+                                  email: 'nabil@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2022-011',
+                                      expired: '01 Mar 2027',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2021-008',
+                                      expired: '10 Jan 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Budi Santoso</td>
+                          <td>52649201</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                            <span class="badge bg-success">ATT</span>
+                            <span class="badge bg-warning">CBL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Budi Santoso',
+                                  nip: '52649201',
+                                  noHp: '082109876543',
+                                  email: 'budi.santoso@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2021-047',
+                                      expired: '15 Feb 2026',
+                                      status: 'expired',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2023-012',
+                                      expired: '05 Sep 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2022-055',
+                                      expired: '10 Nov 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL TAMBAH OPERATOR -->
+    <div
+      id="modalTambahOperator"
+      onclick="tutupModalJikaOverlay(event, 'modalTambahOperator')"
+    >
+      <div class="modal-box">
+        <div class="modal-header-custom">
+          <h6 class="modal-title-custom">
+            <i class="fas fa-user-plus"></i> Tambah Operator
+          </h6>
+          <button
+            class="btn-modal-close"
+            onclick="tutupModal('modalTambahOperator')"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body-custom">
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Nama <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              class="form-input-custom"
+              id="inputNama"
+              placeholder="Masukkan nama lengkap operator"
+            />
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >NIP <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              class="form-input-custom"
+              id="inputNIP"
+              placeholder="Masukkan NIP"
+            />
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Email <span class="required">*</span></label
+            >
+            <input
+              type="email"
+              class="form-input-custom"
+              id="inputEmail"
+              placeholder="Masukkan email"
+            />
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Jenis Lisensi <span class="required">*</span></label
+            >
+            <select class="form-input-custom" id="inputJenisLisensi">
+              <option value="" disabled selected>Pilih jenis lisensi</option>
+              <option value="BTT">BTT</option>
+              <option value="HLL">HLL</option>
+              <option value="CBL">CBL</option>
+              <option value="ATT">ATT</option>
+            </select>
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Upload File Lisensi <span class="required">*</span></label
+            >
+            <div class="file-drop-zone" id="fileDropZone">
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png"
+                id="inputFileLisensi"
+                onchange="handleFilePilih(event)"
+              />
+              <div class="drop-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <p>
+                Drag & drop file di sini, atau
+                <strong>klik untuk browse</strong>
+              </p>
+              <p class="file-hint">PDF, JPG, PNG (maks. 5MB)</p>
+              <div class="file-name-display" id="fileNameDisplay"></div>
+            </div>
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Tanggal Expired <span class="required">*</span></label
+            >
+            <input
+              type="date"
+              class="form-input-custom"
+              id="inputTanggalExpired"
+            />
+          </div>
+        </div>
+        <div class="modal-footer-custom">
+          <button
+            class="btn-cancel-custom"
+            onclick="tutupModal('modalTambahOperator')"
+          >
+            Batal
+          </button>
+          <button class="btn-submit-custom" onclick="submitTambahOperator()">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DETAIL OPERATOR -->
+    <div
+      id="modalDetailOperator"
+      onclick="tutupModalJikaOverlay(event, 'modalDetailOperator')"
+    >
+      <div class="modal-box">
+        <div class="modal-header-custom">
+          <h6 class="modal-title-custom" id="detailNamaJudul">
+            <i class="fas fa-id-card"></i> Detail Operator
+          </h6>
+          <button
+            class="btn-modal-close"
+            onclick="tutupModal('modalDetailOperator')"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body-custom">
+          <div class="detail-info-grid">
+            <div class="detail-info-item">
+              <span class="detail-info-label">NIP</span
+              ><span class="detail-info-value" id="detailNIP">—</span>
+            </div>
+            <div class="detail-info-item">
+              <span class="detail-info-label">No. HP</span
+              ><span class="detail-info-value" id="detailNoHp">—</span>
+            </div>
+            <div class="detail-info-item" style="grid-column: 1/-1">
+              <span class="detail-info-label">Email</span
+              ><span class="detail-info-value" id="detailEmail">—</span>
+            </div>
+          </div>
+          <div class="detail-lisensi-header">
+            <i class="fas fa-id-badge"></i> Lisensi Dimiliki
+          </div>
+          <div class="detail-lisensi-list" id="detailLisensiGrid"></div>
+        </div>
+        <div class="modal-footer-custom">
+          <button class="btn-berhenti-custom" onclick="konfirmasiBerhenti()">
+            <i class="fas fa-user-slash"></i> Berhentikan Operator
+          </button>
+          <div style="display: flex; gap: 0.6rem">
+            <button
+              class="btn-tutup-custom"
+              onclick="tutupModal('modalDetailOperator')"
+            >
+              <i class="fas fa-times"></i> Tutup
+            </button>
+            <button class="btn-edit-custom" onclick="bukaModalEdit()">
+              <i class="fas fa-pen"></i> Edit Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL EDIT OPERATOR -->
+    <div
+      id="modalEditOperator"
+      onclick="tutupModalJikaOverlay(event, 'modalEditOperator')"
+    >
+      <div class="modal-box">
+        <div class="modal-header-custom">
+          <h6 class="modal-title-custom">
+            <i class="fas fa-user-edit"></i> Edit Data Operator
+          </h6>
+          <button
+            class="btn-modal-close"
+            onclick="tutupModal('modalEditOperator')"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body-custom">
+          <div class="edit-section-label">Info Operator</div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Nama <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              class="form-input-custom"
+              id="editNama"
+              placeholder="Nama lengkap operator"
+            />
+          </div>
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem"
+          >
+            <div class="form-group-custom">
+              <label class="form-label-custom"
+                >NIP <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                class="form-input-custom"
+                id="editNIP"
+                placeholder="NIP"
+              />
+            </div>
+            <div class="form-group-custom">
+              <label class="form-label-custom"
+                >No. HP <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                class="form-input-custom"
+                id="editNoHp"
+                placeholder="No. HP"
+              />
+            </div>
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Email <span class="required">*</span></label
+            >
+            <input
+              type="email"
+              class="form-input-custom"
+              id="editEmail"
+              placeholder="Email"
+            />
+          </div>
+          <div class="edit-section-divider"></div>
+          <div class="edit-section-label">
+            <i
+              class="fas fa-id-badge"
+              style="color: #16a34a; margin-right: 0.4rem"
+            ></i
+            >Update Lisensi
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom"
+              >Pilih Lisensi yang Ingin Diubah</label
+            >
+            <div class="lisensi-dropdown-wrapper">
+              <div
+                class="lisensi-dropdown-trigger"
+                id="lisensiDropdownTrigger"
+                onclick="toggleLisensiDropdown()"
+              >
+                <span id="lisensiDropdownLabel"
+                  ><i
+                    class="fas fa-chevron-down"
+                    style="color: #94a3b8; font-size: 0.8rem"
+                  ></i>
+                  Pilih lisensi...</span
+                >
+                <i
+                  class="fas fa-chevron-down lisensi-dropdown-arrow"
+                  id="lisensiDropdownArrow"
+                ></i>
+              </div>
+              <div class="lisensi-dropdown-menu" id="lisensiDropdownMenu"></div>
+            </div>
+          </div>
+          <div id="editLisensiForm" style="display: none">
+            <div
+              class="edit-lisensi-selected-badge"
+              id="editLisensiSelectedBadge"
+            ></div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+                margin-top: 0.75rem;
+              "
+            >
+              <div class="form-group-custom" style="margin-bottom: 0">
+                <label class="form-label-custom"
+                  >No. Lisensi <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-input-custom"
+                  id="editLisensiNo"
+                  placeholder="No. lisensi"
+                />
+              </div>
+              <div class="form-group-custom" style="margin-bottom: 0">
+                <label class="form-label-custom"
+                  >Tanggal Expired <span class="required">*</span></label
+                >
+                <input
+                  type="date"
+                  class="form-input-custom"
+                  id="editLisensiExp"
+                />
+              </div>
+            </div>
+            <div class="form-group-custom" style="margin-top: 0.75rem">
+              <label class="form-label-custom"
+                >Upload File Baru
+                <span style="color: #94a3b8; font-weight: 400"
+                  >(opsional)</span
+                ></label
+              >
+              <div class="file-drop-zone" id="editFileDropZone">
+                <input
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  id="editFileLisensi"
+                  onchange="handleEditFilePilih(event)"
+                />
+                <div class="drop-icon">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <p>Klik atau drag file baru <strong>(PDF, JPG, PNG)</strong></p>
+                <div class="file-name-display" id="editFileNameDisplay"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer-custom">
+          <button
+            class="btn-cancel-custom"
+            onclick="tutupModal('modalEditOperator')"
+          >
+            Batal
+          </button>
+          <button class="btn-submit-custom" onclick="submitEditOperator()">
+            <i class="fas fa-save"></i> Simpan Perubahan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL PREVIEW LISENSI -->
+    <div
+      id="modalPreviewLisensi"
+      onclick="tutupModalJikaOverlay(event, 'modalPreviewLisensi')"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 999999;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      "
+    >
+      <div
+        style="
+          background: #1e293b;
+          border-radius: 16px;
+          width: 100%;
+          max-width: 780px;
+          max-height: 92vh;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #334155;
+            flex-shrink: 0;
+          "
+        >
+          <div style="display: flex; align-items: center; gap: 0.6rem">
+            <div
+              id="previewBadge"
+              style="
+                font-size: 0.72rem;
+                font-weight: 800;
+                padding: 0.25rem 0.65rem;
+                border-radius: 999px;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+              "
+            ></div>
+            <span
+              id="previewFilename"
+              style="color: #e2e8f0; font-size: 0.875rem; font-weight: 600"
+            ></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <button
+              onclick="downloadPreviewFile()"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                padding: 0.42rem 0.9rem;
+                background: #16a34a;
+                border: none;
+                border-radius: 8px;
+                color: #fff;
+                font-size: 0.8rem;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: inherit;
+              "
+            >
+              <i class="fas fa-download"></i> Download
+            </button>
+            <button
+              onclick="tutupModalPreview()"
+              style="
+                background: #334155;
+                border: none;
+                border-radius: 8px;
+                width: 32px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                color: #94a3b8;
+                font-size: 0.9rem;
+              "
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div
+          id="previewContent"
+          style="
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            min-height: 400px;
+            background: #0f172a;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/compiled/js/app.js"></script>
+    <script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      /* ── Mobile Sidebar ── */
+      function mobToggle() {
+        document.getElementById("sidebar").classList.toggle("mob-open");
+        document.getElementById("mob-overlay").classList.toggle("mob-show");
+        document.body.style.overflow = document
+          .getElementById("sidebar")
+          .classList.contains("mob-open")
+          ? "hidden"
+          : "";
+      }
+      function mobClose() {
+        document.getElementById("sidebar").classList.remove("mob-open");
+        document.getElementById("mob-overlay").classList.remove("mob-show");
+        document.body.style.overflow = "";
+      }
+
+      /* ── GSE Toast ── */
+      var gseToast = (function () {
+        var container = document.getElementById("gse-toast-container");
+        var ICONS = {
+          success: '<i class="fas fa-check-circle"></i>',
+          error: '<i class="fas fa-times-circle"></i>',
+          warning: '<i class="fas fa-exclamation-triangle"></i>',
+          confirm: '<i class="fas fa-exclamation-circle"></i>',
+        };
+        var DURATION = { success: 3500, error: 5000, warning: 4500 };
+        function dismiss(el) {
+          el.classList.add("gse-toast-exit");
+          el.addEventListener(
+            "animationend",
+            function () {
+              el.remove();
+            },
+            { once: true },
+          );
+        }
+        function show(type, title, msg) {
+          var dur = DURATION[type] || 4000;
+          var el = document.createElement("div");
+          el.className = "gse-toast gse-toast-" + type;
+          el.innerHTML =
+            '<div class="gse-toast-icon">' +
+            (ICONS[type] || ICONS.success) +
+            '</div><div class="gse-toast-body"><p class="gse-toast-title">' +
+            title +
+            "</p>" +
+            (msg ? '<p class="gse-toast-msg">' + msg + "</p>" : "") +
+            '</div><button class="gse-toast-close"><i class="fas fa-times"></i></button><div class="gse-toast-bar" style="animation-duration:' +
+            dur +
+            'ms"></div>';
+          el.querySelector(".gse-toast-close").addEventListener(
+            "click",
+            function () {
+              dismiss(el);
+            },
+          );
+          var timer = setTimeout(function () {
+            dismiss(el);
+          }, dur);
+          container.appendChild(el);
+        }
+        function confirm(msg, onOk) {
+          var el = document.createElement("div");
+          el.className = "gse-toast gse-toast-confirm";
+          el.innerHTML =
+            '<div class="gse-toast-icon">' +
+            ICONS.confirm +
+            '</div><div class="gse-toast-body"><p class="gse-toast-title">Konfirmasi</p><p class="gse-toast-msg">' +
+            msg +
+            '</p><div class="gse-toast-actions"><button class="gse-toast-btn gse-toast-btn-ok">Ya, Lanjutkan</button><button class="gse-toast-btn gse-toast-btn-cancel">Batal</button></div></div>';
+          function bye() {
+            el.classList.add("gse-toast-exit");
+            el.addEventListener(
+              "animationend",
+              function () {
+                el.remove();
+              },
+              { once: true },
+            );
+          }
+          el.querySelector(".gse-toast-btn-ok").addEventListener(
+            "click",
+            function () {
+              bye();
+              onOk();
+            },
+          );
+          el.querySelector(".gse-toast-btn-cancel").addEventListener(
+            "click",
+            bye,
+          );
+          container.appendChild(el);
+        }
+        return { show: show, confirm: confirm };
+      })();
+
+      /* ── Notifikasi ── */
+      var toggle = document.getElementById("notifToggle");
+      var dropdown = document.getElementById("notifDropdown");
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+
+      /* ── DataTable ── */
+      var dataTable;
+      document.addEventListener("DOMContentLoaded", function () {
+        var tableEl = document.getElementById("table1");
+        if (tableEl && typeof simpleDatatables !== "undefined") {
+          dataTable = new simpleDatatables.DataTable(tableEl, {
+            searchable: true,
+            perPage: 10,
+            perPageSelect: false,
+          });
+          document
+            .getElementById("customSearchInput")
+            .addEventListener("input", function () {
+              dataTable.search(this.value);
+            });
+          document
+            .getElementById("customLengthSelect")
+            .addEventListener("change", function () {
+              dataTable.options.perPage = parseInt(this.value);
+              dataTable.update();
+            });
+        }
+      });
+
+      /* ── Modal helpers ── */
+      function bukaModal(id) {
+        document.getElementById(id).classList.add("show");
+        document.body.style.overflow = "hidden";
+      }
+      function tutupModal(id) {
+        document.getElementById(id).classList.remove("show");
+        document.body.style.overflow = "";
+      }
+      function tutupModalJikaOverlay(e, id) {
+        if (e.target === document.getElementById(id)) {
+          if (id === "modalPreviewLisensi") tutupModalPreview();
+          else tutupModal(id);
+        }
+      }
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          tutupModalPreview();
+          [
+            "modalTambahOperator",
+            "modalDetailOperator",
+            "modalEditOperator",
+          ].forEach(tutupModal);
+        }
+      });
+
+      /* ── Modal Tambah ── */
+      function bukaModalTambah() {
+        bukaModal("modalTambahOperator");
+      }
+      function handleFilePilih(e) {
+        var file = e.target.files[0];
+        if (file) {
+          var d = document.getElementById("fileNameDisplay");
+          d.textContent = "📎 " + file.name;
+          d.style.display = "block";
+        }
+      }
+      var dropZone = document.getElementById("fileDropZone");
+      if (dropZone) {
+        dropZone.addEventListener("dragover", function (e) {
+          e.preventDefault();
+          dropZone.classList.add("dragover");
+        });
+        dropZone.addEventListener("dragleave", function () {
+          dropZone.classList.remove("dragover");
+        });
+        dropZone.addEventListener("drop", function () {
+          dropZone.classList.remove("dragover");
+        });
+      }
+      function submitTambahOperator() {
+        var nama = document.getElementById("inputNama").value.trim();
+        var nip = document.getElementById("inputNIP").value.trim();
+        var jen = document.getElementById("inputJenisLisensi").value;
+        var tgl = document.getElementById("inputTanggalExpired").value;
+        if (!nama || !nip || !jen || !tgl) {
+          gseToast.show(
+            "error",
+            "Gagal Menyimpan!",
+            "Harap lengkapi semua field yang wajib diisi.",
+          );
+          return;
+        }
+        gseToast.show(
+          "success",
+          "Operator Ditambahkan!",
+          "Data <strong>" + nama + "</strong> berhasil disimpan.",
+        );
+        tutupModal("modalTambahOperator");
+        [
+          "inputNama",
+          "inputNIP",
+          "inputTanggalExpired",
+          "inputFileLisensi",
+        ].forEach(function (id) {
+          document.getElementById(id).value = "";
+        });
+        document.getElementById("inputJenisLisensi").value = "";
+        document.getElementById("fileNameDisplay").style.display = "none";
+      }
+
+      /* ── Warna & Status ── */
+      var WARNA = {
+        BTT: {
+          border: "#3b82f6",
+          bg: "#eff6ff",
+          bgDark: "#dbeafe",
+          label: "#1d4ed8",
+          soft: "rgba(59,130,246,0.1)",
+        },
+        HLL: {
+          border: "#ef4444",
+          bg: "#fff1f2",
+          bgDark: "#fee2e2",
+          label: "#b91c1c",
+          soft: "rgba(239,68,68,0.1)",
+        },
+        CBL: {
+          border: "#f59e0b",
+          bg: "#fffbeb",
+          bgDark: "#fef3c7",
+          label: "#b45309",
+          soft: "rgba(245,158,11,0.1)",
+        },
+        ATT: {
+          border: "#10b981",
+          bg: "#f0fdf4",
+          bgDark: "#d1fae5",
+          label: "#047857",
+          soft: "rgba(16,185,129,0.1)",
+        },
+      };
+      var STATUS = {
+        expired: {
+          dot: "#ef4444",
+          text: "EXPIRED",
+          color: "#ef4444",
+          bg: "#fee2e2",
+        },
+        aktif: {
+          dot: "#16a34a",
+          text: "AKTIF",
+          color: "#16a34a",
+          bg: "#dcfce7",
+        },
+        segera: {
+          dot: "#f59e0b",
+          text: "SEGERA EXPIRED",
+          color: "#d97706",
+          bg: "#fef3c7",
+        },
+      };
+      var opAktif = {};
+      var DEMO_FILES = {
+        "BTT-2021-047": {
+          url: null,
+          type: "pdf",
+          name: "Lisensi_BTT-2021-047.pdf",
+        },
+        "ATT-2023-012": {
+          url: null,
+          type: "pdf",
+          name: "Lisensi_ATT-2023-012.pdf",
+        },
+        "CBL-2022-055": {
+          url: null,
+          type: "jpg",
+          name: "Lisensi_CBL-2022-055.jpg",
+        },
+        "HLL-2022-031": {
+          url: null,
+          type: "pdf",
+          name: "Lisensi_HLL-2022-031.pdf",
+        },
+      };
+
+      /* ── Modal Detail ── */
+      function bukaModalDetail(data) {
+        opAktif = data;
+        document.getElementById("detailNamaJudul").innerHTML =
+          '<i class="fas fa-id-card"></i> Detail Operator &mdash; ' + data.nama;
+        document.getElementById("detailNIP").textContent = data.nip;
+        document.getElementById("detailNoHp").textContent = data.noHp;
+        document.getElementById("detailEmail").textContent = data.email;
+        document.getElementById("detailLisensiGrid").innerHTML = data.lisensi
+          .map(function (l, i) {
+            var c = WARNA[l.jenis] || {
+              border: "#94a3b8",
+              bg: "#f8fafc",
+              label: "#475569",
+              soft: "rgba(0,0,0,0.05)",
+            };
+            var s = STATUS[l.status] || STATUS.aktif;
+            var f = DEMO_FILES[l.noLisensi] || {
+              type: "pdf",
+              name: l.noLisensi + ".pdf",
+            };
+            var fi = f.type === "pdf" ? "fa-file-pdf" : "fa-file-image";
+            var fc = f.type === "pdf" ? "#dc2626" : "#7c3aed";
+            return (
+              '<div class="lisensi-card-h" style="border-color:' +
+              c.border +
+              ";background:" +
+              c.bg +
+              ';"><div class="lisensi-card-h-accent" style="background:' +
+              c.border +
+              ';"></div><div class="lisensi-card-h-info"><div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.3rem"><span class="lisensi-card-type" style="color:' +
+              c.label +
+              ";background:" +
+              c.soft +
+              ';padding:0.18rem 0.6rem;border-radius:999px">' +
+              l.jenis +
+              '</span><span class="lisensi-card-h-status" style="background:' +
+              s.bg +
+              ";color:" +
+              s.color +
+              ';"><span style="width:6px;height:6px;border-radius:50%;background:' +
+              s.dot +
+              ';display:inline-block;flex-shrink:0;"></span>' +
+              s.text +
+              '</span></div><div class="lisensi-card-no" style="color:' +
+              c.label +
+              ';font-size:0.95rem;margin-bottom:0.2rem">' +
+              l.noLisensi +
+              '</div><div class="lisensi-card-expired"><i class="fas fa-calendar-alt" style="font-size:0.7rem;margin-right:0.25rem;color:#94a3b8"></i>Expired: <strong>' +
+              l.expired +
+              '</strong></div></div><div class="lisensi-card-h-file"><div style="display:flex;align-items:center;gap:0.45rem;margin-bottom:0.5rem;padding:0.4rem 0.65rem;background:rgba(0,0,0,0.04);border-radius:8px"><i class="fas ' +
+              fi +
+              '" style="color:' +
+              fc +
+              ';font-size:1rem;"></i><span style="font-size:0.75rem;color:#64748b;font-weight:500;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
+              f.name +
+              '</span></div><div style="display:flex;gap:0.45rem"><button class="lisensi-btn-view" onclick="previewLisensi(' +
+              i +
+              ')"><i class="fas fa-eye"></i> View</button><button class="lisensi-btn-download" onclick="downloadLisensi(' +
+              i +
+              ')"><i class="fas fa-download"></i> Download</button></div></div></div>'
+            );
+          })
+          .join("");
+        bukaModal("modalDetailOperator");
+      }
+
+      /* ── Preview & Download ── */
+      var previewFileData = null;
+      function previewLisensi(idx) {
+        var l = opAktif.lisensi[idx];
+        var f = DEMO_FILES[l.noLisensi] || {
+          type: "pdf",
+          name: l.noLisensi + ".pdf",
+        };
+        var c = WARNA[l.jenis] || {
+          border: "#94a3b8",
+          label: "#475569",
+          soft: "rgba(0,0,0,0.1)",
+        };
+        previewFileData = { lisensi: l, file: f, idx: idx };
+        var badge = document.getElementById("previewBadge");
+        badge.textContent = l.jenis;
+        badge.style.background = c.soft;
+        badge.style.color = c.label;
+        badge.style.border = "1.5px solid " + c.border;
+        document.getElementById("previewFilename").textContent = f.name;
+        var content = document.getElementById("previewContent");
+        content.innerHTML =
+          '<div style="text-align:center;padding:2.5rem"><div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem"><i class="fas ' +
+          (f.type === "pdf" ? "fa-file-pdf" : "fa-file-image") +
+          '" style="font-size:2rem;color:' +
+          (f.type === "pdf" ? "#f87171" : "#a78bfa") +
+          '"></i></div><p style="color:#94a3b8;font-size:0.9rem;margin:0 0 0.25rem">Preview tidak tersedia dalam mode demo</p><p style="color:#64748b;font-size:0.8rem;margin:0">File: <strong style="color:#e2e8f0">' +
+          f.name +
+          "</strong></p></div>";
+        document.getElementById("modalPreviewLisensi").style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+      function tutupModalPreview() {
+        document.getElementById("modalPreviewLisensi").style.display = "none";
+        document.body.style.overflow = "";
+      }
+      function downloadPreviewFile() {
+        if (previewFileData)
+          gseToast.show(
+            "warning",
+            "Mode Demo",
+            "Download tidak tersedia dalam mode demo.",
+          );
+      }
+      function downloadLisensi(idx) {
+        gseToast.show(
+          "warning",
+          "Mode Demo",
+          "Download tidak tersedia dalam mode demo.",
+        );
+      }
+      function konfirmasiBerhenti() {
+        gseToast.confirm(
+          "Yakin ingin memberhentikan <strong>" +
+            opAktif.nama +
+            "</strong>?<br>Tindakan ini tidak dapat dibatalkan.",
+          function () {
+            tutupModal("modalDetailOperator");
+            gseToast.show(
+              "success",
+              "Berhasil Diberhentikan",
+              opAktif.nama + " telah diberhentikan dari sistem.",
+            );
+          },
+        );
+      }
+
+      /* ── Modal Edit ── */
+      var editSelectedLisensiIdx = -1;
+      function bukaModalEdit() {
+        document.getElementById("editNama").value = opAktif.nama || "";
+        document.getElementById("editNIP").value = opAktif.nip || "";
+        document.getElementById("editNoHp").value = opAktif.noHp || "";
+        document.getElementById("editEmail").value = opAktif.email || "";
+        editSelectedLisensiIdx = -1;
+        document.getElementById("editLisensiForm").style.display = "none";
+        document.getElementById("lisensiDropdownLabel").innerHTML =
+          '<i class="fas fa-chevron-down" style="color:#94a3b8;font-size:0.8rem"></i> Pilih lisensi...';
+        document.getElementById("lisensiDropdownMenu").style.display = "none";
+        document.getElementById("lisensiDropdownArrow").style.transform = "";
+        document.getElementById("lisensiDropdownMenu").innerHTML =
+          opAktif.lisensi
+            .map(function (l, i) {
+              var c = WARNA[l.jenis] || {
+                border: "#94a3b8",
+                label: "#475569",
+                soft: "rgba(0,0,0,0.05)",
+                bg: "#f8fafc",
+              };
+              var s = STATUS[l.status] || STATUS.aktif;
+              return (
+                '<div class="lisensi-dropdown-item" onclick="pilihLisensiEdit(' +
+                i +
+                ')"><span class="lisensi-dropdown-badge" style="background:' +
+                c.soft +
+                ";color:" +
+                c.label +
+                ";border:1px solid " +
+                c.border +
+                '">' +
+                l.jenis +
+                '</span><div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#1e293b">' +
+                l.noLisensi +
+                '</div><div style="font-size:0.75rem;color:#94a3b8">Expired: ' +
+                l.expired +
+                '</div></div><span style="font-size:0.72rem;font-weight:700;color:' +
+                s.color +
+                ";background:" +
+                s.bg +
+                ';padding:0.15rem 0.55rem;border-radius:999px">' +
+                s.text +
+                "</span></div>"
+              );
+            })
+            .join("");
+        tutupModal("modalDetailOperator");
+        bukaModal("modalEditOperator");
+      }
+      function toggleLisensiDropdown() {
+        var menu = document.getElementById("lisensiDropdownMenu");
+        var arrow = document.getElementById("lisensiDropdownArrow");
+        var isOpen = menu.style.display === "block";
+        menu.style.display = isOpen ? "none" : "block";
+        arrow.style.transform = isOpen ? "" : "rotate(180deg)";
+      }
+      document.addEventListener("click", function (e) {
+        var wrapper = document.getElementById("lisensiDropdownTrigger");
+        if (wrapper && !wrapper.contains(e.target)) {
+          var menu = document.getElementById("lisensiDropdownMenu");
+          if (menu) menu.style.display = "none";
+          var arrow = document.getElementById("lisensiDropdownArrow");
+          if (arrow) arrow.style.transform = "";
+        }
+      });
+      function pilihLisensiEdit(idx) {
+        editSelectedLisensiIdx = idx;
+        var l = opAktif.lisensi[idx];
+        var c = WARNA[l.jenis] || {
+          border: "#94a3b8",
+          label: "#475569",
+          soft: "rgba(0,0,0,0.05)",
+        };
+        var s = STATUS[l.status] || STATUS.aktif;
+        document.getElementById("lisensiDropdownLabel").innerHTML =
+          '<span style="background:' +
+          c.soft +
+          ";color:" +
+          c.label +
+          ";border:1px solid " +
+          c.border +
+          ';font-size:0.75rem;font-weight:700;padding:0.15rem 0.6rem;border-radius:999px;margin-right:0.4rem">' +
+          l.jenis +
+          "</span><strong>" +
+          l.noLisensi +
+          "</strong>";
+        document.getElementById("lisensiDropdownMenu").style.display = "none";
+        document.getElementById("lisensiDropdownArrow").style.transform = "";
+        document.getElementById("editLisensiSelectedBadge").innerHTML =
+          '<div style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.9rem;background:' +
+          c.soft +
+          ";border:1.5px solid " +
+          c.border +
+          ';border-radius:10px"><span style="font-size:0.72rem;font-weight:800;color:' +
+          c.label +
+          ';text-transform:uppercase;letter-spacing:0.06em">' +
+          l.jenis +
+          '</span><span style="color:#64748b;font-size:0.8rem;">•</span><span style="font-size:0.85rem;font-weight:700;color:#1e293b">' +
+          l.noLisensi +
+          '</span><span style="margin-left:auto;font-size:0.72rem;font-weight:700;color:' +
+          s.color +
+          ";background:" +
+          s.bg +
+          ';padding:0.15rem 0.55rem;border-radius:999px">' +
+          s.text +
+          "</span></div>";
+        document.getElementById("editLisensiNo").value = l.noLisensi;
+        document.getElementById("editLisensiExp").value = parseExpiredToDate(
+          l.expired,
+        );
+        document.getElementById("editFileLisensi").value = "";
+        document.getElementById("editFileNameDisplay").style.display = "none";
+        document.getElementById("editLisensiForm").style.display = "block";
+      }
+      function parseExpiredToDate(str) {
+        if (!str) return "";
+        var BULAN = {
+          Jan: 1,
+          Feb: 2,
+          Mar: 3,
+          Apr: 4,
+          Mei: 5,
+          Jun: 6,
+          Jul: 7,
+          Agu: 8,
+          Sep: 9,
+          Okt: 10,
+          Nov: 11,
+          Des: 12,
+          May: 5,
+          Aug: 8,
+          Oct: 10,
+          Dec: 12,
+        };
+        var parts = str.trim().split(" ");
+        if (parts.length !== 3) return "";
+        var d = parts[0].padStart(2, "0");
+        var m = (BULAN[parts[1]] || 1).toString().padStart(2, "0");
+        return parts[2] + "-" + m + "-" + d;
+      }
+      function formatDateToDisplay(val) {
+        if (!val) return "";
+        var NAMA = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "Mei",
+          "Jun",
+          "Jul",
+          "Agu",
+          "Sep",
+          "Okt",
+          "Nov",
+          "Des",
+        ];
+        var parts = val.split("-");
+        if (parts.length !== 3) return val;
+        return (
+          parseInt(parts[2]) +
+          " " +
+          NAMA[parseInt(parts[1]) - 1] +
+          " " +
+          parts[0]
+        );
+      }
+      function handleEditFilePilih(e) {
+        var file = e.target.files[0];
+        if (file) {
+          var d = document.getElementById("editFileNameDisplay");
+          d.textContent = "📎 " + file.name;
+          d.style.display = "block";
+        }
+      }
+      function submitEditOperator() {
+        var nama = document.getElementById("editNama").value.trim();
+        var nip = document.getElementById("editNIP").value.trim();
+        var noHp = document.getElementById("editNoHp").value.trim();
+        var email = document.getElementById("editEmail").value.trim();
+        if (!nama || !nip || !noHp || !email) {
+          gseToast.show(
+            "error",
+            "Gagal Menyimpan!",
+            "Harap lengkapi semua field yang wajib diisi.",
+          );
+          return;
+        }
+        opAktif.nama = nama;
+        opAktif.nip = nip;
+        opAktif.noHp = noHp;
+        opAktif.email = email;
+        if (editSelectedLisensiIdx >= 0) {
+          var noVal = document.getElementById("editLisensiNo").value.trim();
+          var expVal = document.getElementById("editLisensiExp").value;
+          if (!noVal || !expVal) {
+            gseToast.show(
+              "error",
+              "Gagal Menyimpan!",
+              "Harap lengkapi No. Lisensi dan Tanggal Expired.",
+            );
+            return;
+          }
+          opAktif.lisensi[editSelectedLisensiIdx].noLisensi = noVal;
+          opAktif.lisensi[editSelectedLisensiIdx].expired =
+            formatDateToDisplay(expVal);
+        }
+        gseToast.show(
+          "success",
+          "Data Diperbarui!",
+          "Data operator <strong>" + nama + "</strong> berhasil disimpan.",
+        );
+        tutupModal("modalEditOperator");
+      }
+    </script>
+  </body>
+</html>
