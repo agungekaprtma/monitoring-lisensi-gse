@@ -126,7 +126,7 @@
             <div class="d-flex align-items-center">
               <div class="text-end me-3">
                 <h6 class="mb-0 fw-bold">Admin</h6>
-                <small class="text-muted">Agung Eka</small>
+                <small class="text-muted">Admin</small>
               </div>
               <div class="avatar avatar-md">
                 <img src="./assets/compiled/jpg/1.jpg" alt="Profile" />
@@ -271,12 +271,47 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>I Gusti Lanang Parmadi</td>
-                          <td>52647291</td>
+                          <td>Lukman Hakim</td>
+                          <td>52640011</td>
                           <td>
-                            <span class="badge bg-success">BTT</span>
                             <span class="badge bg-success">ATT</span>
-                            <span class="badge bg-warning">CBL</span>
+                            <span class="badge bg-success">BTT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Lukman Hakim',
+                                  nip: '52640011',
+                                  noHp: '081322334455',
+                                  email: 'lukman.hakim@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2023-045',
+                                      expired: '14 Nov 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2022-066',
+                                      expired: '20 Agu 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Muhammad Rizky</td>
+                          <td>52640012</td>
+                          <td>
                             <span class="badge bg-danger">HLL</span>
                           </td>
                           <td>
@@ -284,34 +319,16 @@
                               class="btn-detail-operator"
                               onclick="
                                 bukaModalDetail({
-                                  nama: 'I Gusti Lanang Parmadi',
-                                  nip: '52647291',
-                                  noHp: '081234567890',
-                                  email: 'igusti@gapura.id',
+                                  nama: 'Muhammad Rizky',
+                                  nip: '52640012',
+                                  noHp: '081355667788',
+                                  email: 'rizky@gapura.id',
                                   lisensi: [
                                     {
-                                      jenis: 'BTT',
-                                      noLisensi: 'BTT-2021-047',
-                                      expired: '15 Feb 2026',
-                                      status: 'expired',
-                                    },
-                                    {
-                                      jenis: 'ATT',
-                                      noLisensi: 'ATT-2023-012',
-                                      expired: '05 Sep 2026',
-                                      status: 'aktif',
-                                    },
-                                    {
-                                      jenis: 'CBL',
-                                      noLisensi: 'CBL-2022-055',
-                                      expired: '10 Nov 2026',
-                                      status: 'aktif',
-                                    },
-                                    {
                                       jenis: 'HLL',
-                                      noLisensi: 'HLL-2022-031',
-                                      expired: '20 Agu 2026',
-                                      status: 'segera',
+                                      noLisensi: 'HLL-2020-031',
+                                      expired: '02 Feb 2026',
+                                      status: 'expired',
                                     },
                                   ],
                                 })
@@ -322,32 +339,32 @@
                           </td>
                         </tr>
                         <tr>
-                          <td>Nabil</td>
-                          <td>52648100</td>
+                          <td>Andi Pratama</td>
+                          <td>52640001</td>
                           <td>
                             <span class="badge bg-success">BTT</span>
-                            <span class="badge bg-danger">HLL</span>
+                            <span class="badge bg-warning">HLL</span>
                           </td>
                           <td>
                             <button
                               class="btn-detail-operator"
                               onclick="
                                 bukaModalDetail({
-                                  nama: 'Nabil',
-                                  nip: '52648100',
-                                  noHp: '089876543210',
-                                  email: 'nabil@gapura.id',
+                                  nama: 'Andi Pratama',
+                                  nip: '52640001',
+                                  noHp: '081234567890',
+                                  email: 'andi.pratama@gapura.id',
                                   lisensi: [
                                     {
                                       jenis: 'BTT',
                                       noLisensi: 'BTT-2022-011',
-                                      expired: '01 Mar 2027',
+                                      expired: '20 Mar 2026',
                                       status: 'aktif',
                                     },
                                     {
                                       jenis: 'HLL',
-                                      noLisensi: 'HLL-2021-008',
-                                      expired: '10 Jan 2026',
+                                      noLisensi: 'HLL-2021-009',
+                                      expired: '05 Mar 2026',
                                       status: 'expired',
                                     },
                                   ],
@@ -358,41 +375,789 @@
                             </button>
                           </td>
                         </tr>
+
                         <tr>
-                          <td>Budi Santoso</td>
-                          <td>52649201</td>
+                          <td>Cahyo Nugroho</td>
+                          <td>52640002</td>
                           <td>
-                            <span class="badge bg-success">BTT</span>
                             <span class="badge bg-success">ATT</span>
-                            <span class="badge bg-warning">CBL</span>
                           </td>
                           <td>
                             <button
                               class="btn-detail-operator"
                               onclick="
                                 bukaModalDetail({
-                                  nama: 'Budi Santoso',
-                                  nip: '52649201',
-                                  noHp: '082109876543',
-                                  email: 'budi.santoso@gapura.id',
+                                  nama: 'Cahyo Nugroho',
+                                  nip: '52640002',
+                                  noHp: '081345678901',
+                                  email: 'cahyo.nugroho@gapura.id',
                                   lisensi: [
                                     {
-                                      jenis: 'BTT',
-                                      noLisensi: 'BTT-2021-047',
-                                      expired: '15 Feb 2026',
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2023-021',
+                                      expired: '12 Okt 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Dimas Saputra</td>
+                          <td>52640003</td>
+                          <td>
+                            <span class="badge bg-danger">CBL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Dimas Saputra',
+                                  nip: '52640003',
+                                  noHp: '082112223334',
+                                  email: 'dimas.saputra@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2020-034',
+                                      expired: '01 Feb 2026',
                                       status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Eko Prasetyo</td>
+                          <td>52640004</td>
+                          <td>
+                            <span class="badge bg-success">HLL</span>
+                            <span class="badge bg-success">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Eko Prasetyo',
+                                  nip: '52640004',
+                                  noHp: '082198765432',
+                                  email: 'eko.prasetyo@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2022-045',
+                                      expired: '30 Jul 2026',
+                                      status: 'aktif',
                                     },
                                     {
                                       jenis: 'ATT',
-                                      noLisensi: 'ATT-2023-012',
-                                      expired: '05 Sep 2026',
+                                      noLisensi: 'ATT-2023-018',
+                                      expired: '18 Sep 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Fajar Ramadhan</td>
+                          <td>52640005</td>
+                          <td>
+                            <span class="badge bg-warning">BTT</span>
+                            <span class="badge bg-success">CBL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Fajar Ramadhan',
+                                  nip: '52640005',
+                                  noHp: '081298765432',
+                                  email: 'fajar.ramadhan@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2021-077',
+                                      expired: '08 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2023-014',
+                                      expired: '22 Des 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Galih Wijaya</td>
+                          <td>52640006</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                            <span class="badge bg-success">HLL</span>
+                            <span class="badge bg-success">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Galih Wijaya',
+                                  nip: '52640006',
+                                  noHp: '081377889900',
+                                  email: 'galih.wijaya@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2022-099',
+                                      expired: '12 Agu 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2023-056',
+                                      expired: '25 Nov 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2024-003',
+                                      expired: '30 Des 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Hendra Kurniawan</td>
+                          <td>52640007</td>
+                          <td>
+                            <span class="badge bg-danger">HLL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Hendra Kurniawan',
+                                  nip: '52640007',
+                                  noHp: '082233445566',
+                                  email: 'hendra.kurniawan@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2020-022',
+                                      expired: '02 Feb 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Indra Maulana</td>
+                          <td>52640008</td>
+                          <td>
+                            <span class="badge bg-success">CBL</span>
+                            <span class="badge bg-warning">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Indra Maulana',
+                                  nip: '52640008',
+                                  noHp: '081344556677',
+                                  email: 'indra.maulana@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2023-078',
+                                      expired: '14 Sep 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2021-044',
+                                      expired: '11 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Joko Susilo</td>
+                          <td>52640009</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Joko Susilo',
+                                  nip: '52640009',
+                                  noHp: '082244556677',
+                                  email: 'joko.susilo@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2023-031',
+                                      expired: '21 Okt 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Kevin Pratama</td>
+                          <td>52640010</td>
+                          <td>
+                            <span class="badge bg-warning">CBL</span>
+                            <span class="badge bg-success">HLL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Kevin Pratama',
+                                  nip: '52640010',
+                                  noHp: '081399887766',
+                                  email: 'kevin.pratama@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2021-065',
+                                      expired: '09 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2024-010',
+                                      expired: '19 Des 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Andi Pratama</td>
+                          <td>52640001</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                            <span class="badge bg-warning">HLL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Andi Pratama',
+                                  nip: '52640001',
+                                  noHp: '081234567890',
+                                  email: 'andi.pratama@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2022-011',
+                                      expired: '20 Mar 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2021-009',
+                                      expired: '05 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Cahyo Nugroho</td>
+                          <td>52640002</td>
+                          <td>
+                            <span class="badge bg-success">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Cahyo Nugroho',
+                                  nip: '52640002',
+                                  noHp: '081345678901',
+                                  email: 'cahyo.nugroho@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2023-021',
+                                      expired: '12 Okt 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Dimas Saputra</td>
+                          <td>52640003</td>
+                          <td>
+                            <span class="badge bg-danger">CBL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Dimas Saputra',
+                                  nip: '52640003',
+                                  noHp: '082112223334',
+                                  email: 'dimas.saputra@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2020-034',
+                                      expired: '01 Feb 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Eko Prasetyo</td>
+                          <td>52640004</td>
+                          <td>
+                            <span class="badge bg-success">HLL</span>
+                            <span class="badge bg-success">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Eko Prasetyo',
+                                  nip: '52640004',
+                                  noHp: '082198765432',
+                                  email: 'eko.prasetyo@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2022-045',
+                                      expired: '30 Jul 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2023-018',
+                                      expired: '18 Sep 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Fajar Ramadhan</td>
+                          <td>52640005</td>
+                          <td>
+                            <span class="badge bg-warning">BTT</span>
+                            <span class="badge bg-success">CBL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Fajar Ramadhan',
+                                  nip: '52640005',
+                                  noHp: '081298765432',
+                                  email: 'fajar.ramadhan@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2021-077',
+                                      expired: '08 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2023-014',
+                                      expired: '22 Des 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Galih Wijaya</td>
+                          <td>52640006</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                            <span class="badge bg-success">HLL</span>
+                            <span class="badge bg-success">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Galih Wijaya',
+                                  nip: '52640006',
+                                  noHp: '081377889900',
+                                  email: 'galih.wijaya@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2022-099',
+                                      expired: '12 Agu 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2023-056',
+                                      expired: '25 Nov 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2024-003',
+                                      expired: '30 Des 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Hendra Kurniawan</td>
+                          <td>52640007</td>
+                          <td>
+                            <span class="badge bg-danger">HLL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Hendra Kurniawan',
+                                  nip: '52640007',
+                                  noHp: '082233445566',
+                                  email: 'hendra.kurniawan@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2020-022',
+                                      expired: '02 Feb 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Indra Maulana</td>
+                          <td>52640008</td>
+                          <td>
+                            <span class="badge bg-success">CBL</span>
+                            <span class="badge bg-warning">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Indra Maulana',
+                                  nip: '52640008',
+                                  noHp: '081344556677',
+                                  email: 'indra.maulana@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2023-078',
+                                      expired: '14 Sep 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2021-044',
+                                      expired: '11 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Joko Susilo</td>
+                          <td>52640009</td>
+                          <td>
+                            <span class="badge bg-success">BTT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Joko Susilo',
+                                  nip: '52640009',
+                                  noHp: '082244556677',
+                                  email: 'joko.susilo@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2023-031',
+                                      expired: '21 Okt 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Kevin Pratama</td>
+                          <td>52640010</td>
+                          <td>
+                            <span class="badge bg-warning">CBL</span>
+                            <span class="badge bg-success">HLL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Kevin Pratama',
+                                  nip: '52640010',
+                                  noHp: '081399887766',
+                                  email: 'kevin.pratama@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2021-065',
+                                      expired: '09 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2024-010',
+                                      expired: '19 Des 2026',
+                                      status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Nanda Saputra</td>
+                          <td>52640013</td>
+                          <td>
+                            <span class="badge bg-success">CBL</span>
+                            <span class="badge bg-warning">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Nanda Saputra',
+                                  nip: '52640013',
+                                  noHp: '082211334455',
+                                  email: 'nanda.saputra@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'CBL',
+                                      noLisensi: 'CBL-2023-087',
+                                      expired: '18 Okt 2026',
+                                      status: 'aktif',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2021-050',
+                                      expired: '07 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Oka Mahendra</td>
+                          <td>52640014</td>
+                          <td>
+                            <span class="badge bg-success">HLL</span>
+                            <span class="badge bg-success">CBL</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Oka Mahendra',
+                                  nip: '52640014',
+                                  noHp: '081377665544',
+                                  email: 'oka.mahendra@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'HLL',
+                                      noLisensi: 'HLL-2023-099',
+                                      expired: '25 Des 2026',
                                       status: 'aktif',
                                     },
                                     {
                                       jenis: 'CBL',
-                                      noLisensi: 'CBL-2022-055',
-                                      expired: '10 Nov 2026',
+                                      noLisensi: 'CBL-2024-002',
+                                      expired: '30 Jan 2027',
                                       status: 'aktif',
+                                    },
+                                  ],
+                                })
+                              "
+                            >
+                              <i class="fas fa-eye"></i> Detail
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Putra Wijaya</td>
+                          <td>52640015</td>
+                          <td>
+                            <span class="badge bg-warning">BTT</span>
+                            <span class="badge bg-danger">ATT</span>
+                          </td>
+                          <td>
+                            <button
+                              class="btn-detail-operator"
+                              onclick="
+                                bukaModalDetail({
+                                  nama: 'Putra Wijaya',
+                                  nip: '52640015',
+                                  noHp: '082244667788',
+                                  email: 'putra.wijaya@gapura.id',
+                                  lisensi: [
+                                    {
+                                      jenis: 'BTT',
+                                      noLisensi: 'BTT-2022-101',
+                                      expired: '12 Mar 2026',
+                                      status: 'expired',
+                                    },
+                                    {
+                                      jenis: 'ATT',
+                                      noLisensi: 'ATT-2020-021',
+                                      expired: '05 Feb 2026',
+                                      status: 'expired',
                                     },
                                   ],
                                 })
