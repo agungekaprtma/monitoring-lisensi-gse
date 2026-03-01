@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monitoring Lisensi</title>
     <link rel="icon" type="image/png" href="assets/Foto/Logo2.jpeg" />
-
     <link
       rel="stylesheet"
       href="assets/extensions/simple-datatables/style.css"
@@ -19,14 +18,171 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
+    <style>
+      /* ── Filter Bar ── */
+      .filter-bar-custom {
+        display: flex;
+        align-items: flex-end;
+        gap: 0.75rem;
+        padding: 0.85rem 1.5rem 1rem;
+        background: #f8fafc;
+        border-top: 1px solid #f1f5f9;
+        border-bottom: 1px solid #f1f5f9;
+        flex-wrap: wrap;
+      }
+      .fbc-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        min-width: 130px;
+        flex: 1;
+      }
+      .fbc-item.fbc-reset {
+        flex: 0 0 auto;
+        min-width: unset;
+        justify-content: flex-end;
+      }
+      .fbc-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .fbc-label i {
+        color: #16a34a;
+        font-size: 0.75rem;
+      }
+      .fbc-input {
+        padding: 0.45rem 0.75rem;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 9px;
+        font-size: 0.82rem;
+        color: #1e293b;
+        background: #fff;
+        outline: none;
+        font-family: inherit;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        width: 100%;
+      }
+      .fbc-input:focus {
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+      }
+      @keyframes blinkWarning {
+        0%,
+        100% {
+          opacity: 1;
+          box-shadow:
+            0 0 8px rgba(234, 179, 8, 0.9),
+            0 0 18px rgba(234, 179, 8, 0.4);
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.45;
+          box-shadow: 0 0 2px rgba(234, 179, 8, 0.15);
+          transform: scale(0.94);
+        }
+      }
 
-    <!-- NUCLEAR MOBILE SIDEBAR FIX -->
+      .badge.bg-warning {
+        animation: blinkWarning 1.1s ease-in-out infinite;
+        border: 1.5px solid #ca8a04 !important;
+        font-weight: 700 !important;
+      }
+      .fbc-btn-reset {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.48rem 1rem;
+        background: #fff;
+        border: 1.5px solid #fca5a5;
+        border-radius: 9px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #dc2626;
+        cursor: pointer;
+        font-family: inherit;
+        transition: background 0.2s;
+        white-space: nowrap;
+        height: 36px;
+      }
+      .fbc-btn-reset:hover {
+        background: #fef2f2;
+      }
+      /* ── Pagination ── */
+      .custom-pagi-area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #f1f5f9;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .pagi-info {
+        font-size: 0.82rem;
+        color: #64748b;
+      }
+      .pagi-btns {
+        display: flex;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+      }
+      .pagi-btn {
+        min-width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.6rem;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #475569;
+        cursor: pointer;
+        font-family: inherit;
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          color 0.15s;
+      }
+      .pagi-btn:hover:not(:disabled):not(.active) {
+        background: #f0fdf4;
+        border-color: #86efac;
+        color: #15803d;
+      }
+      .pagi-btn.active {
+        background: #16a34a;
+        border-color: #16a34a;
+        color: #fff;
+        box-shadow: 0 3px 8px rgba(22, 163, 74, 0.3);
+      }
+      .pagi-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .pagi-ellipsis {
+        min-width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+        font-size: 0.82rem;
+      }
+    </style>
   </head>
-
   <body>
-    <!-- OVERLAY MOBILE -->
+    <div id="gse-toast-container"></div>
     <div id="mob-overlay" onclick="mobClose()"></div>
-
     <div id="app">
       <!-- SIDEBAR -->
       <div id="sidebar">
@@ -37,9 +193,9 @@
                 <img src="assets/Foto/LOGO BARU.png" alt="Logo" />
               </div>
               <div class="sidebar-toggler x">
-                <a href="#" class="sidebar-hide d-xl-none d-block">
-                  <i class="bi bi-x bi-middle"></i>
-                </a>
+                <a href="#" class="sidebar-hide d-xl-none d-block"
+                  ><i class="bi bi-x bi-middle"></i
+                ></a>
               </div>
             </div>
           </div>
@@ -47,34 +203,32 @@
             <ul class="menu">
               <li class="sidebar-title">Menu</li>
               <li class="sidebar-item">
-                <a href="dashboard-admin.html" class="sidebar-link">
-                  <i class="bi bi-grid-fill"></i>
-                  <span>Dashboard</span>
-                </a>
+                <a href="dashboard-admin.html" class="sidebar-link"
+                  ><i class="bi bi-grid-fill"></i><span>Dashboard</span></a
+                >
               </li>
               <li class="sidebar-item">
-                <a href="kelolaDataOperator-admin.html" class="sidebar-link">
-                  <i class="bi bi-people-fill"></i>
-                  <span>Data Operator GSE</span>
-                </a>
+                <a href="kelolaDataOperator-admin.html" class="sidebar-link"
+                  ><i class="bi bi-people-fill"></i
+                  ><span>Data Operator GSE</span></a
+                >
               </li>
               <li class="sidebar-item">
-                <a href="verifikasiLisensi-admin.html" class="sidebar-link">
-                  <i class="bi bi-file-earmark-plus-fill"></i>
-                  <span>Pengajuan Lisensi</span>
-                </a>
+                <a href="verifikasiLisensi-admin.html" class="sidebar-link"
+                  ><i class="bi bi-file-earmark-plus-fill"></i
+                  ><span>Pengajuan Lisensi</span></a
+                >
               </li>
               <li class="sidebar-item active">
-                <a href="monitoringLisensi-admin.html" class="sidebar-link">
-                  <i class="bi bi-clipboard-check-fill"></i>
-                  <span>Monitoring Lisensi</span>
-                </a>
+                <a href="monitoringLisensi-admin.html" class="sidebar-link"
+                  ><i class="bi bi-clipboard-check-fill"></i
+                  ><span>Monitoring Lisensi</span></a
+                >
               </li>
               <li class="sidebar-item mt-auto">
-                <a href="index.html" class="sidebar-link logout-link">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Logout</span>
-                </a>
+                <a href="index.html" class="sidebar-link logout-link"
+                  ><i class="bi bi-box-arrow-right"></i><span>Logout</span></a
+                >
               </li>
             </ul>
           </div>
@@ -83,11 +237,9 @@
 
       <!-- MAIN -->
       <div id="main">
-        <!-- HEADER -->
         <header
           class="main-header d-flex align-items-center justify-content-between px-4 py-3"
         >
-          <!-- Hamburger (mobile only) -->
           <button
             id="mob-ham"
             class="d-lg-none"
@@ -96,10 +248,8 @@
           >
             <i class="bi bi-list"></i>
           </button>
-
           <h4 class="mb-0 fw-bold">Monitoring Lisensi</h4>
           <div class="d-flex align-items-center gap-4 position-relative">
-            <!-- Notification -->
             <div class="position-relative">
               <div id="notifToggle" style="cursor: pointer">
                 <i class="bi bi-bell fs-4"></i>
@@ -125,7 +275,6 @@
                 <div class="notif-footer">Lihat Semua</div>
               </div>
             </div>
-            <!-- Profile -->
             <div class="d-flex align-items-center">
               <div class="text-end me-3">
                 <h6 class="mb-0 fw-bold">Admin</h6>
@@ -138,7 +287,6 @@
           </div>
         </header>
 
-        <!-- PAGE CONTENT -->
         <div class="page-content monitoring-page">
           <section class="row">
             <div class="col-12">
@@ -148,10 +296,10 @@
                   <div class="card h-10 shadow-sm card-green">
                     <div class="card-body px-4 py-4-5">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="stats-icon text-white">
+                        <div class="stats-icon">
                           <img
                             src="assets/Foto/btt.jpg"
-                            alt="Operator"
+                            alt="BTT"
                             class="icon-img"
                           />
                         </div>
@@ -159,7 +307,7 @@
                           <h6 class="text-muted font-semibold mb-1">
                             Operator BTT
                           </h6>
-                          <h6 class="font-mb-0 font-extrabold">112</h6>
+                          <h6 class="font-extrabold">112</h6>
                         </div>
                       </div>
                     </div>
@@ -169,10 +317,10 @@
                   <div class="card h-10 shadow-sm card-green">
                     <div class="card-body px-4 py-4-5">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="stats-icon text-white">
+                        <div class="stats-icon">
                           <img
                             src="assets/Foto/hll.jpg"
-                            alt="Operator"
+                            alt="HLL"
                             class="icon-img"
                           />
                         </div>
@@ -180,7 +328,7 @@
                           <h6 class="text-muted font-semibold mb-1">
                             Operator HLL
                           </h6>
-                          <h6 class="font-mb-0 font-extrabold">112</h6>
+                          <h6 class="font-extrabold">112</h6>
                         </div>
                       </div>
                     </div>
@@ -190,10 +338,10 @@
                   <div class="card h-10 shadow-sm card-green">
                     <div class="card-body px-4 py-4-5">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="stats-icon text-white">
+                        <div class="stats-icon">
                           <img
                             src="assets/Foto/att.jpg"
-                            alt="Operator"
+                            alt="ATT"
                             class="icon-img"
                           />
                         </div>
@@ -201,7 +349,7 @@
                           <h6 class="text-muted font-semibold mb-1">
                             Operator ATT
                           </h6>
-                          <h6 class="font-mb-0 font-extrabold">112</h6>
+                          <h6 class="font-extrabold">112</h6>
                         </div>
                       </div>
                     </div>
@@ -211,10 +359,10 @@
                   <div class="card h-10 shadow-sm card-green">
                     <div class="card-body px-4 py-4-5">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="stats-icon text-white">
+                        <div class="stats-icon">
                           <img
                             src="assets/Foto/cbl.jpg"
-                            alt="Operator"
+                            alt="CBL"
                             class="icon-img"
                           />
                         </div>
@@ -222,16 +370,15 @@
                           <h6 class="text-muted font-semibold mb-1">
                             Operator CBL
                           </h6>
-                          <h6 class="font-mb-0 font-extrabold">112</h6>
+                          <h6 class="font-extrabold">112</h6>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- END STAT CARDS -->
 
-              <!-- TABEL MONITORING LISENSI -->
+              <!-- TABEL -->
               <section class="section mt-4">
                 <div class="card">
                   <div class="card-header-operator">
@@ -247,17 +394,51 @@
                       </select>
                       <span>entries per page</span>
                     </div>
-                    <div class="toolbar-right">
-                      <div class="custom-search-box">
-                        <i class="fas fa-search"></i>
-                        <input
-                          type="text"
-                          id="customSearchInput"
-                          placeholder="Search..."
-                        />
-                      </div>
+                  </div>
+
+                  <!-- ★ FILTER BAR ★ -->
+                  <div class="filter-bar-custom">
+                    <div class="fbc-item">
+                      <label class="fbc-label"
+                        ><i class="fas fa-user"></i> Nama / NIP</label
+                      >
+                      <input
+                        type="text"
+                        id="filterNama"
+                        class="fbc-input"
+                        placeholder="Cari nama atau NIP..."
+                      />
+                    </div>
+                    <div class="fbc-item">
+                      <label class="fbc-label"
+                        ><i class="fas fa-certificate"></i> Jenis Lisensi</label
+                      >
+                      <select id="filterJenis" class="fbc-input">
+                        <option value="">Semua Lisensi</option>
+                        <option value="ATT">ATT</option>
+                        <option value="BTT">BTT</option>
+                        <option value="HLL">HLL</option>
+                        <option value="CBL">CBL</option>
+                      </select>
+                    </div>
+                    <div class="fbc-item">
+                      <label class="fbc-label"
+                        ><i class="fas fa-circle"></i> Status</label
+                      >
+                      <select id="filterStatus" class="fbc-input">
+                        <option value="">Semua Status</option>
+                        <option value="expired">❌ Expired</option>
+                        <option value="segera">⚠️ Segera Expired</option>
+                        <option value="aktif">✅ Aktif</option>
+                      </select>
+                    </div>
+                    <div class="fbc-item fbc-reset">
+                      <button class="fbc-btn-reset" onclick="resetFilters()">
+                        <i class="fas fa-times-circle"></i> Reset
+                      </button>
                     </div>
                   </div>
+
                   <div class="table-wrapper-custom">
                     <table class="table table-striped" id="table1">
                       <thead>
@@ -271,7 +452,8 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        <!-- EXPIRED rows -->
+                        <tr data-status="expired" data-jenis="BTT">
                           <td>
                             <div class="operator-name">
                               I Gusti Lanang Parmadi
@@ -296,6 +478,7 @@
                                   '52647291',
                                   'BTT. 2255201005',
                                   'BTT',
+                                  this,
                                 )
                               "
                             >
@@ -304,7 +487,200 @@
                             </button>
                           </td>
                         </tr>
-                        <tr>
+                        <tr data-status="expired" data-jenis="ATT">
+                          <td>
+                            <div class="operator-name">Muhammad Rizky</div>
+                            <div class="operator-nip">NIP: 52640012</div>
+                          </td>
+                          <td>ATT</td>
+                          <td>ATT. 1120300441</td>
+                          <td>
+                            <div>02 Feb 2026</div>
+                            <div class="expired-days red">
+                              25 hari yang lalu
+                            </div>
+                          </td>
+                          <td><span class="badge bg-danger">Expired</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Muhammad Rizky',
+                                  '52640012',
+                                  'ATT. 1120300441',
+                                  'ATT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="expired" data-jenis="HLL">
+                          <td>
+                            <div class="operator-name">Dimas Saputra</div>
+                            <div class="operator-nip">NIP: 52640003</div>
+                          </td>
+                          <td>HLL</td>
+                          <td>HLL. 9910200120</td>
+                          <td>
+                            <div>01 Feb 2026</div>
+                            <div class="expired-days red">
+                              26 hari yang lalu
+                            </div>
+                          </td>
+                          <td><span class="badge bg-danger">Expired</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Dimas Saputra',
+                                  '52640003',
+                                  'HLL. 9910200120',
+                                  'HLL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="expired" data-jenis="CBL">
+                          <td>
+                            <div class="operator-name">Hendra Kurniawan</div>
+                            <div class="operator-nip">NIP: 52640007</div>
+                          </td>
+                          <td>CBL</td>
+                          <td>CBL. 5540100310</td>
+                          <td>
+                            <div>02 Feb 2026</div>
+                            <div class="expired-days red">
+                              25 hari yang lalu
+                            </div>
+                          </td>
+                          <td><span class="badge bg-danger">Expired</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Hendra Kurniawan',
+                                  '52640007',
+                                  'CBL. 5540100310',
+                                  'CBL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="expired" data-jenis="BTT">
+                          <td>
+                            <div class="operator-name">Putra Wijaya</div>
+                            <div class="operator-nip">NIP: 52640015</div>
+                          </td>
+                          <td>BTT</td>
+                          <td>BTT. 7720400215</td>
+                          <td>
+                            <div>28 Jan 2026</div>
+                            <div class="expired-days red">
+                              30 hari yang lalu
+                            </div>
+                          </td>
+                          <td><span class="badge bg-danger">Expired</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Putra Wijaya',
+                                  '52640015',
+                                  'BTT. 7720400215',
+                                  'BTT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="expired" data-jenis="ATT">
+                          <td>
+                            <div class="operator-name">Wahyu Santoso</div>
+                            <div class="operator-nip">NIP: 52640021</div>
+                          </td>
+                          <td>ATT</td>
+                          <td>ATT. 3310100520</td>
+                          <td>
+                            <div>05 Feb 2026</div>
+                            <div class="expired-days red">
+                              22 hari yang lalu
+                            </div>
+                          </td>
+                          <td><span class="badge bg-danger">Expired</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Wahyu Santoso',
+                                  '52640021',
+                                  'ATT. 3310100520',
+                                  'ATT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="expired" data-jenis="CBL">
+                          <td>
+                            <div class="operator-name">Rizal Firmansyah</div>
+                            <div class="operator-nip">NIP: 52640016</div>
+                          </td>
+                          <td>CBL</td>
+                          <td>CBL. 2200900044</td>
+                          <td>
+                            <div>15 Jan 2026</div>
+                            <div class="expired-days red">
+                              43 hari yang lalu
+                            </div>
+                          </td>
+                          <td><span class="badge bg-danger">Expired</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Rizal Firmansyah',
+                                  '52640016',
+                                  'CBL. 2200900044',
+                                  'CBL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <!-- SEGERA EXPIRED rows -->
+                        <tr data-status="segera" data-jenis="HLL">
                           <td>
                             <div class="operator-name">
                               I Gusti Lanang Parmadi
@@ -316,7 +692,7 @@
                           <td>
                             <div>28 Feb 2026</div>
                             <div class="expired-days orange">
-                              Tersisa 8 hari
+                              Tersisa 1 hari
                             </div>
                           </td>
                           <td>
@@ -333,6 +709,7 @@
                                   '52647291',
                                   'HLL. 3310200890',
                                   'HLL',
+                                  this,
                                 )
                               "
                             >
@@ -341,451 +718,7 @@
                             </button>
                           </td>
                         </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="operator-name">
-                              I Gusti Lanang Parmadi
-                            </div>
-                            <div class="operator-nip">NIP: 52647291</div>
-                          </td>
-                          <td>HLL</td>
-                          <td>HLL. 3310200890</td>
-                          <td>
-                            <div>28 Feb 2026</div>
-                            <div class="expired-days orange">
-                              Tersisa 8 hari
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning text-dark"
-                              >Segera Expired</span
-                            >
-                          </td>
-                          <td>
-                            <button
-                              class="btn-kirim-peringatan"
-                              onclick="
-                                bukaModalKonfirmasi(
-                                  'I Gusti Lanang Parmadi',
-                                  '52647291',
-                                  'HLL. 3310200890',
-                                  'HLL',
-                                )
-                              "
-                            >
-                              <i class="fas fa-paper-plane"></i> Kirim
-                              Peringatan
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
+                        <tr data-status="segera" data-jenis="ATT">
                           <td>
                             <div class="operator-name">Made Wijaya</div>
                             <div class="operator-nip">NIP: 74821039</div>
@@ -795,7 +728,7 @@
                           <td>
                             <div>10 Mar 2026</div>
                             <div class="expired-days orange">
-                              Tersisa 18 hari
+                              Tersisa 11 hari
                             </div>
                           </td>
                           <td>
@@ -812,6 +745,552 @@
                                   '74821039',
                                   'ATT. 4421300210',
                                   'ATT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="BTT">
+                          <td>
+                            <div class="operator-name">Andi Pratama</div>
+                            <div class="operator-nip">NIP: 52640001</div>
+                          </td>
+                          <td>BTT</td>
+                          <td>BTT. 2022011</td>
+                          <td>
+                            <div>20 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 21 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Andi Pratama',
+                                  '52640001',
+                                  'BTT. 2022011',
+                                  'BTT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="CBL">
+                          <td>
+                            <div class="operator-name">Kevin Pratama</div>
+                            <div class="operator-nip">NIP: 52640010</div>
+                          </td>
+                          <td>CBL</td>
+                          <td>CBL. 2021065</td>
+                          <td>
+                            <div>09 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 10 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Kevin Pratama',
+                                  '52640010',
+                                  'CBL. 2021065',
+                                  'CBL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="HLL">
+                          <td>
+                            <div class="operator-name">Taufik Hidayat</div>
+                            <div class="operator-nip">NIP: 52640018</div>
+                          </td>
+                          <td>HLL</td>
+                          <td>HLL. 2021077</td>
+                          <td>
+                            <div>10 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 11 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Taufik Hidayat',
+                                  '52640018',
+                                  'HLL. 2021077',
+                                  'HLL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="ATT">
+                          <td>
+                            <div class="operator-name">Nanda Saputra</div>
+                            <div class="operator-nip">NIP: 52640013</div>
+                          </td>
+                          <td>ATT</td>
+                          <td>ATT. 2021050</td>
+                          <td>
+                            <div>07 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 8 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Nanda Saputra',
+                                  '52640013',
+                                  'ATT. 2021050',
+                                  'ATT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="BTT">
+                          <td>
+                            <div class="operator-name">Fajar Ramadhan</div>
+                            <div class="operator-nip">NIP: 52640005</div>
+                          </td>
+                          <td>BTT</td>
+                          <td>BTT. 2021077</td>
+                          <td>
+                            <div>08 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 9 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Fajar Ramadhan',
+                                  '52640005',
+                                  'BTT. 2021077',
+                                  'BTT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="ATT">
+                          <td>
+                            <div class="operator-name">Indra Maulana</div>
+                            <div class="operator-nip">NIP: 52640008</div>
+                          </td>
+                          <td>ATT</td>
+                          <td>ATT. 2021044</td>
+                          <td>
+                            <div>11 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 12 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Indra Maulana',
+                                  '52640008',
+                                  'ATT. 2021044',
+                                  'ATT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="CBL">
+                          <td>
+                            <div class="operator-name">Wahyu Santoso</div>
+                            <div class="operator-nip">NIP: 52640021</div>
+                          </td>
+                          <td>CBL</td>
+                          <td>CBL. 2022091</td>
+                          <td>
+                            <div>14 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 15 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Wahyu Santoso',
+                                  '52640021',
+                                  'CBL. 2022091',
+                                  'CBL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="segera" data-jenis="BTT">
+                          <td>
+                            <div class="operator-name">Putra Wijaya</div>
+                            <div class="operator-nip">NIP: 52640015</div>
+                          </td>
+                          <td>BTT</td>
+                          <td>BTT. 2022101</td>
+                          <td>
+                            <div>12 Mar 2026</div>
+                            <div class="expired-days orange">
+                              Tersisa 13 hari
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning text-dark"
+                              >Segera Expired</span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Putra Wijaya',
+                                  '52640015',
+                                  'BTT. 2022101',
+                                  'BTT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <!-- AKTIF rows -->
+                        <tr data-status="aktif" data-jenis="BTT">
+                          <td>
+                            <div class="operator-name">Lukman Hakim</div>
+                            <div class="operator-nip">NIP: 52640011</div>
+                          </td>
+                          <td>BTT</td>
+                          <td>BTT. 2022066</td>
+                          <td>
+                            <div>20 Agu 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 174 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Lukman Hakim',
+                                  '52640011',
+                                  'BTT. 2022066',
+                                  'BTT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="aktif" data-jenis="ATT">
+                          <td>
+                            <div class="operator-name">Lukman Hakim</div>
+                            <div class="operator-nip">NIP: 52640011</div>
+                          </td>
+                          <td>ATT</td>
+                          <td>ATT. 2023045</td>
+                          <td>
+                            <div>14 Nov 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 260 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Lukman Hakim',
+                                  '52640011',
+                                  'ATT. 2023045',
+                                  'ATT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="aktif" data-jenis="ATT">
+                          <td>
+                            <div class="operator-name">Cahyo Nugroho</div>
+                            <div class="operator-nip">NIP: 52640002</div>
+                          </td>
+                          <td>ATT</td>
+                          <td>ATT. 2023021</td>
+                          <td>
+                            <div>12 Okt 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 227 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Cahyo Nugroho',
+                                  '52640002',
+                                  'ATT. 2023021',
+                                  'ATT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="aktif" data-jenis="HLL">
+                          <td>
+                            <div class="operator-name">Eko Prasetyo</div>
+                            <div class="operator-nip">NIP: 52640004</div>
+                          </td>
+                          <td>HLL</td>
+                          <td>HLL. 2022045</td>
+                          <td>
+                            <div>30 Jul 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 153 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Eko Prasetyo',
+                                  '52640004',
+                                  'HLL. 2022045',
+                                  'HLL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="aktif" data-jenis="CBL">
+                          <td>
+                            <div class="operator-name">Fajar Ramadhan</div>
+                            <div class="operator-nip">NIP: 52640005</div>
+                          </td>
+                          <td>CBL</td>
+                          <td>CBL. 2023014</td>
+                          <td>
+                            <div>22 Des 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 298 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Fajar Ramadhan',
+                                  '52640005',
+                                  'CBL. 2023014',
+                                  'CBL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="aktif" data-jenis="BTT">
+                          <td>
+                            <div class="operator-name">Galih Wijaya</div>
+                            <div class="operator-nip">NIP: 52640006</div>
+                          </td>
+                          <td>BTT</td>
+                          <td>BTT. 2022099</td>
+                          <td>
+                            <div>12 Agu 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 166 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Galih Wijaya',
+                                  '52640006',
+                                  'BTT. 2022099',
+                                  'BTT',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="aktif" data-jenis="CBL">
+                          <td>
+                            <div class="operator-name">Indra Maulana</div>
+                            <div class="operator-nip">NIP: 52640008</div>
+                          </td>
+                          <td>CBL</td>
+                          <td>CBL. 2023078</td>
+                          <td>
+                            <div>14 Sep 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 199 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Indra Maulana',
+                                  '52640008',
+                                  'CBL. 2023078',
+                                  'CBL',
+                                  this,
+                                )
+                              "
+                            >
+                              <i class="fas fa-paper-plane"></i> Kirim
+                              Peringatan
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-status="aktif" data-jenis="HLL">
+                          <td>
+                            <div class="operator-name">Kevin Pratama</div>
+                            <div class="operator-nip">NIP: 52640010</div>
+                          </td>
+                          <td>HLL</td>
+                          <td>HLL. 2024010</td>
+                          <td>
+                            <div>19 Des 2026</div>
+                            <div class="expired-days green">
+                              Tersisa 295 hari
+                            </div>
+                          </td>
+                          <td><span class="badge bg-success">Aktif</span></td>
+                          <td>
+                            <button
+                              class="btn-kirim-peringatan"
+                              onclick="
+                                bukaModalKonfirmasi(
+                                  'Kevin Pratama',
+                                  '52640010',
+                                  'HLL. 2024010',
+                                  'HLL',
+                                  this,
                                 )
                               "
                             >
@@ -822,6 +1301,12 @@
                         </tr>
                       </tbody>
                     </table>
+                  </div>
+
+                  <!-- ★ PAGINATION ★ -->
+                  <div class="custom-pagi-area">
+                    <div id="pagiInfo" class="pagi-info"></div>
+                    <div id="pagiBtns" class="pagi-btns"></div>
                   </div>
                 </div>
               </section>
@@ -926,15 +1411,10 @@
       </div>
     </div>
 
-    <div id="gse-toast-container"></div>
-
     <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/compiled/js/app.js"></script>
-    <script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
-      // ── Mobile Sidebar ──
+      /* ── Mobile Sidebar ── */
       function mobToggle() {
         document.getElementById("sidebar").classList.toggle("mob-open");
         document.getElementById("mob-overlay").classList.toggle("mob-show");
@@ -950,9 +1430,9 @@
         document.body.style.overflow = "";
       }
 
-      // ── Notifikasi ──
-      const toggle = document.getElementById("notifToggle");
-      const dropdown = document.getElementById("notifDropdown");
+      /* ── Notifikasi ── */
+      var toggle = document.getElementById("notifToggle");
+      var dropdown = document.getElementById("notifDropdown");
       toggle.addEventListener("click", function (e) {
         e.stopPropagation();
         dropdown.style.display =
@@ -962,39 +1442,186 @@
         dropdown.style.display = "none";
       });
 
-      // ── DataTable ──
-      let dataTable;
+      /* ════════════════════════════════
+         ★ CUSTOM TABLE MANAGER ★
+         ════════════════════════════════ */
+      var tblAllRows = [];
+      var tblFiltered = [];
+      var tblPage = 1;
+      var tblPerPage = 10;
+      var tblFilters = { search: "", nama: "", jenis: "", status: "" };
+
       document.addEventListener("DOMContentLoaded", function () {
-        const tableEl = document.getElementById("table1");
-        if (tableEl && typeof simpleDatatables !== "undefined") {
-          dataTable = new simpleDatatables.DataTable(tableEl, {
-            searchable: true,
-            perPage: 10,
-            perPageSelect: false,
-          });
-          document
-            .getElementById("customSearchInput")
-            .addEventListener("input", function () {
-              dataTable.search(this.value);
-            });
-          document
-            .getElementById("customLengthSelect")
-            .addEventListener("change", function () {
-              dataTable.options.perPage = parseInt(this.value);
-              dataTable.update();
-            });
+        var tbody = document.querySelector("#table1 tbody");
+        if (tbody) {
+          tblAllRows = Array.from(tbody.querySelectorAll("tr"));
+          applyTableFilter();
         }
+
+        document
+          .getElementById("customLengthSelect")
+          .addEventListener("change", function () {
+            tblPerPage = parseInt(this.value);
+            tblPage = 1;
+            applyTableFilter();
+          });
+        document
+          .getElementById("filterNama")
+          .addEventListener("input", function () {
+            tblFilters.nama = this.value.toLowerCase();
+            tblPage = 1;
+            applyTableFilter();
+          });
+        document
+          .getElementById("filterJenis")
+          .addEventListener("change", function () {
+            tblFilters.jenis = this.value;
+            tblPage = 1;
+            applyTableFilter();
+          });
+        document
+          .getElementById("filterStatus")
+          .addEventListener("change", function () {
+            tblFilters.status = this.value;
+            tblPage = 1;
+            applyTableFilter();
+          });
       });
 
-      // ── Modal Kirim Peringatan ──
-      let pendingBtn = null;
-      function bukaModalKonfirmasi(nama, nip, noLisensi, jenis) {
+      function applyTableFilter() {
+        tblFiltered = tblAllRows.filter(function (row) {
+          var cells = row.querySelectorAll("td");
+          if (cells.length < 5) return true;
+          var namaCell = cells[0].textContent.trim().toLowerCase();
+          var jenisRow = row.getAttribute("data-jenis") || "";
+          var statusRow = row.getAttribute("data-status") || "";
+
+          /* Global search */
+          if (tblFilters.search) {
+            var allText = Array.from(cells)
+              .map(function (c) {
+                return c.textContent;
+              })
+              .join(" ")
+              .toLowerCase();
+            if (!allText.includes(tblFilters.search)) return false;
+          }
+          /* Nama / NIP */
+          if (tblFilters.nama && !namaCell.includes(tblFilters.nama))
+            return false;
+          /* Jenis */
+          if (tblFilters.jenis && jenisRow !== tblFilters.jenis) return false;
+          /* Status */
+          if (tblFilters.status && statusRow !== tblFilters.status)
+            return false;
+          return true;
+        });
+        renderTablePage();
+      }
+
+      function renderTablePage() {
+        var total = tblFiltered.length;
+        var totalPages = Math.max(1, Math.ceil(total / tblPerPage));
+        if (tblPage > totalPages) tblPage = totalPages;
+        var start = (tblPage - 1) * tblPerPage;
+        var end = Math.min(start + tblPerPage, total);
+
+        tblAllRows.forEach(function (r) {
+          r.style.display = "none";
+        });
+        tblFiltered.slice(start, end).forEach(function (r) {
+          r.style.display = "";
+        });
+
+        var info = document.getElementById("pagiInfo");
+        if (info)
+          info.textContent =
+            total === 0
+              ? "Tidak ada data yang sesuai"
+              : "Menampilkan " +
+                (start + 1) +
+                " – " +
+                end +
+                " dari " +
+                total +
+                " data";
+
+        var btnsEl = document.getElementById("pagiBtns");
+        if (!btnsEl) return;
+        btnsEl.innerHTML = "";
+
+        function mkBtn(label, page, isActive, isDisabled) {
+          var b = document.createElement("button");
+          b.className = "pagi-btn" + (isActive ? " active" : "");
+          b.innerHTML = label;
+          b.disabled = isDisabled;
+          if (!isDisabled && !isActive)
+            b.addEventListener("click", function () {
+              tblPage = page;
+              renderTablePage();
+            });
+          btnsEl.appendChild(b);
+        }
+        mkBtn(
+          '<i class="fas fa-chevron-left"></i>',
+          tblPage - 1,
+          false,
+          tblPage === 1,
+        );
+        var range = [];
+        if (totalPages <= 7) {
+          for (var i = 1; i <= totalPages; i++) range.push(i);
+        } else {
+          range.push(1);
+          if (tblPage > 3) range.push("...");
+          for (
+            var i = Math.max(2, tblPage - 1);
+            i <= Math.min(totalPages - 1, tblPage + 1);
+            i++
+          )
+            range.push(i);
+          if (tblPage < totalPages - 2) range.push("...");
+          range.push(totalPages);
+        }
+        range.forEach(function (r) {
+          if (r === "...") {
+            var sp = document.createElement("span");
+            sp.className = "pagi-ellipsis";
+            sp.textContent = "...";
+            btnsEl.appendChild(sp);
+          } else mkBtn(r, r, r === tblPage, false);
+        });
+        mkBtn(
+          '<i class="fas fa-chevron-right"></i>',
+          tblPage + 1,
+          false,
+          tblPage === totalPages,
+        );
+      }
+
+      function resetFilters() {
+        tblFilters = { search: "", nama: "", jenis: "", status: "" };
+        tblPage = 1;
+        ["customSearchInput", "filterNama"].forEach(function (id) {
+          var e = document.getElementById(id);
+          if (e) e.value = "";
+        });
+        ["filterJenis", "filterStatus"].forEach(function (id) {
+          var e = document.getElementById(id);
+          if (e) e.selectedIndex = 0;
+        });
+        applyTableFilter();
+      }
+
+      /* ── Modal Kirim Peringatan ── */
+      var pendingBtn = null;
+      function bukaModalKonfirmasi(nama, nip, noLisensi, jenis, btn) {
         document.getElementById("konfirm-nama").textContent = nama;
         document.getElementById("konfirm-nip").textContent = nip;
         document.getElementById("konfirm-lisensi").textContent = noLisensi;
         document.getElementById("konfirm-jenis").textContent = jenis;
         document.getElementById("sukses-nama").textContent = nama;
-        pendingBtn = event.currentTarget;
+        pendingBtn = btn;
         document
           .getElementById("modalKonfirmasiPeringatan")
           .classList.add("show");
@@ -1013,7 +1640,7 @@
           pendingBtn.innerHTML = '<i class="fas fa-check"></i> Terkirim';
           pendingBtn.classList.add("btn-kirim-terkirim");
         }
-        setTimeout(() => {
+        setTimeout(function () {
           document
             .getElementById("modalSuksesPeringatan")
             .classList.add("show");
@@ -1028,30 +1655,35 @@
         tampilkanToast();
       }
 
-      // ── Toast ──
+      /* ── Toast ── */
       function tampilkanToast() {
-        const container = document.getElementById("gse-toast-container");
-        const id = "toast-" + Date.now();
-        const nama = document.getElementById("sukses-nama").textContent;
-        const durasi = 4000;
-        const el = document.createElement("div");
+        var container = document.getElementById("gse-toast-container");
+        var id = "toast-" + Date.now();
+        var nama = document.getElementById("sukses-nama").textContent;
+        var durasi = 4000;
+        var el = document.createElement("div");
         el.id = id;
         el.className = "gse-toast gse-toast-success";
-        el.innerHTML = `<div class="gse-toast-icon"><i class="fas fa-check-circle"></i></div>
-          <div class="gse-toast-body">
-            <p class="gse-toast-title">Peringatan Terkirim!</p>
-            <p class="gse-toast-msg">Notifikasi berhasil dikirim ke <strong>${nama}</strong>.</p>
-          </div>
-          <button class="gse-toast-close" onclick="hapusToast('${id}')"><i class="fas fa-times"></i></button>
-          <div class="gse-toast-bar" style="animation-duration:${durasi}ms;"></div>`;
+        el.innerHTML =
+          '<div class="gse-toast-icon"><i class="fas fa-check-circle"></i></div><div class="gse-toast-body"><p class="gse-toast-title">Peringatan Terkirim!</p><p class="gse-toast-msg">Notifikasi berhasil dikirim ke <strong>' +
+          nama +
+          '</strong>.</p></div><button class="gse-toast-close" onclick="hapusToast(\'' +
+          id +
+          '\')"><i class="fas fa-times"></i></button><div class="gse-toast-bar" style="animation-duration:' +
+          durasi +
+          'ms"></div>';
         container.appendChild(el);
-        setTimeout(() => hapusToast(id), durasi);
+        setTimeout(function () {
+          hapusToast(id);
+        }, durasi);
       }
       function hapusToast(id) {
-        const el = document.getElementById(id);
+        var el = document.getElementById(id);
         if (!el) return;
         el.classList.add("gse-toast-exit");
-        setTimeout(() => el.remove(), 300);
+        setTimeout(function () {
+          el.remove();
+        }, 300);
       }
 
       document
